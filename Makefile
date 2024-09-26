@@ -1,6 +1,5 @@
 NAME = cub
 FLAGS = -Wall -Wextra -Werror 
-#-g -fsanitize=address
 LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 MLX_DIR = ./MLX42
