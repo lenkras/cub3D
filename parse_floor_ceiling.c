@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-void	split_toRGB_floor(char *array, t_cub *cub)
+int	split_toRGB_floor(char *array, t_cub *cub)
 {
 	char	**rgb_arr;
 	int		rgb_val[3];
@@ -23,7 +23,7 @@ void	split_toRGB_floor(char *array, t_cub *cub)
 	if (!rgb_arr)
 	{
 		perror("Error: Failed to split by comma.");
-		return ;
+		return (1);
 	}
 	while(rgb_arr[i] && i < 3)
 	{
@@ -32,7 +32,7 @@ void	split_toRGB_floor(char *array, t_cub *cub)
 		{
 			perror("Error: RGB value out of range (0-255).\n");
 			free_array(rgb_arr);
-			return ;
+			return (1);
 		}
 		i++;
 	}
@@ -40,16 +40,17 @@ void	split_toRGB_floor(char *array, t_cub *cub)
 	{
 		perror("Error: Invalid number of values.\n");
 		free_array(rgb_arr);
-		return ;
+		return (1);
 	}
 	cub->F_R = rgb_val[0];
 	cub->F_G = rgb_val[1];
 	cub->F_B = rgb_val[2];
 	printf("F_R:  %d, F_G: %d, F_B: %d\n", cub->F_R, cub->F_G, cub->F_B);
 	free_array(rgb_arr);
+	return (0);
 }
 
-void	split_toRGB_ceiling(char *array, t_cub *cub)
+int	split_toRGB_ceiling(char *array, t_cub *cub)
 {
 	char	**rgb_arr;
 	int		rgb_val[3];
@@ -60,7 +61,7 @@ void	split_toRGB_ceiling(char *array, t_cub *cub)
 	if (!rgb_arr)
 	{
 		perror("Error: Failed to split by comma.");
-		return ;
+		return (1);
 	}
 	while(rgb_arr[i] && i < 3)
 	{
@@ -69,7 +70,7 @@ void	split_toRGB_ceiling(char *array, t_cub *cub)
 		{
 			perror("Error: RGB value out of range (0-255).\n");
 			free_array(rgb_arr);
-			return ;
+			return (1);
 		}
 		i++;
 	}
@@ -77,13 +78,14 @@ void	split_toRGB_ceiling(char *array, t_cub *cub)
 	{
 		perror("Error: Invalid number of values.\n");
 		free_array(rgb_arr);
-		return ;
+		return (1);
 	}
 	cub->C_R = rgb_val[0];
 	cub->C_G = rgb_val[1];
 	cub->C_B = rgb_val[2];
 	printf("C_R:  %d, C_G: %d, C_B: %d\n", cub->C_R, cub->C_G, cub->C_B);
 	free_array(rgb_arr);
+	return (0);
 }
 
 int	floor_array(char *line, t_cub *cub)
@@ -111,7 +113,8 @@ int	floor_array(char *line, t_cub *cub)
 			cub->F_array[j++] = line[start++];
 		cub->F_array[j] = '\0';
 		printf("F_array: %s\n", cub->F_array);
-		split_toRGB_floor(cub->F_array, cub);
+		if (split_toRGB_floor(cub->F_array, cub) == 1)
+			return (1);
 		cub->flags.F_flag = 1;
 		return (0);
 	}
@@ -148,7 +151,8 @@ int	ceiling_array(char *line, t_cub *cub)
 			cub->C_array[j++] = line[start++];
 		cub->C_array[j] = '\0';
 		printf("C_aray: %s\n", cub->C_array);
-		split_toRGB_ceiling(cub->C_array, cub);
+		if (split_toRGB_ceiling(cub->C_array, cub) == 1)
+			return (1);
 		cub->flags.C_flag = 1;
 		return (0);
 	}

@@ -24,9 +24,6 @@ int	check_all_flags_infile(t_cub *cub)
 	}
 }
 
-
-
-
 void	copy_map(char **array, t_cub *cub, int start)
 {
 	int	i;

@@ -50,11 +50,11 @@ typedef struct  s_cub
 	int		C_G;
 	int		C_B;
 	t_flag	flags;
-
-
 } t_cub;
 
 void	free_array(char **arr);
+int		is_all_digits(char *str);
+int		has_space(char c);
 char	*open_file(char *argv);
 void	init_main_struct(t_cub *cub);
 void	init_flag_struct(t_cub *cub);
@@ -63,8 +63,8 @@ int		north_array(char *line, t_cub *cub);
 int		south_array(char *line, t_cub *cub);
 int		west_array(char *line, t_cub *cub);
 int		east_array(char *line, t_cub *cub);
-void	split_toRGB_floor(char *array, t_cub *cub);
-void	split_toRGB_ceiling(char *array, t_cub *cub);
+int		split_toRGB_floor(char *array, t_cub *cub);
+int		split_toRGB_ceiling(char *array, t_cub *cub);
 int		floor_array(char *line, t_cub *cub);
 int		ceiling_array(char *line, t_cub *cub);
 void	copy_map(char **array, t_cub *cub, int start);
