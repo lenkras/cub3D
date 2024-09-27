@@ -50,21 +50,12 @@ int	split_by_new_line(t_cub *cub)
 		if (north_array(array[i], cub) == 1 || south_array(array[i], cub) == 1 || west_array(array[i], cub) == 1 ||
 			east_array(array[i], cub) == 1 || floor_array(array[i], cub) == 1 || ceiling_array(array[i], cub) == 1)
 			return (1);
-		// north_array(array[i], cub);
-		// south_array(array[i], cub);
-		// west_array(array[i], cub);
-		// east_array(array[i], cub);
-		// floor_array(array[i], cub);
-		// ceiling_array(array[i], cub);
 		if (find_map_start(array[i]))
 			break ;
 		i++;
 	}
-	// if (check_all_flags_infile(cub) == 1)
-	// {
-	// 	perror("Invalid map content.");
-	// 	return (1);
-	// }
+	if (check_all_flags_infile(cub) == 1)
+		return (1);
 	copy_map(array, cub, i);
 	free_array(array);
 	return (0);
