@@ -11,6 +11,9 @@ SRCS = main.c \
 		utils_functions.c \
 		parsing.c \
 		process_file.c \
+		parse_floor_ceiling.c \
+		parse_world_sides.c \
+		initialising.c \
 		
 OBJS = $(SRCS:.c=.o)
 

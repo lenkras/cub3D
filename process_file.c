@@ -24,13 +24,13 @@ char *open_file(char *argv)
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Failed to open a file.");
+		perror("Error: Failed to open a file.");
 		return (NULL);
 	}
 	data = malloc(1);
 	if (!data)
 	{
-		perror("Failed to allocate mamory.");
+		perror("Error: Failed to allocate mamory.");
 		close(fd);
 		return (NULL);
 	}
@@ -42,7 +42,7 @@ char *open_file(char *argv)
 		temp = malloc(bytes_total + 1);
 		if (!temp)
 		{
-			perror("Failed to allocate mamory.");
+			perror("Error: Failed to allocate mamory.");
 			free(data);
 			close(fd);
 			return (NULL);
@@ -55,7 +55,7 @@ char *open_file(char *argv)
 	}
 	if (bytes_read == -1)
 	{
-		perror("Failed to read a file.");
+		perror("Error: Failed to read a file.");
 		return (NULL);
 	}
 	close(fd);

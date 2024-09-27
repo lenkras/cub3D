@@ -21,6 +21,16 @@
 # include <fcntl.h>
 # include <string.h>
 
+typedef struct s_flag
+{
+	int	NO_flag;
+	int	SO_flag;
+	int	EA_flag;
+	int	WE_flag;
+	int	F_flag;
+	int	C_flag;
+}	t_flag;
+
 typedef struct  s_cub
 {
 	char	**map;
@@ -39,22 +49,26 @@ typedef struct  s_cub
 	int		C_R;
 	int		C_G;
 	int		C_B;
+	t_flag	flags;
 
 
 } t_cub;
 
 void	free_array(char **arr);
 char	*open_file(char *argv);
+void	init_main_struct(t_cub *cub);
+void	init_flag_struct(t_cub *cub);
 
-void	north_array(char *line, t_cub *cub);
-void	south_array(char *line, t_cub *cub);
-void	west_array(char *line, t_cub *cub);
-void	east_array(char *line, t_cub *cub);
+int		north_array(char *line, t_cub *cub);
+int		south_array(char *line, t_cub *cub);
+int		west_array(char *line, t_cub *cub);
+int		east_array(char *line, t_cub *cub);
 void	split_toRGB_floor(char *array, t_cub *cub);
 void	split_toRGB_ceiling(char *array, t_cub *cub);
-void	floor_array(char *line, t_cub *cub);
-void	ceiling_array(char *line, t_cub *cub);
+int		floor_array(char *line, t_cub *cub);
+int		ceiling_array(char *line, t_cub *cub);
 void	copy_map(char **array, t_cub *cub, int start);
 int		find_map_start(char *line);
+int		check_all_flags_infile(t_cub *cub);
 
 #endif
