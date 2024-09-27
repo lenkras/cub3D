@@ -8,6 +8,9 @@ MLX42_INCLUDE = -I./include
 MLX42_FLAGS =  -lglfw -L"/Users/epolkhov/.brew/opt/glfw/lib/"
 
 SRCS = main.c \
+		utils_functions.c \
+		parsing.c \
+		process_file.c \
 		
 OBJS = $(SRCS:.c=.o)
 
