@@ -14,6 +14,7 @@ SRCS = main.c \
 		parse_floor_ceiling.c \
 		parse_world_sides.c \
 		initialising.c \
+		map_validation.c \
 		
 OBJS = $(SRCS:.c=.o)
 

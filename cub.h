@@ -34,8 +34,11 @@ typedef struct s_flag
 typedef struct  s_cub
 {
 	char	**map;
-	int		hight;
+	int		height;
 	int		width;
+	int		player;
+	int		player_w;
+	int		player_h;
 	char	*file;
 	char	*NO_array;
 	char	*SO_array;
@@ -71,4 +74,8 @@ void	copy_map(char **array, t_cub *cub, int start);
 int		find_map_start(char *line);
 int		check_all_flags_infile(t_cub *cub);
 
+int	check_width_of_map(t_cub *cub);
+int	check_walls(t_cub *cub);
+int	check_spaces_in_map(t_cub *cub);
+int	is_map_valid(t_cub *cub);
 #endif

@@ -41,11 +41,8 @@ int	is_all_digits(char *str)
 
 int has_space(char c)
 {
-    // Check if the character is one of the standard whitespace characters
-    if (c == ' ' || c == '\t' || c == '\n' || 
-        c == '\v' || c == '\f' || c == '\r')
-    {
-        return (1); // Return 1 if it is a whitespace character
-    }
-    return (0); // Return 0 if it is not a whitespace character
+	if (c == ' ' || c == '\t' || c == '\n' || 
+		c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	return (0);
 }
