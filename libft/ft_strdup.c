@@ -29,9 +29,7 @@ char	*ft_strdup(const char *src)
 	newstr = ((char *)malloc(sizeof(char) * (len + 1)));
 	if (newstr == NULL)
 	{
-		free(newstr);
-		newstr = NULL;
-		return (0);
+		return (NULL);
 	}
 	while (src[i])
 	{

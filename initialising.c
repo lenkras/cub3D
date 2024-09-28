@@ -21,8 +21,11 @@ void	init_main_struct(t_cub *cub)
 	cub->NO_array = NULL;
 	cub->SO_array = NULL;
 	cub->WE_array = NULL;
-	cub->hight = 0;
+	cub->height = 0;
 	cub->width = 0;
+	cub->player = 0;
+	cub->player_h = 0;
+	cub->player_w = 0;
 }
 
 void	init_flag_struct(t_cub *cub)

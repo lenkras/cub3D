@@ -19,12 +19,12 @@ int	check_format(char *file_name)
 	compare = ft_strrchr(file_name, '.');
 	if (!compare)
 	{
-		perror("Error: Invalid map file extansion.");
+		ft_putendl_fd("Error: Invalid map file extansion.", 2);
 		return (1);
 	}
 	if (ft_strncmp(compare, ".cub", 5) != 0)
 	{
-		perror("Error: Invalid map file extansion.");
+		ft_putendl_fd("Error: Invalid map file extansion.", 2);
 		return (1) ;
 	}
 	return (0);
@@ -39,7 +39,7 @@ int	split_by_new_line(t_cub *cub)
 	array = ft_split(cub->file, '\n');
 	if (!array)
 	{
-		perror("Error: Failed to split by new line.");
+		ft_putendl_fd("Error: Failed to split by new line.", 2);
 		return (1);
 	}
 	for (int i = 0; array[i] != NULL; i++)
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		perror("Error: Wrong number of arguments.");
+		ft_putendl_fd("Error: Wrong number of arguments.", 2);
 		return (1);
 	}
 	if (check_format(argv[1]) == 1)
@@ -75,10 +75,11 @@ int main(int argc, char **argv)
 	else
 	{
 		cub.file = open_file(argv[1]);
+		printf("File\n");
 		printf("%s\n",cub.file);
-		if (!cub.file)
+		if (!cub.file || cub.file[0] == '\0')
 		{
-			perror("Error: Failed to open or read file.");
+			ft_putendl_fd("Error: Failed to open or read file.", 2);
 			return (1);
 		}
 		init_main_struct(&cub);
@@ -90,6 +91,12 @@ int main(int argc, char **argv)
     {
         printf("%s\n", cub.map[i]);
     }
+	// check_width_of_map(&cub);
+	// check_walls(&cub);
+	// check_spaces_in_map(&cub);
+	is_map_valid(&cub);
+	printf("Width: %d\n", cub.width);
+	printf("Height: %d \n", cub.height);
 	//cub = malloc(sizeof(cub));
 	// parsing(&cub);
 	// check_validity(cub);

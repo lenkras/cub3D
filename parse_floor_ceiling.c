@@ -22,7 +22,7 @@ int	split_toRGB_floor(char *array, t_cub *cub)
 	rgb_arr = ft_split(array, ',');
 	if (!rgb_arr)
 	{
-		perror("Error: Failed to split by comma.");
+		ft_putendl_fd("Error: Failed to split by comma.", 2);
 		return (1);
 	}
 	while(rgb_arr[i] && i < 3)
@@ -30,7 +30,7 @@ int	split_toRGB_floor(char *array, t_cub *cub)
 		rgb_val[i] = ft_atoi(rgb_arr[i]);
 		if (rgb_val[i] < 0 || rgb_val[i] > 255)
 		{
-			perror("Error: RGB value out of range (0-255).\n");
+			ft_putendl_fd("Error: RGB value out of range (0-255).\n", 2);
 			free_array(rgb_arr);
 			return (1);
 		}
@@ -38,7 +38,7 @@ int	split_toRGB_floor(char *array, t_cub *cub)
 	}
 	if (i != 3)
 	{
-		perror("Error: Invalid number of values.\n");
+		ft_putendl_fd("Error: Invalid number of values.\n", 2);
 		free_array(rgb_arr);
 		return (1);
 	}
@@ -60,7 +60,7 @@ int	split_toRGB_ceiling(char *array, t_cub *cub)
 	rgb_arr = ft_split(array, ',');
 	if (!rgb_arr)
 	{
-		perror("Error: Failed to split by comma.");
+		ft_putendl_fd("Error: Failed to split by comma.", 2);
 		return (1);
 	}
 	while(rgb_arr[i] && i < 3)
@@ -68,7 +68,7 @@ int	split_toRGB_ceiling(char *array, t_cub *cub)
 		rgb_val[i] = ft_atoi(rgb_arr[i]);
 		if (rgb_val[i] < 0 || rgb_val[i] > 255)
 		{
-			perror("Error: RGB value out of range (0-255).\n");
+			ft_putendl_fd("Error: RGB value out of range (0-255).\n", 2);
 			free_array(rgb_arr);
 			return (1);
 		}
@@ -76,7 +76,7 @@ int	split_toRGB_ceiling(char *array, t_cub *cub)
 	}
 	if (i != 3)
 	{
-		perror("Error: Invalid number of values.\n");
+		ft_putendl_fd("Error: Invalid number of values.\n", 2);
 		free_array(rgb_arr);
 		return (1);
 	}
@@ -97,15 +97,22 @@ int	floor_array(char *line, t_cub *cub)
 	i = 0;
 	if (ft_strncmp(line, "F ", 2) == 0 && cub->flags.F_flag == 0)
 	{
-		while (line[i] && ft_isdigit(line[i]) != 1)
+		while (line[i] && !ft_isdigit(line[i]))
 			i++;
 		start = i;
-		while (line[i] && line[i] != ' ' && line[i] != '\n')
+		while (line[i] && line[i] != '\n')
+		{
+			if (has_space(line[i]) || (!ft_isdigit(line[i]) && line[i] != ','))
+			{
+				ft_putendl_fd("Error: Invalid file content, no spaces and characters allowed.", 2);
+				return (1);
+			}
 			i++;
+		}
 		cub->F_array = malloc(i - start + 1);
 		if (!cub->F_array)
 		{
-			perror("Error: Failed to allocate mamory.");
+			ft_putendl_fd("Error: Failed to allocate memory.", 2);
 			return (1);
 		}
 		j = 0;
@@ -120,7 +127,7 @@ int	floor_array(char *line, t_cub *cub)
 	}
 	if (ft_strncmp(line, "F ", 2) == 0 && cub->flags.F_flag == 1)
 	{
-		perror("Error: Invalid map content.");
+		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
 	}
 	return (0);
@@ -135,15 +142,22 @@ int	ceiling_array(char *line, t_cub *cub)
 	i = 0;
 	if (ft_strncmp(line, "C ", 2) == 0 && cub->flags.C_flag == 0)
 	{
-		while (line[i] && ft_isdigit(line[i]) != 1)
+		while (line[i] && !ft_isdigit(line[i]))
 			i++;
 		start = i;
-		while (line[i] && line[i] != ' ' && line[i] != '\n')
+		while (line[i] && line[i] != '\n')
+		{
+			if (has_space(line[i]) || (!ft_isdigit(line[i]) && line[i] != ','))
+			{
+				ft_putendl_fd("Error: Invalid file content, no spaces and characters allowed.", 2);
+				return (1);
+			}
 			i++;
+		}
 		cub->C_array = malloc(i - start + 1);
 		if (!cub->C_array)
 		{
-			perror("Error: Failed to allocate mamory.");
+			ft_putendl_fd("Error: Failed to allocate memory.", 2);
 			return (1);
 		}
 		j = 0;
@@ -158,7 +172,7 @@ int	ceiling_array(char *line, t_cub *cub)
 	}
 	if (ft_strncmp(line, "C ", 2) == 0 && cub->flags.C_flag == 1)
 	{
-		perror("Error: Invalid map content.");
+		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
 	}
 	return (0);

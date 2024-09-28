@@ -28,7 +28,7 @@ int	north_array(char *line, t_cub *cub)
 		{
 			if (has_space(line[i]))
 			{
-				perror("Error: Invalid file content, has space where not expected.");
+				ft_putendl_fd("Error: Invalid file content, has space where not expected.", 2);
 				return (1);
 			}
 			i++;
@@ -36,7 +36,7 @@ int	north_array(char *line, t_cub *cub)
 		cub->NO_array = malloc(i - start + 1);
 		if (!cub->NO_array)
 		{
-			perror("Error: Failed to allocate mamory.");
+			ft_putendl_fd("Error: Failed to allocate mamory.", 2);
 			return (1);
 		}
 		j = 0;
@@ -49,7 +49,7 @@ int	north_array(char *line, t_cub *cub)
 	}
 	if (ft_strncmp(line, "NO", 2) == 0 && cub->flags.NO_flag == 1)
 	{
-		perror("Error: Invalid map content.");
+		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
 	}
 	return (0);
@@ -71,7 +71,7 @@ int	south_array(char *line, t_cub *cub)
 		{
 			if (has_space(line[i]))
 			{
-				perror("Error: Invalid file content, has space where not expected.");
+				ft_putendl_fd("Error: Invalid file content, has space where not expected.", 2);
 				return (1);
 			}
 			i++;
@@ -79,7 +79,7 @@ int	south_array(char *line, t_cub *cub)
 		cub->SO_array = malloc(i - start + 1);
 		if (!cub->NO_array)
 		{
-			perror("Error: Failed to allocate mamory.");
+			ft_putendl_fd("Error: Failed to allocate mamory.", 2);
 			return (1);
 		}
 		j = 0;
@@ -92,7 +92,7 @@ int	south_array(char *line, t_cub *cub)
 	}
 	if (ft_strncmp(line, "SO", 2) == 0 && cub->flags.SO_flag == 1)
 	{
-		perror("Error: Invalid map content.");
+		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
 	}
 	return (0);
@@ -114,7 +114,7 @@ int	west_array(char *line, t_cub *cub)
 		{
 			if (has_space(line[i]))
 			{
-				perror("Error: Invalid file content, has space where not expected.");
+				ft_putendl_fd("Error: Invalid file content, has space where not expected.", 2);
 				return (1);
 			}
 			i++;
@@ -122,7 +122,7 @@ int	west_array(char *line, t_cub *cub)
 		cub->WE_array = malloc(i - start + 1);
 		if (!cub->NO_array)
 		{
-			perror("Error: Failed to allocate mamory.");
+			ft_putendl_fd("Error: Failed to allocate mamory.", 2);
 			return (1);
 		}
 		j = 0;
@@ -135,7 +135,7 @@ int	west_array(char *line, t_cub *cub)
 	}
 	if (ft_strncmp(line, "WE", 2) == 0 && cub->flags.WE_flag == 0)
 	{
-		perror("Error: Invalid map content.");
+		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
 	}
 	return (0);
@@ -159,7 +159,7 @@ int	east_array(char *line, t_cub *cub)
 			{
 				if (has_space(line[i]))
 				{
-					perror("Error: Invalid file content, has space where not expected.");
+					ft_putendl_fd("Error: Invalid file content, has space where not expected.", 2);
 					return (1);
 				}
 				i++;
@@ -167,7 +167,7 @@ int	east_array(char *line, t_cub *cub)
 			cub->EA_array = malloc(i - start + 1);
 			if (!cub->EA_array)
 			{
-				perror("Error: Failed to allocate mamory.");
+				ft_putendl_fd("Error: Failed to allocate mamory.", 2);
 				return (1);
 			}
 			j = 0;
@@ -180,13 +180,13 @@ int	east_array(char *line, t_cub *cub)
 		}
 		else
 		{
-			perror("Error: Invalid file content.");
+			ft_putendl_fd("Error: Invalid file content.", 2);
 			return (1);
 		}
 	}
 	if (ft_strncmp(line, "EA", 2) == 0 && cub->flags.EA_flag == 1)
 	{
-		perror("Error: Invalid map content.");
+		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
 	}
 	return (0);

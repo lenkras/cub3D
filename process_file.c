@@ -47,17 +47,19 @@ char *open_file(char *argv)
 			close(fd);
 			return (NULL);
 		}
-		strcpy(temp, data);
-		strcat(temp, buf);
-		free(data);
 		data = temp;
-
+		//strcpy(temp, data);
+		strcat(data, buf);
+		//free(data);
 	}
 	if (bytes_read == -1)
 	{
 		perror("Error: Failed to read a file.");
-		return (NULL);
+		free(data);
+		close(fd);
+;		return (NULL);
 	}
 	close(fd);
 	return (data);
 }
+
