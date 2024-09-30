@@ -103,6 +103,6 @@ int main(int argc, char **argv)
 	// init_map(cub);
 	// game(cub);
 	// destroy(&cub);
-	free(cub.file);
+	free_all(&cub);
 	return (0);
 }
