@@ -17,7 +17,7 @@ char *open_file(char *argv)
 	int		fd;
 	char	buf[1024];
 	int		bytes_read;
-	char	*data;
+	char	*data = NULL;
 	int		bytes_total = 0;
 	char	*temp;
 
@@ -47,10 +47,10 @@ char *open_file(char *argv)
 			close(fd);
 			return (NULL);
 		}
+		ft_strcpy(temp, data);
+		ft_strcat(temp, buf);
+		free(data);
 		data = temp;
-		//strcpy(temp, data);
-		strcat(data, buf);
-		//free(data);
 	}
 	if (bytes_read == -1)
 	{

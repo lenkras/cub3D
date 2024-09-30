@@ -46,3 +46,49 @@ int has_space(char c)
 		return (1);
 	return (0);
 }
+
+char	*ft_strcpy(char *dest, const char *src)
+{
+	while (*src != '\0')
+	{
+		*dest = *src;
+		dest++;
+		src++;
+	}
+	*dest = '\0';
+	return (dest);
+}
+
+char	*ft_strcat(char *dest, const char *src)
+{
+	while (*dest != '\0')
+		dest++;
+	while (*src != '\0')
+	{
+		*dest = *src;
+		dest++;
+		src++;
+	}
+	*dest = '\0';
+	return (dest);
+}
+
+void	free_all(t_cub *cub)
+{
+	if (cub->map)
+		free_array(cub->map);
+	if (cub->file)
+		free(cub->file);
+	if (cub->NO_array)
+		free(cub->NO_array);
+	if (cub->SO_array)
+		free (cub->SO_array);
+	if (cub->WE_array)
+		free(cub->WE_array);
+	if (cub->EA_array)
+		free(cub->EA_array);
+	if (cub->F_array)
+		free(cub->F_array);
+	if (cub->C_array)
+		free(cub->C_array);
+}

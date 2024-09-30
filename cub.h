@@ -56,7 +56,10 @@ typedef struct  s_cub
 } t_cub;
 
 void	free_array(char **arr);
+void	free_all(t_cub *cub);
 int		is_all_digits(char *str);
+char	*ft_strcat(char *dest, const char *src);
+char	*ft_strcpy(char *dest, const char *src);
 int		has_space(char c);
 char	*open_file(char *argv);
 void	init_main_struct(t_cub *cub);
@@ -74,8 +77,7 @@ void	copy_map(char **array, t_cub *cub, int start);
 int		find_map_start(char *line);
 int		check_all_flags_infile(t_cub *cub);
 
-int	check_width_of_map(t_cub *cub);
-int	check_walls(t_cub *cub);
-int	check_spaces_in_map(t_cub *cub);
+int	check_max_width_of_map(t_cub *cub);
+void	replace_spaces(t_cub *cub);
 int	is_map_valid(t_cub *cub);
 #endif
