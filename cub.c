@@ -30,11 +30,36 @@ int	check_format(char *file_name)
 	return (0);
 }
 
+int	check_consecutive_newlines_in_map(char *file)
+{
+	int	i = 0;
+	int	map_section = 0;
+
+	while (file[i])
+	{
+		while (file[i] && file[i] != '\n')
+			i++;
+		
+		if (!map_section &&  (file[i + 1] == '1' || file[i + 1] == '0' || file[i + 1] == ' '))
+			map_section = 1;
+		if (map_section && file[i] == '\n' && file[i + 1] == '\n')
+		{
+			ft_putendl_fd("Error: Multiple consecutive newlines in map.", 2);
+			return (1);
+		}
+		if (file[i] == '\n')
+			i++;
+	}
+	return (0);
+}
+
 int	split_by_new_line(t_cub *cub)
 {
 	char	**array;
 	int		i;
 
+	if (check_consecutive_newlines_in_map(cub->file) == 1)
+		return (1);
 	i = 0;
 	array = ft_split(cub->file, '\n');
 	if (!array)
@@ -47,8 +72,9 @@ int	split_by_new_line(t_cub *cub)
 	init_flag_struct(cub);
 	while (array[i])
 	{
-		if (north_array(array[i], cub) == 1 || south_array(array[i], cub) == 1 || west_array(array[i], cub) == 1 ||
-			east_array(array[i], cub) == 1 || floor_array(array[i], cub) == 1 || ceiling_array(array[i], cub) == 1)
+		if (north_array(array[i], cub) == 1 || south_array(array[i], cub) == 1 || 
+			west_array(array[i], cub) == 1 || east_array(array[i], cub) == 1 || 
+			floor_array(array[i], cub) == 1 || ceiling_array(array[i], cub) == 1)
 			return (1);
 		if (find_map_start(array[i]))
 			break ;
@@ -91,9 +117,6 @@ int main(int argc, char **argv)
     {
         printf("%s\n", cub.map[i]);
     }
-	// check_width_of_map(&cub);
-	// check_walls(&cub);
-	// check_spaces_in_map(&cub);
 	is_map_valid(&cub);
 	printf("Width: %d\n", cub.width);
 	printf("Height: %d \n", cub.height);

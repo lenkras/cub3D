@@ -7,7 +7,7 @@ MLX42_LIB = $(MLX_DIR)/build/libmlx42.a
 MLX42_INCLUDE = -I./include
 MLX42_FLAGS =  -lglfw -L"/Users/epolkhov/.brew/opt/glfw/lib/"
 
-SRCS = main.c \
+SRCS = cub.c \
 		utils_functions.c \
 		parsing.c \
 		process_file.c \

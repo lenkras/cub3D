@@ -21,6 +21,8 @@ char *open_file(char *argv)
 	int		bytes_total = 0;
 	char	*temp;
 
+	if (check_file_permission(argv) == 1)
+		return (NULL);
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 	{
@@ -39,6 +41,13 @@ char *open_file(char *argv)
 	{
 		buf[bytes_read] = '\0';
 		bytes_total += bytes_read;
+		if (bytes_total > MAX_FILE_SIZE)
+        {
+            ft_putendl_fd("Error: File exceeds the maximum allowed size of 1024 bytes.\n", 2);
+            free(data);
+            close(fd);
+            return (NULL);
+        }
 		temp = malloc(bytes_total + 1);
 		if (!temp)
 		{

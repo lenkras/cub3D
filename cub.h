@@ -21,6 +21,8 @@
 # include <fcntl.h>
 # include <string.h>
 
+# define MAX_FILE_SIZE 1024
+
 typedef struct s_flag
 {
 	int	NO_flag;
@@ -61,6 +63,8 @@ int		is_all_digits(char *str);
 char	*ft_strcat(char *dest, const char *src);
 char	*ft_strcpy(char *dest, const char *src);
 int		has_space(char c);
+int		check_file_permission(const char *filepath);
+
 char	*open_file(char *argv);
 void	init_main_struct(t_cub *cub);
 void	init_flag_struct(t_cub *cub);
@@ -80,4 +84,5 @@ int		check_all_flags_infile(t_cub *cub);
 int	check_max_width_of_map(t_cub *cub);
 void	replace_spaces(t_cub *cub);
 int	is_map_valid(t_cub *cub);
+
 #endif
