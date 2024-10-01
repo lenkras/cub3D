@@ -92,3 +92,18 @@ void	free_all(t_cub *cub)
 	if (cub->C_array)
 		free(cub->C_array);
 }
+
+int check_file_permission(const char *filepath)
+{
+    if (access(filepath, F_OK) != 0)
+    {
+        ft_putendl_fd("Error: File does not exist.", 2);
+        return (1);
+    }
+    if (access(filepath, R_OK) != 0)
+    {
+        ft_putendl_fd("Error: File is not readable.", 2);
+        return (1);
+    }
+    return (0);
+}

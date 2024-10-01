@@ -14,12 +14,12 @@
 
 int	check_all_flags_infile(t_cub *cub)
 {
-	if (cub->flags.C_flag == 1 && cub->flags.EA_flag == 1 && cub->flags.F_flag == 1 && cub->flags.NO_flag == 1 &&
-		cub->flags.SO_flag == 1 && cub->flags.WE_flag == 1)
+	if (cub->flags.C_flag == 1 && cub->flags.EA_flag == 1 && cub->flags.F_flag == 1 && 
+		cub->flags.NO_flag == 1 && cub->flags.SO_flag == 1 && cub->flags.WE_flag == 1)
 		return (0);
 	else 
 	{
-		ft_putendl_fd("Error: One or more configuration options are missing.", 2);
+		ft_putendl_fd("Error: One or more file options are missing.", 2);
 		return (1);
 	}
 }
@@ -36,7 +36,6 @@ void	copy_map(char **array, t_cub *cub, int start)
 		return ;
 	while(array[i])
 	{
-		printf("Line %d: %s\n", i, array[i]); // Debug: Print each line
 		cub->height++;
 		i++;
 	}
@@ -54,9 +53,7 @@ void	copy_map(char **array, t_cub *cub, int start)
 		{
 			ft_putendl_fd("Error: Failed to duplicate map line.", 2);
 			while (j > 0)
-			{
 				free(cub->map[--j]);
-			}
 			free(cub->map);
 			return ;
 		}
@@ -67,46 +64,17 @@ void	copy_map(char **array, t_cub *cub, int start)
 	cub->map[cub->height] = NULL;
 }
 
-// int	find_map_start(char *line)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while(line[i])
-// 	{
-// 		if (line[i] == ' ' || line[i] == '\t' || line[i] == '1' ||  line[i] == '0')
-// 			return(1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
 int find_map_start(char *line)
 {
     int i = 0;
-    //int has_wall = 0;    // Flag to check if there's at least one '1' (wall)
-    int has_map_chars = 0;  // Flag to check if we have valid map characters
-
-    // Skip any leading whitespace characters
+    
     while (line[i] == ' ' || line[i] == '\t')
         i++;
-
-    // Check for valid map characters
     while (line[i])
     {
-        // if (line[i] == '1')
-        //     has_wall = 1;  // Check for at least one '1' character (wall)
-
-        // If the character is not a valid map character, return 0
         if (line[i] != '1' && line[i] != '0' && line[i] != ' ')
-            return 0;
-
-        // If we encounter any valid map characters ('1', '0', or space/tab), set the flag
-        if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
-            has_map_chars = 1;
-
+            return (0);
         i++;
     }
-    // Return 1 if tters and at he line contains map characleast one '1' (wall)
-    return (has_map_chars);
+    return (1);
 }
