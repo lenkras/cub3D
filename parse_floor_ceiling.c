@@ -95,14 +95,16 @@ int	floor_array(char *line, t_cub *cub)
 	int	j;
 
 	i = 0;
-	if (ft_strncmp(line, "F ", 2) == 0 && cub->flags.F_flag == 0)
+	while (line[i] == ' ' || line[i] == '\t')
+		i++; 
+	if (ft_strncmp(&line[i], "F ", 2) == 0 && cub->flags.F_flag == 0)
 	{
 		while (line[i] && !ft_isdigit(line[i]))
 			i++;
 		start = i;
 		while (line[i] && line[i] != '\n')
 		{
-			if (has_space(line[i]) || (!ft_isdigit(line[i]) && line[i] != ','))
+			if ((!ft_isdigit(line[i]) && line[i] != ',' && line[i] != ' ' && line[i] != '\t'))
 			{
 				ft_putendl_fd("Error: Invalid file content, no spaces and characters allowed.", 2);
 				return (1);
@@ -125,7 +127,7 @@ int	floor_array(char *line, t_cub *cub)
 		cub->flags.F_flag = 1;
 		return (0);
 	}
-	if (ft_strncmp(line, "F ", 2) == 0 && cub->flags.F_flag == 1)
+	if (ft_strncmp(&line[i], "F ", 2) == 0 && cub->flags.F_flag == 1)
 	{
 		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
@@ -140,14 +142,16 @@ int	ceiling_array(char *line, t_cub *cub)
 	int	j;
 
 	i = 0;
-	if (ft_strncmp(line, "C ", 2) == 0 && cub->flags.C_flag == 0)
+	while (line[i] == ' ' || line[i] == '\t')
+		i++; 
+	if (ft_strncmp(&line[i], "C ", 2) == 0 && cub->flags.C_flag == 0)
 	{
 		while (line[i] && !ft_isdigit(line[i]))
 			i++;
 		start = i;
 		while (line[i] && line[i] != '\n')
 		{
-			if (has_space(line[i]) || (!ft_isdigit(line[i]) && line[i] != ','))
+			if (!ft_isdigit(line[i]) && line[i] != ',' && line[i] != ' ' && line[i] != '\t')
 			{
 				ft_putendl_fd("Error: Invalid file content, no spaces and characters allowed.", 2);
 				return (1);
@@ -170,7 +174,7 @@ int	ceiling_array(char *line, t_cub *cub)
 		cub->flags.C_flag = 1;
 		return (0);
 	}
-	if (ft_strncmp(line, "C ", 2) == 0 && cub->flags.C_flag == 1)
+	if (ft_strncmp(&line[i], "C ", 2) == 0 && cub->flags.C_flag == 1)
 	{
 		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);

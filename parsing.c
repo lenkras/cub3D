@@ -72,7 +72,7 @@ int find_map_start(char *line)
         i++;
     while (line[i])
     {
-        if (line[i] != '1' && line[i] != '0' && line[i] != ' ')
+        if (line[i] != '1' && line[i] != '0' && line[i] != ' ' && line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E')
             return (0);
         i++;
     }

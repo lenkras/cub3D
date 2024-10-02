@@ -25,7 +25,7 @@ void	replace_spaces(t_cub *cub)
 		{
 			if (has_space(cub->map[h][w]))
 			{
-				cub->map[h][w] = '2';
+				cub->map[h][w] = '1';
 			}
 			w++;
 		}
@@ -33,15 +33,15 @@ void	replace_spaces(t_cub *cub)
 	}
 }
 
-void fill_map_spaces(t_cub *cub)
+void fill_map_spaces(t_cub *cub, char **map_copy)
 {
     int h = 0;
     int w;
 
     // Step 1: Process each row of the map
-    while (cub->map[h])
+    while (map_copy[h])
     {
-        int line_len = strlen(cub->map[h]);
+        int line_len = ft_strlen(map_copy[h]);
         
         // Allocate new row with the map's width (cub->width)
         char *new_row = malloc(cub->width + 1);
@@ -56,17 +56,23 @@ void fill_map_spaces(t_cub *cub)
         {
             if (w < line_len)
             {
-                if (cub->map[h][w] == ' ')
+                if (map_copy[h][w] == ' ')
                 {
                     // Check horizontal and vertical neighbors (if in bounds)
-                    if ((w > 0 && (cub->map[h][w - 1] == '0' || cub->map[h][w - 1] == '1' || cub->map[h][w - 1] == ' ')) &&
-                        (w < line_len - 1 && (cub->map[h][w + 1] == '0' || cub->map[h][w + 1] == '1' || cub->map[h][w + 1] == ' ')) &&
-                        (h > 0 && (cub->map[h - 1][w] == '0' || cub->map[h - 1][w] == '1' || cub->map[h - 1][w] == ' ')) &&
-                        (cub->map[h + 1] && (cub->map[h + 1][w] == '0' || cub->map[h + 1][w] == '1' || cub->map[h + 1][w] == ' ')))
+					if ((w > 0 && (map_copy[h][w - 1] == '1' )) &&
+                        (w < line_len - 1 && (map_copy[h][w + 1] == '1' )) &&
+                        (h > 0 && (map_copy[h - 1][w] == '1' )) &&
+                        (map_copy[h + 1] && (map_copy[h + 1][w] == '1' || map_copy[h + 1][w] == ' ' )))
+						new_row[w] = '2';
+					else if ((w > 0 && (map_copy[h][w - 1] == '0' || map_copy[h][w - 1] == '1' || map_copy[h][w - 1] == ' ')) &&
+                        (w < line_len - 1 && (map_copy[h][w + 1] == '0' || map_copy[h][w + 1] == '1' || map_copy[h][w + 1] == ' ')) &&
+                        (h > 0 && (map_copy[h - 1][w] == '0' || map_copy[h - 1][w] == '1' || map_copy[h - 1][w] == ' ')) &&
+                        (map_copy[h + 1] && (map_copy[h + 1][w] == '0' || map_copy[h + 1][w] == '1' || map_copy[h + 1][w] == ' ')))
                     {
                         // Replace space with '0' if it's inside the map
                         new_row[w] = '0';
                     }
+					
                     else
                     {
                         // Otherwise, replace space with '2' for outside the map
@@ -75,7 +81,7 @@ void fill_map_spaces(t_cub *cub)
                 }
                 else
                 {
-                    new_row[w] = cub->map[h][w]; // Copy the original character
+                    new_row[w] = map_copy[h][w]; // Copy the original character
                 }
             }
             else
@@ -87,8 +93,8 @@ void fill_map_spaces(t_cub *cub)
         new_row[cub->width] = '\0';  // Null-terminate the new row
 		
         // Replace the old row with the new row
-        free(cub->map[h]);
-        cub->map[h] = new_row;
+        free(map_copy[h]);
+        map_copy[h] = new_row;
         h++;
     }
 }
@@ -157,12 +163,63 @@ void flood_fill(char **map, int x, int y, int height, int width)
 	if (x < 0 || x >= width || y < 0 || y >= height || map[y][x] == '1' || map[y][x] == 'F')
 		return ;
 	if (map[y][x] == '2')
-		return ;
+    {
+        printf("Error: Invalid wall detected at (%d, %d)\n", x, y);
+        exit(1);  // Exit or handle error accordingly
+    }
 	map[y][x] = 'F';
 	flood_fill(map, x + 1, y, height, width);
 	flood_fill(map, x - 1, y, height, width);
 	flood_fill(map, x, y + 1, height, width);
 	flood_fill(map, x, y - 1, height, width);
+}
+
+int	check_walls(t_cub *cub, char **map_copy)
+{
+	int	i;
+	
+	i = 0;
+	while (i < cub->height)
+	{
+		if ((map_copy[i][0] != '1' && map_copy[i][0] != '2') || 
+			( map_copy[i][cub->width - 1] != '1' && map_copy[i][cub->width - 1] != '2'))
+		{
+			ft_putendl_fd("Check the walls of the map.", 2);
+			return (1);
+		}	
+		i++;
+	}
+	i = 0;
+	while (i < cub->width)
+	{
+		if ((map_copy[0][i] != '1' && map_copy[0][i] != '2') || 
+			(map_copy[cub->height - 1][i] != '1' && map_copy[cub->height - 1][i] != '2'))
+		{
+			ft_putendl_fd("Check the walls of the map.", 2);
+			return (1);
+		}	
+		i++;
+	}
+	return (0);
+}
+
+void	check_with_floodfill(t_cub *cub, char **map_copy)
+{
+	int	h;
+	int	w;
+
+	h = 0;
+	while (map_copy[h])
+	{
+		w = 0;
+		while (map_copy[h][w])
+		{
+			while (map_copy[h][w] == '0')
+				flood_fill(map_copy, w, h, cub->height, cub->width);
+			w++;
+		}
+		h++;
+	}
 }
 
 int	check_path(t_cub *cub, int w, int h)
@@ -173,7 +230,6 @@ int	check_path(t_cub *cub, int w, int h)
 
 	i = 0;
 	check_max_width_of_map(cub);
-	fill_map_spaces(cub);
 	map_copy = malloc(sizeof(char *) * (cub->height + 1));
 	if (!map_copy)
 	{
@@ -204,8 +260,20 @@ int	check_path(t_cub *cub, int w, int h)
     for (i = 0; map_copy[i] != NULL; i++) {
         printf("%s\n", map_copy[i]);
     }
+	fill_map_spaces(cub, map_copy);
 	
+	printf("Map copy after filling in with 2.\n");
+    for (i = 0; map_copy[i] != NULL; i++) {
+        printf("%s\n", map_copy[i]);
+    }
+	if (check_walls(cub, map_copy) == 1)
+		return (1);
 	flood_fill(map_copy, w, h, cub->height, cub->width);
+	check_with_floodfill(cub, map_copy);
+	printf("Map copy after flood_fill.\n");
+    for (i = 0; map_copy[i] != NULL; i++) {
+        printf("%s\n", map_copy[i]);
+    }
 	i = 0;
 	while (i < cub->height)
 	{
@@ -215,47 +283,6 @@ int	check_path(t_cub *cub, int w, int h)
 	free(map_copy);
 	return (0);
 }
-
-// int check_playable_area_surrounded(t_cub *cub)
-// {
-//     int h, w;
-
-//     h = 0;
-//     while (cub->map[h]) // Loop through each row of the map
-//     {
-//         w = 0;
-//         while (cub->map[h][w]) // Loop through each column of the current row
-//         {
-//             // Check if the current tile is a playable tile
-//             if (cub->map[h][w] == '0' || 
-//                 cub->map[h][w] == 'N' || cub->map[h][w] == 'S' || 
-//                 cub->map[h][w] == 'E' || cub->map[h][w] == 'W')
-//             {
-//                 // Check if the playable tile is on the edge of the map
-//                 // if (h == 0 || cub->map[h + 1] == NULL || // Check top and bottom edges
-//                 //     w == 0 || cub->map[h][w + 1] == '\0') // Check left and right edges
-//                 // {
-//                 //     ft_putendl_fd("Error: Playable area is touching the edge of the map.", 2);
-//                 //     return (1);
-//                 // }
-
-//                 // Check surrounding tiles for walls
-//                 if (cub->map[h - 1][w] != '1' || // Check above
-//                     cub->map[h + 1][w] != '1' || // Check below
-//                     cub->map[h][w - 1] != '1' || // Check left
-//                     cub->map[h][w + 1] != '1')   // Check right
-//                 {
-//                     ft_putendl_fd("Error: Playable area is not surrounded by walls.", 2);
-//                     return (1);
-//                 }
-//             }
-//             w++; // Move to the next column
-//         }
-//         h++; // Move to the next row
-//     }
-
-//     return (0); // No issues found
-// }
 
 int validate_player_path(t_cub *cub)
 {
@@ -281,7 +308,7 @@ int validate_player_path(t_cub *cub)
     }
     if (check_path(cub, cub->player_w, cub->player_h))
     {
-        ft_putendl_fd("Error: Invalid path, player cannot move freely.", 2);
+        ft_putendl_fd("Error: Invalid map or path.", 2);
         return (1);
     }
     return (0);
@@ -296,5 +323,6 @@ int	is_map_valid(t_cub *cub)
 	}
 	if (check_map_content(cub) || validate_player_path(cub) == 1)
 		return (1);
+	replace_spaces(cub);
 	return (0);
 }
