@@ -40,7 +40,13 @@ int	check_consecutive_newlines_in_map(char *file)
 		while (file[i] && file[i] != '\n')
 			i++;
 		
-		if (!map_section &&  (file[i + 1] == '1' || file[i + 1] == '0' || file[i + 1] == ' '))
+		if (file[i + 1] == ' ' || file[i + 1] == '\t')
+		{
+			i = i + 1;
+			while (file[i] == ' ' || file[i] == '\t')
+				i++;
+		}
+		if (!map_section && ((file[i + 1] == '1' || file[i + 1] == '0') || (file[i] == '1' || file[i] == '0')))
 			map_section = 1;
 		if (map_section && file[i] == '\n' && file[i + 1] == '\n')
 		{
@@ -112,14 +118,13 @@ int main(int argc, char **argv)
 		if (split_by_new_line(&cub) == 1)
 			return (1);
 	}
+	
+	is_map_valid(&cub);
 	printf("Map:\n");
     for (int i = 0; cub.map && cub.map[i] != NULL; i++)
     {
         printf("%s\n", cub.map[i]);
     }
-	is_map_valid(&cub);
-	printf("Width: %d\n", cub.width);
-	printf("Height: %d \n", cub.height);
 	//cub = malloc(sizeof(cub));
 	// parsing(&cub);
 	// check_validity(cub);
