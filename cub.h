@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-25 11:12:49 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-09-25 11:12:49 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/09/25 11:12:49 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/14 21:34:42 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <string.h>
+# include <math.h>
 
 typedef struct s_flag
 {
@@ -53,6 +54,9 @@ typedef struct  s_cub
 	int		C_G;
 	int		C_B;
 	t_flag	flags;
+	//Denis added
+	mlx_t	*mlx;
+	void	*win;
 } t_cub;
 
 void	free_array(char **arr);
@@ -78,4 +82,10 @@ int	check_width_of_map(t_cub *cub);
 int	check_walls(t_cub *cub);
 int	check_spaces_in_map(t_cub *cub);
 int	is_map_valid(t_cub *cub);
+
+//Denis added
+# define WINDOW_W	640
+# define WINDOW_H	480
+# define TITLE		"cub3d"
+
 #endif
