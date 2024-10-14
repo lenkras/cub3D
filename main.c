@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-25 11:17:36 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-09-25 11:17:36 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/09/25 11:17:36 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/14 21:15:57 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int main(int argc, char **argv)
 	// parsing(&cub);
 	// check_validity(cub);
 	// init_map(cub);
-	// game(cub);
-	// destroy(&cub);
+	game(cub);
+	destroy(&cub);
 	free(cub.file);
 	return (0);
 }
