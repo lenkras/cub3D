@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-27 09:02:17 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-09-27 09:02:17 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/09/27 09:02:17 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/20 21:50:46 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,22 @@ int has_space(char c)
 		c == '\v' || c == '\f' || c == '\r')
 		return (1);
 	return (0);
+}
+
+int check_sign(float f)
+{
+    if (f < 0.0f)
+    {
+        if (f > -0.000001f)
+            return (0);
+        else
+            return (-1);
+    }
+    else
+    {
+        if (f < 0.000001f)
+            return (0);
+        else
+            return (1);
+    }
 }
