@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-25 11:12:49 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-09-25 11:12:49 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/09/25 11:12:49 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/20 22:10:24 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <string.h>
+# include <math.h>
 
 # define MAX_FILE_SIZE 1024
 
@@ -55,6 +56,16 @@ typedef struct  s_cub
 	int		C_G;
 	int		C_B;
 	t_flag	flags;
+	//Denis added
+	mlx_t	*mlx; //mlx pointer
+	mlx_image_t	*img; //image pointer
+	mlx_image_t *txt[4]; // textures
+	int txt_idx; //index of the current texture
+	int txt_w; //width offset in the texture
+	float	p_x; //player's position
+	float	p_y; //player's position
+	float	gaze; //player's direction
+	
 } t_cub;
 
 void	free_array(char **arr);
@@ -84,5 +95,34 @@ int		check_all_flags_infile(t_cub *cub);
 int	check_max_width_of_map(t_cub *cub);
 void	replace_spaces(t_cub *cub);
 int	is_map_valid(t_cub *cub);
+
+//Denis added
+# define WINDOW_W	640
+# define WINDOW_H	480
+# define TITLE		"cub3d"
+# define AS		0.02f // Angular Speed
+# define LS		0.3f // Linear Speed
+# define FOV	1.047f // Field Of View
+
+typedef struct s_view
+{
+    float dx;          // Delta x (ray direction on x-axis)
+    float dy;          // Delta y (ray direction on y-axis)
+    int sx;            // Step in x direction (1 or -1)
+    int sy;            // Step in y direction (1 or -1)
+    float h_x;       // Horizontal intersection x-coordinate
+    float h_y;       // Horizontal intersection y-coordinate
+    float v_x;      // Vertical intersection x-coordinate
+    float v_y;      // Vertical intersection y-coordinate
+    float v_dist;   // Distance to the vertical intersection
+    float h_dist;    // Distance to the horizontal intersection
+    float v_w;      // Texture offset for vertical intersection
+    float h_w;       // Texture offset for horizontal intersection
+} t_view;
+
+int check_sign(float f); // float check return positiv, negativ or zero
+int key(int keycode, t_cub *cub);
+void press_key(mlx_key_data_t keydata, void* param);
+void destroy(void* param); 
 
 #endif
