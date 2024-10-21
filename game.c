@@ -1,10 +1,15 @@
 #include "cub.h"
 
 void draw(t_cub *cub);
-void load_textures(cub);
-void determine_player_position(cub);
-void draw_ceiling_and_floor(cub);
-void view_direction(cub);
+void load_textures(t_cub *cub);
+//void determine_player_position(t_cub *cub);
+void draw_ceiling_and_floor(t_cub *cub);
+void view_direction(t_cub *cub);
+void line(t_cub *cub, int w, float dist);
+float view(t_cub *cub, float v);
+void view_next(t_cub *cub, t_view *view);
+void view_start(t_cub *cub, t_view *view, float angle);
+float view_save_color(t_cub *cub, float dist, int color_idx, float w);
 
 void draw(t_cub *cub)
 {
@@ -12,13 +17,13 @@ void draw(t_cub *cub)
     cub->img = mlx_new_image(cub->mlx, WINDOW_W, WINDOW_H);
     if (!cub->img)
     {
-        printf(stderr, "Failed to create an image\n");
+        fprintf(stderr, "Failed to create an image\n");
         return;
     }
 
     // Call functions to draw content
-    draw_ceiling_and_floor(game);
-    view_direction(game);
+    draw_ceiling_and_floor(cub);
+//    view_direction(cub);
 
     // Render the image to the window
     mlx_image_to_window(cub->mlx, cub->img, 0, 0);
@@ -27,20 +32,21 @@ void draw(t_cub *cub)
 
 void    game(t_cub *cub)
 {
-    determine_player_position(cub);
-	cub->mlx = mlx_init(WINDOW_W, WINDOW_H, TITLE, false);
+    //determine_player_position(cub);
+    cub->mlx = mlx_init(WINDOW_W, WINDOW_H, TITLE, false);
+    if (!cub->mlx)
     {
-        printf(stderr, "MLX42 initialization failed\n");
+        fprintf(stderr, "MLX42 initialization failed\n");
         exit(EXIT_FAILURE);
     }
 	load_textures(cub);
 	draw(cub);
 	
     // Register key press event
-    mlx_key_hook(cub->mlx, press_key, game);
+ //   mlx_key_hook(cub->mlx, press_key, game);
 
     // Handle the window close event
-    mlx_close_hook(cub->mlx, destroy, game);
+//    mlx_close_hook(cub->mlx, destroy, game);
 
     // Start the main loop
     mlx_loop(cub->mlx);
@@ -83,7 +89,7 @@ void line(t_cub *cub, int w, float dist)
     unsigned int h;
     float src_f;
     float d_shift;
-    mlx_image_t *texture = cub->txt[cub->txt_idx]; // Access the current texture
+    mlx_texture_t *texture = cub->txt[cub->txt_idx]; // Access the current texture
 
     // Calculate the height of the line based on distance
     h = (float) WINDOW_H / dist;
@@ -153,7 +159,7 @@ float view(t_cub *cub, float v)
     }
 }
 
-static void view_start(t_cub *cub, t_view *view, float angle)
+void view_start(t_cub *cub, t_view *view, float angle)
 {
     view->dx = cos(angle);
     view->dy = -sin(angle);
@@ -169,7 +175,7 @@ static void view_start(t_cub *cub, t_view *view, float angle)
         view->h_y += 1.0f;
 }
 
-static void view_next(t_cub *cub, t_view *view)
+void view_next(t_cub *cub, t_view *view)
 {
     if (view->sx != 0)
     {
@@ -194,7 +200,7 @@ static void view_next(t_cub *cub, t_view *view)
         view->h_dist = INFINITY;
 }
 
-static float view_save_color(t_cub *cub, float dist, int color_idx, float w)
+ float view_save_color(t_cub *cub, float dist, int color_idx, float w)
 {
     cub->txt_idx = color_idx;
     cub->txt_w = w;
@@ -204,34 +210,34 @@ static float view_save_color(t_cub *cub, float dist, int color_idx, float w)
 void load_textures(t_cub *cub)
 {
     // Load the North texture
-    cub->txt[0] = mlx_load_xpm(cub->mlx, cub->NO_array);
+    cub->txt[0] = mlx_load_png(cub->NO_array);
     if (!cub->txt[0])
     {
-        printf(stderr, "Failed to load the North texture\n");
+        fprintf(stderr, "Failed to load the North texture\n");
         exit(EXIT_FAILURE);
     }
 
     // Load the South texture
-    cub->txt[1] = mlx_load_xpm(cub->mlx, cub->SO_array);
+    cub->txt[1] = mlx_load_png(cub->SO_array);
     if (!cub->txt[1])
     {
-        printf(stderr, "Failed to load the South texture\n");
+        fprintf(stderr, "Failed to load the South texture\n");
         exit(EXIT_FAILURE);
     }
 
     // Load the West texture
-    cub->txt[2] = mlx_load_xpm(cub->mlx, cub->WE_array);
+    cub->txt[2] = mlx_load_png(cub->WE_array);
     if (!cub->txt[2])
     {
-        printf(stderr, "Failed to load the West texture\n");
+        fprintf(stderr, "Failed to load the West texture\n");
         exit(EXIT_FAILURE);
     }
 
     // Load the East texture
-    cub->txt[3] = mlx_load_xpm(cub->mlx, cub->EA_array);
+    cub->txt[3] = mlx_load_png(cub->EA_array);
     if (!cub->txt[3])
     {
-        printf(stderr, "Failed to load the East texture\n");
+        fprintf(stderr, "Failed to load the East texture\n");
         exit(EXIT_FAILURE);
     }
 }

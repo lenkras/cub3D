@@ -129,8 +129,7 @@ int main(int argc, char **argv)
 	// parsing(&cub);
 	// check_validity(cub);
 	// init_map(cub);
-	game(cub);
-	destroy(&cub);
+	game(&cub);
 	free_all(&cub);
 	return (0);
 }

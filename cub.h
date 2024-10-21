@@ -59,7 +59,7 @@ typedef struct  s_cub
 	//Denis added
 	mlx_t	*mlx; //mlx pointer
 	mlx_image_t	*img; //image pointer
-	mlx_image_t *txt[4]; // textures
+	mlx_texture_t *txt[4]; // textures
 	int txt_idx; //index of the current texture
 	int txt_w; //width offset in the texture
 	float	p_x; //player's position
@@ -121,8 +121,8 @@ typedef struct s_view
 } t_view;
 
 int check_sign(float f); // float check return positiv, negativ or zero
-int key(int keycode, t_cub *cub);
+// int key(int keycode, t_cub *cub);
 void press_key(mlx_key_data_t keydata, void* param);
 void destroy(void* param); 
-
+void    game(t_cub *cub);
 #endif
