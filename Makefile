@@ -4,8 +4,8 @@ LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 MLX_DIR = ./MLX42
 MLX42_LIB = $(MLX_DIR)/build/libmlx42.a
-MLX42_INCLUDE = -I./include
-MLX42_FLAGS =  -lglfw -L"/Users/epolkhov/.brew/opt/glfw/lib/"
+MLX42_INCLUDE = -I$(MLX_DIR)/include -ldl -lglfw -pthread -lm
+#MLX42_FLAGS =  -lglfw -L"/Users/epolkhov/.brew/opt/glfw/lib/"
 
 SRCS = cub.c \
 		utils_functions.c \
@@ -15,13 +15,15 @@ SRCS = cub.c \
 		parse_world_sides.c \
 		initialising.c \
 		map_validation.c \
+		game.c \
+		move.c \
 		
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_LIB) $(MLX42_LIB)
-	cc $(FLAGS) $(OBJS) $(LIBFT_LIB) $(MLX42_LIB) $(MLX42_FLAGS) -o $(NAME)
+	gcc $(FLAGS) $(OBJS) $(LIBFT_LIB) $(MLX42_LIB) -o $(NAME) $(MLX42_INCLUDE)
 
 $(LIBFT_LIB): $(LIBFT_DIR)
 	make -C $(LIBFT_DIR)
@@ -30,7 +32,7 @@ $(MLX42_LIB): $(MLX_DIR)
 	cmake -B $(MLX_DIR)/build -S $(MLX_DIR) && cmake --build $(MLX_DIR)/build -j4
 
 %.o: %.c
-	cc $(FLAGS) $(MLX42_INCLUDE) -c $< -o $@
+	gcc $(FLAGS) $(MLX42_INCLUDE) -c $< -o $@
 
 clean:
 	make clean -C $(LIBFT_DIR)
