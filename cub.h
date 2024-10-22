@@ -22,7 +22,8 @@
 # include <string.h>
 # include <math.h>
 
-# define MAX_FILE_SIZE 1024
+#define MAX_FILE_SIZE 1024
+#define MOVE_SPEED 5.0f // Adjust this value to set how fast the player moves
 
 typedef struct s_flag
 {
@@ -123,6 +124,8 @@ typedef struct s_view
 int check_sign(float f); // float check return positiv, negativ or zero
 // int key(int keycode, t_cub *cub);
 void press_key(mlx_key_data_t keydata, void* param);
-void destroy(void* param); 
-void    game(t_cub *cub);
+void destroy_textures(t_cub *cub);
+void	game(t_cub *cub);
+void draw(t_cub *cub);
+
 #endif

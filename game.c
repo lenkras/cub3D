@@ -29,6 +29,12 @@ void draw(t_cub *cub)
     mlx_image_to_window(cub->mlx, cub->img, 0, 0);
 }
 
+void close_window(void *param)
+{
+    t_cub *cub = (t_cub *)param;
+    mlx_terminate(cub->mlx);
+    exit(0);
+}
 
 void    game(t_cub *cub)
 {
@@ -40,10 +46,12 @@ void    game(t_cub *cub)
         exit(EXIT_FAILURE);
     }
 	load_textures(cub);
+    mlx_close_hook(cub->mlx, close_window, cub);
 	draw(cub);
+   
 	
     // Register key press event
- //   mlx_key_hook(cub->mlx, press_key, game);
+    mlx_key_hook(cub->mlx, press_key, game);
 
     // Handle the window close event
 //    mlx_close_hook(cub->mlx, destroy, game);
@@ -57,8 +65,9 @@ void    game(t_cub *cub)
 
 void draw_ceiling_and_floor(t_cub *cub)
 {
-    unsigned int *dst;
-    unsigned int i;
+     printf("Drawing ceiling and floor...\n");
+    // unsigned int *dst;
+    // unsigned int i;
     unsigned int color_ceiling;
     unsigned int color_floor;
 
@@ -67,19 +76,41 @@ void draw_ceiling_and_floor(t_cub *cub)
 
     // Combine RGB values into a single integer for floor color
     color_floor = (cub->F_R << 16) | (cub->F_G << 8) | cub->F_B;
+    printf("Ceiling Color: %u, Floor Color: %u\n", color_ceiling, color_floor);
 
     // Access pixel buffer from the MLX42 image structure
-    dst = (unsigned int *) cub->img->pixels;
+    // dst = (unsigned int *) cub->img->pixels;
 
-    // Draw the ceiling (first half of the screen)
-    i = WINDOW_W * WINDOW_H / 2;
-    while (i-- > 0)
-        *dst++ = color_ceiling;
+    // // Draw the ceiling (first half of the screen)
+    // i = WINDOW_W * WINDOW_H / 2;
+    // while (i-- > 0)
+    //     *dst++ = color_ceiling;
+
+    // // Draw the floor (second half of the screen)
+    // i = WINDOW_W * WINDOW_H / 2;
+    // while (i-- > 0)
+    //     *dst++ = color_floor;
+
+    unsigned int y = 0;
+    while (y < WINDOW_H / 2) {
+        unsigned int x = 0;
+        while (x < WINDOW_W) {
+            mlx_put_pixel(cub->img, x, y, color_ceiling);
+            x++;
+        }
+        y++;
+    }
 
     // Draw the floor (second half of the screen)
-    i = WINDOW_W * WINDOW_H / 2;
-    while (i-- > 0)
-        *dst++ = color_floor;
+    y = WINDOW_H / 2;
+    while (y < WINDOW_H) {
+        unsigned int x = 0;
+        while (x < WINDOW_W) {
+            mlx_put_pixel(cub->img, x, y, color_floor);
+            x++;
+        }
+        y++;
+    }
 }
 
 void line(t_cub *cub, int w, float dist)
