@@ -124,3 +124,22 @@ int check_sign(float f)
             return (1);
     }
 }
+
+void destroy_textures(t_cub *cub)
+{
+    int i = 0;
+
+    while (i < 4)
+    {
+        if (cub->txt[i])
+        {
+            mlx_delete_texture(cub->txt[i]);
+            cub->txt[i] = NULL; 
+        }
+        i++;
+    }
+	if (cub->img)
+    	mlx_delete_image(cub->mlx, cub->img);
+
+    mlx_terminate(cub->mlx);
+}

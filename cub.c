@@ -131,5 +131,6 @@ int main(int argc, char **argv)
 	// init_map(cub);
 	game(&cub);
 	free_all(&cub);
+	destroy_textures(&cub);
 	return (0);
 }
