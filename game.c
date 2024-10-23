@@ -23,7 +23,7 @@ void draw(t_cub *cub)
 
     // Call functions to draw content
     draw_ceiling_and_floor(cub);
-//    view_direction(cub);
+    view_direction(cub);
 
     // Render the image to the window
     mlx_image_to_window(cub->mlx, cub->img, 0, 0);
@@ -48,10 +48,8 @@ void    game(t_cub *cub)
 	load_textures(cub);
     mlx_close_hook(cub->mlx, close_window, cub);
 	draw(cub);
-   
-	
     // Register key press event
-    mlx_key_hook(cub->mlx, press_key, game);
+    mlx_key_hook(cub->mlx, press_key, cub);
 
     // Handle the window close event
 //    mlx_close_hook(cub->mlx, destroy, game);
@@ -72,10 +70,10 @@ void draw_ceiling_and_floor(t_cub *cub)
     unsigned int color_floor;
 
     // Combine RGB values into a single integer for ceiling color
-    color_ceiling = (cub->C_R << 16) | (cub->C_G << 8) | cub->C_B;
+    color_ceiling = (cub->C_R << 24) | (cub->C_G << 16) | (cub->C_B << 8) | 0xFF;
 
     // Combine RGB values into a single integer for floor color
-    color_floor = (cub->F_R << 16) | (cub->F_G << 8) | cub->F_B;
+    color_floor = (cub->F_R << 24) | (cub->F_G << 16) | (cub->F_B << 8) | 0xFF;
     printf("Ceiling Color: %u, Floor Color: %u\n", color_ceiling, color_floor);
 
     // Access pixel buffer from the MLX42 image structure
@@ -136,6 +134,7 @@ void line(t_cub *cub, int w, float dist)
 
     // Source: Texture pixels, start from the texture's specified width position
     src = (uint32_t *) texture->pixels + (int)((float) cub->txt_w * texture->width);
+     //src = (uint32_t *)texture->pixels;
 
     // Destination: Target pixels in the window image
     dst = (uint32_t *) cub->img->pixels + w + (WINDOW_H - h) / 2 * WINDOW_W;
@@ -155,7 +154,7 @@ void view_direction(t_cub *cub)
     float dv;
     float v;
 
-    v = cub->player - FOV / 2;
+    v = cub->gaze - FOV / 2; // ?--I changed cub->player to cub_gaze and initialized gaze in initialising .c file
     dv = FOV / (WINDOW_W - 1);
     x = -1;
     while (++x < WINDOW_W)
