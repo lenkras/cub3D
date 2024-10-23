@@ -57,7 +57,7 @@ typedef struct  s_cub
 	int		C_G;
 	int		C_B;
 	t_flag	flags;
-	//Denis added
+	//Denis addedw
 	mlx_t	*mlx; //mlx pointer
 	mlx_image_t	*img; //image pointer
 	mlx_texture_t *txt[4]; // textures
@@ -104,6 +104,7 @@ int	is_map_valid(t_cub *cub);
 # define AS		0.02f // Angular Speed
 # define LS		0.3f // Linear Speed
 # define FOV	1.047f // Field Of View
+# define M_PI	3.14159265358979323846
 
 typedef struct s_view
 {

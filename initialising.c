@@ -26,6 +26,7 @@ void	init_main_struct(t_cub *cub)
 	cub->player = 0;
 	cub->player_h = 0;
 	cub->player_w = 0;
+	cub->gaze = M_PI / 2;
 }
 
 void	init_flag_struct(t_cub *cub)
