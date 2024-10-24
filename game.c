@@ -158,7 +158,7 @@ void view_direction(t_cub *cub)
     x = -1;
     while (++x < WINDOW_W)
     {
-        line(cub, x, view(cub, v) * cos(cub->player - v));
+        line(cub, x, view(cub, v) * cos(cub->gaze - v));
         v += dv;
     }
 }
@@ -320,13 +320,13 @@ void load_textures(t_cub *cub)
 void view_set_angle(t_cub *cub, const char c)
 {
     if (c == 'E')
-        cub->player = 0.0f * M_PI; // Set view angle to East
+        cub->gaze = 0.0f * M_PI; // Set view angle to East
     else if (c == 'N')
-        cub->player = 0.5f * M_PI; // Set view angle to North
+        cub->gaze = 0.5f * M_PI; // Set view angle to North
     else if (c == 'W')
-        cub->player = 1.0f * M_PI; // Set view angle to West
+        cub->gaze = 1.0f * M_PI; // Set view angle to West
     else if (c == 'S')
-        cub->player = -0.5f * M_PI; // Set view angle to South
+        cub->gaze = -0.5f * M_PI; // Set view angle to South
 }
 
 
@@ -334,5 +334,5 @@ void determine_player_position(t_cub *cub)
 {
     cub->p_x = (float) cub->player_w + 0.5f; // Set player x-position
     cub->p_y = (float) cub->player_h + 0.5f; // Set player y-position
-    view_set_angle(cub, cub->map[cub->player_w][cub->player_h]); // Set the view angle based on map character
+    view_set_angle(cub, cub->map[cub->player_h][cub->player_w]); // Set the view angle based on map character
 }
