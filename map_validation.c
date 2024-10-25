@@ -158,6 +158,8 @@ static int	check_map_content(t_cub *cub)
 	return (0);
 }
 
+
+
 void flood_fill(char **map, int x, int y, int height, int width)
 {
 	if (x < 0 || x >= width || y < 0 || y >= height || map[y][x] == '1' || map[y][x] == 'F')

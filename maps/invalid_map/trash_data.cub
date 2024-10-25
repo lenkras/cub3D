@@ -7,6 +7,8 @@ SO pattern/south_wall.png
 WE pattern/west_wall.png
 EA pattern/east_wall.png
 
+        welcome
+
 1111111111111111111
 10W1001001001000001
 1011000001000001001

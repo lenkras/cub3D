@@ -78,3 +78,24 @@ int find_map_start(char *line)
     }
     return (1);
 }
+
+int	check_file_data(char *array)
+{
+	int	i;
+
+	i = 0;
+	printf("Check FILE: %s\n", &array[i]);
+	while (array[i] == ' ' || array[i] == '\t')
+		i++;
+	while (array[i])
+	{
+		if (ft_strncmp(&array[i], "NO", 2) != 0 && ft_strncmp(&array[i], "SO", 2) != 0 && ft_strncmp(&array[i], "WE", 2) != 0 
+			&& ft_strncmp(&array[i], "EA", 2) != 0 && ft_strncmp(&array[i], "F", 1) != 0 && ft_strncmp(&array[i], "C", 1) != 0)
+		{
+			ft_putendl_fd("Error: Wrong data in a file.", 2);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
