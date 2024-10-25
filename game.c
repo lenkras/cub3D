@@ -120,6 +120,10 @@ void line(t_cub *cub, int w, float dist)
     float d_shift;
     mlx_texture_t *texture = cub->txt[cub->txt_idx]; // Access the current texture
 
+    if (dist <= 0) {
+        fprintf(stderr, "Invalid distance: %f\n", dist);
+        return; // Early exit
+    }
     // Calculate the height of the line based on distance
     h = (float) WINDOW_H / dist;
     src_f = 0.0f;
@@ -135,7 +139,8 @@ void line(t_cub *cub, int w, float dist)
     if ((int)src_f < (int)texture->height) {  // Fix the signedness issue here
         src = (uint32_t *) texture->pixels + (int)((float) cub->txt_w * texture->width);
         dst = (uint32_t *) cub->img->pixels + w + (WINDOW_H - h) / 2 * WINDOW_W;
-
+         
+        
         // Copy texture to the screen for the calculated height
         while (h-- > 0) {
             *dst = *(src + ((int)src_f) * texture->width);  // Assign the pixel from texture
@@ -144,8 +149,6 @@ void line(t_cub *cub, int w, float dist)
         }
     }
 }
-
-
 
 void view_direction(t_cub *cub)
 {
@@ -177,7 +180,7 @@ float view(t_cub *cub, float v)
         {
             if (cub->map[(int)vi.v_y][(int)vi.v_x + (vi.sx - 1) / 2] == '1')
             {
-                printf("Vertical wall hit at distance: %f\n", vi.v_dist);
+                //printf("Vertical wall hit at distance: %f\n", vi.v_dist);
                 return view_save_color(cub, vi.v_dist, vi.sx + 1, vi.v_w);
             }
             else
@@ -190,7 +193,7 @@ float view(t_cub *cub, float v)
         {
             if (cub->map[(int)vi.h_y + (vi.sy - 1) / 2][(int)vi.h_x] == '1')
             {
-                printf("Horizontal wall hit at distance: %f\n", vi.h_dist);
+                //printf("Horizontal wall hit at distance: %f\n", vi.h_dist);
                 return view_save_color(cub, vi.h_dist, vi.sy + 2, vi.h_w);
             }
             else
@@ -235,9 +238,9 @@ void view_next(t_cub *cub, t_view *view)
         view->h_dist = sqrt(pow(cub->p_x - view->h_x, 2.0) + pow(cub->p_y - view->h_y, 2.0));
 
         // Add detailed debugging here
-        printf("Next horizontal distance: %f\n", view->h_dist);
-        printf("Horizontal ray dx: %f, dy: %f\n", view->dx, view->dy);
-        printf("Horizontal player_w: %f, player_h: %f, h_x: %f, h_y: %f\n", cub->p_x, cub->p_y, view->h_x, view->h_y);
+        // printf("Next horizontal distance: %f\n", view->h_dist);
+        // printf("Horizontal ray dx: %f, dy: %f\n", view->dx, view->dy);
+        // printf("Horizontal player_w: %f, player_h: %f, h_x: %f, h_y: %f\n", cub->p_x, cub->p_y, view->h_x, view->h_y);
     }
     else
         view->h_dist = INFINITY;
@@ -253,7 +256,7 @@ float view_save_color(t_cub *cub, float dist, int color_idx, float w)
     printf("  Texture horizontal position (txt_w): %f\n", w);
 
     // Set the texture index (which texture to use for this wall)
-    cub->txt_idx = color_idx;  
+    cub->txt_idx = color_idx;
 
     // Ensure that the texture index is within bounds (0 to 3 for North, South, West, East)
     if (cub->txt_idx < 0 || cub->txt_idx >= 4) {
@@ -320,19 +323,32 @@ void load_textures(t_cub *cub)
 void view_set_angle(t_cub *cub, const char c)
 {
     if (c == 'E')
-        cub->player = 0.0f * M_PI; // Set view angle to East
+        cub->gaze = 0.0f * M_PI; // Set view angle to East
     else if (c == 'N')
-        cub->player = 0.5f * M_PI; // Set view angle to North
+        cub->gaze = 0.5f * M_PI; // Set view angle to North
     else if (c == 'W')
-        cub->player = 1.0f * M_PI; // Set view angle to West
+        cub->gaze = 1.0f * M_PI; // Set view angle to West
     else if (c == 'S')
-        cub->player = -0.5f * M_PI; // Set view angle to South
+        cub->gaze = -0.5f * M_PI; // Set view angle to South
 }
 
 
 void determine_player_position(t_cub *cub)
 {
+    if (cub->map == NULL || cub->map[cub->player_w] == NULL) {
+    fprintf(stderr, "Map is NULL or row is invalid\n");
+    exit(EXIT_FAILURE);
+    }
+    printf("player_w: %d, player_h: %d, height: %d, width: %d\n", cub->player_w, cub->player_h, cub->height, cub->width);
+    
+    if (cub->player_w < 0 || cub->player_w >= cub->width ||
+        cub->player_h < 0 || cub->player_h >= cub->height) {
+        fprintf(stderr, "Invalid player position (%d, %d)\n", cub->player_w, cub->player_h);
+        exit(EXIT_FAILURE);
+    }
     cub->p_x = (float) cub->player_w + 0.5f; // Set player x-position
     cub->p_y = (float) cub->player_h + 0.5f; // Set player y-position
-    view_set_angle(cub, cub->map[cub->player_w][cub->player_h]); // Set the view angle based on map character
+    //view_set_angle(cub, cub->map[cub->player_w][cub->player_h]);
+    view_set_angle(cub, cub->map[cub->player_h][cub->player_w]);
+     // Set the view angle based on map character
 }

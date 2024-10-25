@@ -75,19 +75,40 @@ int	split_by_new_line(t_cub *cub)
 	}
 	for (int i = 0; array[i] != NULL; i++)
 		printf("splited str %d: %s\n", i, array[i]);
+	// while(array[i])
+	// {
+	// 	if (check_file_data(array[i]) == 1)
+	// 	{
+	// 		free_array(array);
+	// 		return (1);
+	// 	}
+	// 	i++;
+	// }
 	init_flag_struct(cub);
+	i = 0;
 	while (array[i])
 	{
+		if (check_file_data(array[i]) == 1)
+		{
+			free_array(array);
+			return (1);
+		}
 		if (north_array(array[i], cub) == 1 || south_array(array[i], cub) == 1 || 
 			west_array(array[i], cub) == 1 || east_array(array[i], cub) == 1 || 
 			floor_array(array[i], cub) == 1 || ceiling_array(array[i], cub) == 1)
-			return (1);
+			{
+				free_array(array);
+				return (1);
+			}
 		if (find_map_start(array[i]))
 			break ;
 		i++;
 	}
 	if (check_all_flags_infile(cub) == 1)
+	{
+		free_array(array);
 		return (1);
+	}
 	copy_map(array, cub, i);
 	free_array(array);
 	return (0);
@@ -119,7 +140,8 @@ int main(int argc, char **argv)
 			return (1);
 	}
 	
-	is_map_valid(&cub);
+	if (is_map_valid(&cub) == 1)
+		return (1);
 	printf("Map:\n");
     for (int i = 0; cub.map && cub.map[i] != NULL; i++)
     {
