@@ -121,7 +121,7 @@ void line(t_cub *cub, int w, float dist)
     mlx_texture_t *texture = cub->txt[cub->txt_idx]; // Access the current texture
 
     if (dist <= 0) {
-        fprintf(stderr, "Invalid distance: %f\n", dist);
+        //fprintf(stderr, "Invalid distance: %f\n", dist);
         return; // Early exit
     }
     // Calculate the height of the line based on distance
@@ -227,7 +227,7 @@ void view_next(t_cub *cub, t_view *view)
     {
         view->v_y = cub->p_y + view->dy / view->dx * (view->v_x - cub->p_x);
         view->v_dist = sqrt(pow(cub->p_x - view->v_x, 2.0) + pow(cub->p_y - view->v_y, 2.0));
-        printf("Next vertical distance: %f\n", view->v_dist);
+       // printf("Next vertical distance: %f\n", view->v_dist);
     }
     else
         view->v_dist = INFINITY;
@@ -250,10 +250,10 @@ void view_next(t_cub *cub, t_view *view)
 float view_save_color(t_cub *cub, float dist, int color_idx, float w)
 {
     // Debugging: Log the distance, color index, and width coordinate
-    printf("Saving color: \n");
-    printf("  Distance to wall: %f\n", dist);
-    printf("  Selected texture index: %d\n", color_idx);
-    printf("  Texture horizontal position (txt_w): %f\n", w);
+    // printf("Saving color: \n");
+    // printf("  Distance to wall: %f\n", dist);
+    // printf("  Selected texture index: %d\n", color_idx);
+    // printf("  Texture horizontal position (txt_w): %f\n", w);
 
     // Set the texture index (which texture to use for this wall)
     cub->txt_idx = color_idx;
@@ -280,44 +280,44 @@ float view_save_color(t_cub *cub, float dist, int color_idx, float w)
 void load_textures(t_cub *cub)
 {
     // Load the North texture
-    printf("Loading North texture from: %s\n", cub->NO_array);
+   // printf("Loading North texture from: %s\n", cub->NO_array);
     cub->txt[0] = mlx_load_png(cub->NO_array);
     if (!cub->txt[0])
     {
         fprintf(stderr, "Failed to load the North texture from %s\n", cub->NO_array);
         exit(EXIT_FAILURE);
     }
-    printf("North texture loaded: Width = %d, Height = %d\n", cub->txt[0]->width, cub->txt[0]->height);
+    //printf("North texture loaded: Width = %d, Height = %d\n", cub->txt[0]->width, cub->txt[0]->height);
 
     // Load the South texture
-    printf("Loading South texture from: %s\n", cub->SO_array);
+    //printf("Loading South texture from: %s\n", cub->SO_array);
     cub->txt[1] = mlx_load_png(cub->SO_array);
     if (!cub->txt[1])
     {
         fprintf(stderr, "Failed to load the South texture from %s\n", cub->SO_array);
         exit(EXIT_FAILURE);
     }
-    printf("South texture loaded: Width = %d, Height = %d\n", cub->txt[1]->width, cub->txt[1]->height);
+    //printf("South texture loaded: Width = %d, Height = %d\n", cub->txt[1]->width, cub->txt[1]->height);
 
     // Load the West texture
-    printf("Loading West texture from: %s\n", cub->WE_array);
+   // printf("Loading West texture from: %s\n", cub->WE_array);
     cub->txt[2] = mlx_load_png(cub->WE_array);
     if (!cub->txt[2])
     {
         fprintf(stderr, "Failed to load the West texture from %s\n", cub->WE_array);
         exit(EXIT_FAILURE);
     }
-    printf("West texture loaded: Width = %d, Height = %d\n", cub->txt[2]->width, cub->txt[2]->height);
+   // printf("West texture loaded: Width = %d, Height = %d\n", cub->txt[2]->width, cub->txt[2]->height);
 
     // Load the East texture
-    printf("Loading East texture from: %s\n", cub->EA_array);
+    //printf("Loading East texture from: %s\n", cub->EA_array);
     cub->txt[3] = mlx_load_png(cub->EA_array);
     if (!cub->txt[3])
     {
         fprintf(stderr, "Failed to load the East texture from %s\n", cub->EA_array);
         exit(EXIT_FAILURE);
     }
-    printf("East texture loaded: Width = %d, Height = %d\n", cub->txt[3]->width, cub->txt[3]->height);
+    //printf("East texture loaded: Width = %d, Height = %d\n", cub->txt[3]->width, cub->txt[3]->height);
 }
 
 void view_set_angle(t_cub *cub, const char c)
@@ -339,7 +339,7 @@ void determine_player_position(t_cub *cub)
     fprintf(stderr, "Map is NULL or row is invalid\n");
     exit(EXIT_FAILURE);
     }
-    printf("player_w: %d, player_h: %d, height: %d, width: %d\n", cub->player_w, cub->player_h, cub->height, cub->width);
+    //printf("player_w: %d, player_h: %d, height: %d, width: %d\n", cub->player_w, cub->player_h, cub->height, cub->width);
     
     if (cub->player_w < 0 || cub->player_w >= cub->width ||
         cub->player_h < 0 || cub->player_h >= cub->height) {

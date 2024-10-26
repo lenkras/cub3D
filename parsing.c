@@ -64,7 +64,7 @@ void	copy_map(char **array, t_cub *cub, int start)
 	cub->map[cub->height] = NULL;
 }
 
-int find_map_start(char *line)
+int	find_map_start(char *line)
 {
     int i = 0;
     
@@ -72,7 +72,8 @@ int find_map_start(char *line)
         i++;
     while (line[i])
     {
-        if (line[i] != '1' && line[i] != '0' && line[i] != ' ' && line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E')
+        if (line[i] != '1' && line[i] != '0' && line[i] != ' ' && line[i] != 'N' && 
+			line[i] != 'S' && line[i] != 'W' && line[i] != 'E')
             return (0);
         i++;
     }
@@ -84,18 +85,17 @@ int	check_file_data(char *array)
 	int	i;
 
 	i = 0;
-	printf("Check FILE: %s\n", &array[i]);
 	while (array[i] == ' ' || array[i] == '\t')
 		i++;
-	while (array[i])
-	{
-		if (ft_strncmp(&array[i], "NO", 2) != 0 && ft_strncmp(&array[i], "SO", 2) != 0 && ft_strncmp(&array[i], "WE", 2) != 0 
-			&& ft_strncmp(&array[i], "EA", 2) != 0 && ft_strncmp(&array[i], "F", 1) != 0 && ft_strncmp(&array[i], "C", 1) != 0)
+	if (array[i] == '1' || array[i] == '0')
+		return (0);
+	
+	if (ft_strncmp(&array[i], "NO", 2) != 0 && ft_strncmp(&array[i], "SO", 2) != 0 && ft_strncmp(&array[i], "WE", 2) != 0 
+			&& ft_strncmp(&array[i], "EA", 2) != 0 && ft_strncmp(&array[i], "F ", 2) != 0 && ft_strncmp(&array[i], "C ", 2) != 0)
 		{
 			ft_putendl_fd("Error: Wrong data in a file.", 2);
 			return (1);
 		}
-		i++;
-	}
+		
 	return (0);
 }
