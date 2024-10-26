@@ -42,7 +42,7 @@ typedef struct  s_cub
 	int		width;
 	int		player; //how many players we have to validate map only
 	int		player_w; //position
-	int		player_h; 
+	int		player_h; //position
 	char	*file;
 	char	*NO_array;
 	char	*SO_array;
@@ -123,11 +123,11 @@ typedef struct s_view
     float h_w;       // Texture offset for horizontal intersection
 } t_view;
 
-int check_sign(float f); // float check return positiv, negativ or zero
+int		check_sign(float f); // float check return positiv, negativ or zero
 // int key(int keycode, t_cub *cub);
-void press_key(mlx_key_data_t keydata, void* param);
-void destroy_textures(t_cub *cub);
+void	press_key(mlx_key_data_t keydata, void* param);
+void	destroy_textures(t_cub *cub);
 void	game(t_cub *cub);
-void draw(t_cub *cub);
+void	draw(t_cub *cub);
 
 #endif

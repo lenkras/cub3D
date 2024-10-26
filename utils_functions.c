@@ -107,6 +107,7 @@ int check_file_permission(const char *filepath)
     }
     return (0);
 }
+
 int check_sign(float f)
 {
     if (f < 0.0f)
