@@ -12,18 +12,18 @@
 
 #include "cub.h"
 
-void	free_array(char **arr)
-{
-	int	i;
+// void	free_array(char **arr)
+// {
+// 	int	i;
 
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
+// 	i = 0;
+// 	while (arr[i])
+// 	{
+// 		free(arr[i]);
+// 		i++;
+// 	}
+// 	free(arr);
+// }
 
 int	is_all_digits(char *str)
 {
@@ -73,26 +73,6 @@ char	*ft_strcat(char *dest, const char *src)
 	return (dest);
 }
 
-void	free_all(t_cub *cub)
-{
-	if (cub->map)
-		free_array(cub->map);
-	if (cub->file)
-		free(cub->file);
-	if (cub->NO_array)
-		free(cub->NO_array);
-	if (cub->SO_array)
-		free (cub->SO_array);
-	if (cub->WE_array)
-		free(cub->WE_array);
-	if (cub->EA_array)
-		free(cub->EA_array);
-	if (cub->F_array)
-		free(cub->F_array);
-	if (cub->C_array)
-		free(cub->C_array);
-}
-
 int check_file_permission(const char *filepath)
 {
     if (access(filepath, F_OK) != 0)
@@ -126,21 +106,3 @@ int check_sign(float f)
     }
 }
 
-void destroy_textures(t_cub *cub)
-{
-    int i = 0;
-
-    while (i < 4)
-    {
-        if (cub->txt[i])
-        {
-            mlx_delete_texture(cub->txt[i]);
-            cub->txt[i] = NULL; 
-        }
-        i++;
-    }
-	if (cub->img)
-    	mlx_delete_image(cub->mlx, cub->img);
-
-    mlx_terminate(cub->mlx);
-}

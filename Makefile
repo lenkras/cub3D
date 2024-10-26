@@ -17,6 +17,8 @@ SRCS = cub.c \
 		map_validation.c \
 		game.c \
 		move.c \
+		clean.c \
+		
 		
 OBJS = $(SRCS:.c=.o)
 

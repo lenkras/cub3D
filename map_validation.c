@@ -33,71 +33,71 @@ void	replace_spaces(t_cub *cub)
 	}
 }
 
-void fill_map_spaces(t_cub *cub, char **map_copy)
-{
-    int h = 0;
-    int w;
+// void fill_map_spaces(t_cub *cub, char **map_copy)
+// {
+//     int h = 0;
+//     int w;
 
-    // Step 1: Process each row of the map
-    while (map_copy[h])
-    {
-        int line_len = ft_strlen(map_copy[h]);
+//     // Step 1: Process each row of the map
+//     while (map_copy[h])
+//     {
+//         int line_len = ft_strlen(map_copy[h]);
         
-        // Allocate new row with the map's width (cub->width)
-        char *new_row = malloc(cub->width + 1);
-        if (!new_row)
-        {
-            perror("Error: Failed to allocate memory.");
-            exit(1);
-        }
+//         // Allocate new row with the map's width (cub->width)
+//         char *new_row = malloc(cub->width + 1);
+//         if (!new_row)
+//         {
+//             perror("Error: Failed to allocate memory.");
+//             exit(1);
+//         }
 
-        // Step 2: Fill the new row, copying and replacing spaces
-        for (w = 0; w < cub->width; w++)
-        {
-            if (w < line_len)
-            {
-                if (map_copy[h][w] == ' ')
-                {
-                    // Check horizontal and vertical neighbors (if in bounds)
-					if ((w > 0 && (map_copy[h][w - 1] == '1' )) &&
-                        (w < line_len - 1 && (map_copy[h][w + 1] == '1' )) &&
-                        (h > 0 && (map_copy[h - 1][w] == '1' )) &&
-                        (map_copy[h + 1] && (map_copy[h + 1][w] == '1' || map_copy[h + 1][w] == ' ' )))
-						new_row[w] = '2';
-					else if ((w > 0 && (map_copy[h][w - 1] == '0' || map_copy[h][w - 1] == '1' || map_copy[h][w - 1] == ' ')) &&
-                        (w < line_len - 1 && (map_copy[h][w + 1] == '0' || map_copy[h][w + 1] == '1' || map_copy[h][w + 1] == ' ')) &&
-                        (h > 0 && (map_copy[h - 1][w] == '0' || map_copy[h - 1][w] == '1' || map_copy[h - 1][w] == ' ')) &&
-                        (map_copy[h + 1] && (map_copy[h + 1][w] == '0' || map_copy[h + 1][w] == '1' || map_copy[h + 1][w] == ' ')))
-                    {
-                        // Replace space with '0' if it's inside the map
-                        new_row[w] = '0';
-                    }
+//         // Step 2: Fill the new row, copying and replacing spaces
+//         for (w = 0; w < cub->width; w++)
+//         {
+//             if (w < line_len)
+//             {
+//                 if (map_copy[h][w] == ' ')
+//                 {
+//                     // Check horizontal and vertical neighbors (if in bounds)
+// 					if ((w > 0 && (map_copy[h][w - 1] == '1' )) &&
+//                         (w < line_len - 1 && (map_copy[h][w + 1] == '1' )) &&
+//                         (h > 0 && (map_copy[h - 1][w] == '1' )) &&
+//                         (map_copy[h + 1] && (map_copy[h + 1][w] == '1' || map_copy[h + 1][w] == ' ' )))
+// 						new_row[w] = '2';
+// 					else if ((w > 0 && (map_copy[h][w - 1] == '0' || map_copy[h][w - 1] == '1' || map_copy[h][w - 1] == ' ')) &&
+//                         (w < line_len - 1 && (map_copy[h][w + 1] == '0' || map_copy[h][w + 1] == '1' || map_copy[h][w + 1] == ' ')) &&
+//                         (h > 0 && (map_copy[h - 1][w] == '0' || map_copy[h - 1][w] == '1' || map_copy[h - 1][w] == ' ')) &&
+//                         (map_copy[h + 1] && (map_copy[h + 1][w] == '0' || map_copy[h + 1][w] == '1' || map_copy[h + 1][w] == ' ')))
+//                     {
+//                         // Replace space with '0' if it's inside the map
+//                         new_row[w] = '0';
+//                     }
 					
-                    else
-                    {
-                        // Otherwise, replace space with '2' for outside the map
-                        new_row[w] = '2';
-                    }
-                }
-                else
-                {
-                    new_row[w] = map_copy[h][w]; // Copy the original character
-                }
-            }
-            else
-            {
-                // If we're past the original line length, fill with '2'
-                new_row[w] = '2';
-            }
-        }
-        new_row[cub->width] = '\0';  // Null-terminate the new row
+//                     else
+//                     {
+//                         // Otherwise, replace space with '2' for outside the map
+//                         new_row[w] = '2';
+//                     }
+//                 }
+//                 else
+//                 {
+//                     new_row[w] = map_copy[h][w]; // Copy the original character
+//                 }
+//             }
+//             else
+//             {
+//                 // If we're past the original line length, fill with '2'
+//                 new_row[w] = '2';
+//             }
+//         }
+//         new_row[cub->width] = '\0';  // Null-terminate the new row
 		
-        // Replace the old row with the new row
-        free(map_copy[h]);
-        map_copy[h] = new_row;
-        h++;
-    }
-}
+//         // Replace the old row with the new row
+//         free(map_copy[h]);
+//         map_copy[h] = new_row;
+//         h++;
+//     }
+// }
 
 int	check_max_width_of_map(t_cub *cub)
 {
@@ -154,7 +154,6 @@ static int	check_map_content(t_cub *cub)
 	{
 		ft_putendl_fd("Error: No player found.", 2);
 	}
-	//replace_spaces(cub);
 	return (0);
 }
 
@@ -240,9 +239,7 @@ int	check_path(t_cub *cub)
 	check_max_width_of_map(cub);
 	map_copy = malloc(sizeof(char *) * (cub->height + 1));
 	if (!map_copy)
-	{
 		return (1);
-	}
 	while(cub->height > i)
 	{
 		map_copy[i] = malloc(sizeof(char *) * (cub->width + 1));
