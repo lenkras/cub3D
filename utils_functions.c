@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 09:02:17 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/20 21:50:46 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/26 20:29:21 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,29 @@ int check_sign(float f)
         else
             return (1);
     }
+}
+
+void destroy_textures(t_cub *cub)
+{
+    int i = 0;
+
+    while (i < 4)
+    {
+        if (cub->txt[i])
+        {
+            mlx_delete_texture(cub->txt[i]);
+            cub->txt[i] = NULL; 
+        }
+        i++;
+    }
+	if (cub->img)
+    	mlx_delete_image(cub->mlx, cub->img);
+
+    mlx_terminate(cub->mlx);
+}
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
