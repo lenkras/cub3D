@@ -1,6 +1,5 @@
 #include "cub.h"
 
-void draw(t_cub *cub);
 void load_textures(t_cub *cub);
 void determine_player_position(t_cub *cub);
 void draw_ceiling_and_floor(t_cub *cub);
@@ -9,33 +8,33 @@ void line(t_cub *cub, int w, float dist);
 float view(t_cub *cub, float v);
 void view_next(t_cub *cub, t_view *view);
 void view_start(t_cub *cub, t_view *view, float angle);
-float view_save_color(t_cub *cub, float dist, int color_idx, float w);
 
-void draw(t_cub *cub)
+static int	get_pixel(mlx_texture_t *texture, int x, int y)
 {
-    // Create a new image with MLX42
-    cub->img = mlx_new_image(cub->mlx, WINDOW_W, WINDOW_H);
-    if (!cub->img)
-    {
-        fprintf(stderr, "Failed to create an image\n");
-        return;
-    }
+	int	color;
+	int	index;
 
-    // Call functions to draw content
-    draw_ceiling_and_floor(cub);
-    view_direction(cub);
-
-    // Render the image to the window
-    mlx_image_to_window(cub->mlx, cub->img, 0, 0);
-    // Destroy the image to free memory after displaying
-//	mlx_delete_image(cub->mlx, cub->img);
+	index = y * (int)texture->height * (int)texture->bytes_per_pixel + x
+		* (int)texture->bytes_per_pixel;
+	color = get_rgba(texture->pixels[index], texture->pixels[index + 1],
+			texture->pixels[index + 2], 255);
+	return (color);
 }
+
 
 void close_window(void *param)
 {
     t_cub *cub = (t_cub *)param;
     mlx_terminate(cub->mlx);
-    exit(0);
+//    exit(0);
+}
+
+void	render(t_cub *cub)
+{
+	ft_memset(cub->img->pixels, 0, (cub->img->width * cub->img->height)
+		* sizeof(int32_t));
+    draw_ceiling_and_floor(cub);
+    view_direction(cub);
 }
 
 void    game(t_cub *cub)
@@ -48,19 +47,26 @@ void    game(t_cub *cub)
         exit(EXIT_FAILURE);
     }
 	load_textures(cub);
-    mlx_close_hook(cub->mlx, close_window, cub);
-	draw(cub);
-    // Register key press event
+//	draw(cub);
+    cub->img = mlx_new_image(cub->mlx, WINDOW_W, WINDOW_H);
+    if (!cub->img)
+    {
+        fprintf(stderr, "Failed to create an image\n");
+        return;
+    }
+
+    // Call functions to draw content
+//    draw_ceiling_and_floor(cub);
+//    view_direction(cub);
+    mlx_image_to_window(cub->mlx, cub->img, 0, 0);
+
     mlx_key_hook(cub->mlx, press_key, cub);
-
-    // Handle the window close event
-//    mlx_close_hook(cub->mlx, destroy, game);
-
-    // Start the main loop
+//    mlx_loop_hook(cub->mlx, (void *) press_key, cub);
+    mlx_loop_hook(cub->mlx, (void *)render, cub);
     mlx_loop(cub->mlx);
-
+//    mlx_close_hook(cub->mlx, close_window, cub);
     // Clean up on exit
-    mlx_terminate(cub->mlx);
+//    mlx_terminate(cub->mlx);
 }
 
 void draw_ceiling_and_floor(t_cub *cub)
@@ -113,13 +119,50 @@ void draw_ceiling_and_floor(t_cub *cub)
     }
 }
 
+// void	line(t_cub *cub, int x, float dist)
+// {
+// 	mlx_texture_t	*texture = cub->txt[cub->txt_idx]; // Текстура в формате mlx_texture_t
+// 	uint32_t		h;
+// 	float			src_f;
+// 	float			d_shift;
+// //	uint32_t		texture_width = texture->width;
+// 	uint32_t		texture_height = texture->height;
+
+// 	h = (float) WINDOW_H / dist;
+// 	src_f = 0.0f;
+// 	d_shift = (float) texture_height / h;
+
+// 	if (h > WINDOW_H)
+// 	{
+// 		src_f = 0.5f * (h - WINDOW_H) / h * texture_height;
+// 		h = WINDOW_H;
+// 	}
+
+// 	// Вычисляем начальную вертикальную позицию для центрирования
+// 	int y_start = (WINDOW_H - h) / 2;
+
+// 	// Цикл отрисовки линии
+// 	for (uint32_t y = 0; y < h; y++)
+// 	{
+// 		// Индекс текущего пикселя текстуры
+// 	//	uint32_t color = ((uint32_t *)texture->pixels)[((int)src_f) * texture_width + cub->txt_w];
+//         uint32_t color = get_pixel(texture, cub->txt_w, (int)src_f);
+
+// 		// Отрисовываем пиксель в позиции (w, y_start + y) на основном изображении cub->img
+// 		mlx_put_pixel(cub->img, x, y_start + y, color);
+
+// 		// Продвигаем src_f на следующий пиксель текстуры
+// 		src_f += d_shift;
+// 	}
+// }
+
+
 void	line(t_cub *cub, int x, float dist)
 {
-	mlx_texture_t	*texture = cub->txt[cub->txt_idx]; // Текстура в формате mlx_texture_t
+	mlx_texture_t	*texture = cub->txt[cub->txt_idx]; // Текущая текстура
 	uint32_t		h;
 	float			src_f;
 	float			d_shift;
-	uint32_t		texture_width = texture->width;
 	uint32_t		texture_height = texture->height;
 
 	h = (float) WINDOW_H / dist;
@@ -132,16 +175,19 @@ void	line(t_cub *cub, int x, float dist)
 		h = WINDOW_H;
 	}
 
+	// Определяем, какой столбец текстуры использовать
+	int texture_x = (x * texture->width) / WINDOW_W;
+
 	// Вычисляем начальную вертикальную позицию для центрирования
 	int y_start = (WINDOW_H - h) / 2;
 
 	// Цикл отрисовки линии
 	for (uint32_t y = 0; y < h; y++)
 	{
-		// Индекс текущего пикселя текстуры
-		uint32_t color = ((uint32_t *)texture->pixels)[((int)src_f) * texture_width + cub->txt_w];
+		// Получаем цвет пикселя текстуры, используя фиксированное значение texture_x и изменяющееся src_f
+		uint32_t color = get_pixel(texture, texture_x, (int)src_f);
 
-		// Отрисовываем пиксель в позиции (w, y_start + y) на основном изображении cub->img
+		// Отрисовываем пиксель в позиции (x, y_start + y) на основном изображении cub->img
 		mlx_put_pixel(cub->img, x, y_start + y, color);
 
 		// Продвигаем src_f на следующий пиксель текстуры
@@ -323,7 +369,7 @@ void view_set_angle(t_cub *cub, const char c)
         cub->gaze = 1.0f * M_PI; // Set view angle to West
     else if (c == 'S')
         cub->gaze = -0.5f * M_PI; // Set view angle to South
-    printf("/nSet view angle to %c = %f", c, cub->gaze);
+    printf("\nSet view angle to %c = %f\n", c, cub->gaze);
 }
 
 
