@@ -1,11 +1,13 @@
+F 220,100,0
+C 225,30,0
+
 
 NO pattern/north_wall.png
 SO pattern/south_wall.png
 WE pattern/west_wall.png
 EA pattern/east_wall.png
 
-F 220,100,0
-		C 225,30,0
+        welcome
 
 1111111111111111111
 10W1001001001000001

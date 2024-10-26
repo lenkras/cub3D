@@ -158,55 +158,57 @@ static int	check_map_content(t_cub *cub)
 	return (0);
 }
 
-void flood_fill(char **map, int x, int y, int height, int width)
+
+void flood_fill(char **map, int x, int y, int height, int width, int *valid)
 {
-	if (x < 0 || x >= width || y < 0 || y >= height || map[y][x] == '1' || map[y][x] == 'F')
+	if (x < 0 || x >= width || y < 0 || y >= height)
+	{
+		*valid = 0;
 		return ;
-	if (map[y][x] == '2')
-    {
-        printf("Error: Invalid wall detected at (%d, %d)\n", x, y);
-        exit(1);  // Exit or handle error accordingly
-    }
+	}
+	if ( map[y][x] == '1' || map[y][x] == 'F')
+		return ;
 	map[y][x] = 'F';
-	flood_fill(map, x + 1, y, height, width);
-	flood_fill(map, x - 1, y, height, width);
-	flood_fill(map, x, y + 1, height, width);
-	flood_fill(map, x, y - 1, height, width);
+	flood_fill(map, x + 1, y, height, width, valid);
+	flood_fill(map, x - 1, y, height, width, valid);
+	flood_fill(map, x, y + 1, height, width, valid);
+	flood_fill(map, x, y - 1, height, width, valid);
 }
 
-int	check_walls(t_cub *cub, char **map_copy)
-{
-	int	i;
+// int	check_walls(t_cub *cub, char **map_copy)
+// {
+// 	int	i;
 	
-	i = 0;
-	while (i < cub->height)
-	{
-		if ((map_copy[i][0] != '1' && map_copy[i][0] != '2') || 
-			( map_copy[i][cub->width - 1] != '1' && map_copy[i][cub->width - 1] != '2'))
-		{
-			ft_putendl_fd("Check the walls of the map.", 2);
-			return (1);
-		}	
-		i++;
-	}
-	i = 0;
-	while (i < cub->width)
-	{
-		if ((map_copy[0][i] != '1' && map_copy[0][i] != '2') || 
-			(map_copy[cub->height - 1][i] != '1' && map_copy[cub->height - 1][i] != '2'))
-		{
-			ft_putendl_fd("Check the walls of the map.", 2);
-			return (1);
-		}	
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < cub->height)
+// 	{
+// 		if ((map_copy[i][0] != '1' && map_copy[i][0] != '2') || 
+// 			( map_copy[i][cub->width - 1] != '1' && map_copy[i][cub->width - 1] != '2'))
+// 		{
+// 			ft_putendl_fd("Check the walls of the map.", 2);
+// 			return (1);
+// 		}	
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < cub->width)
+// 	{
+// 		if ((map_copy[0][i] != '1' && map_copy[0][i] != '2') || 
+// 			(map_copy[cub->height - 1][i] != '1' && map_copy[cub->height - 1][i] != '2'))
+// 		{
+// 			ft_putendl_fd("Check the walls of the map.", 2);
+// 			return (1);
+// 		}	
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
-void	check_with_floodfill(t_cub *cub, char **map_copy)
+int	check_with_floodfill(t_cub *cub, char **map_copy)
 {
 	int	h;
 	int	w;
+	int valid = 1;
 
 	h = 0;
 	while (map_copy[h])
@@ -215,14 +217,20 @@ void	check_with_floodfill(t_cub *cub, char **map_copy)
 		while (map_copy[h][w])
 		{
 			while (map_copy[h][w] == '0')
-				flood_fill(map_copy, w, h, cub->height, cub->width);
+				flood_fill(map_copy, w, h, cub->height, cub->width, &valid);
 			w++;
 		}
 		h++;
 	}
+	if (!valid)
+	{
+		ft_putendl_fd("Error: Map is invalid, check the walls.\n", 2);
+		return (1);
+	}
+	return (0);
 }
 
-int	check_path(t_cub *cub, int w, int h)
+int	check_path(t_cub *cub)
 {
 	char	**map_copy;
 	int		i;
@@ -260,16 +268,17 @@ int	check_path(t_cub *cub, int w, int h)
     for (i = 0; map_copy[i] != NULL; i++) {
         printf("%s\n", map_copy[i]);
     }
-	fill_map_spaces(cub, map_copy);
+	// fill_map_spaces(cub, map_copy);
 	
-	printf("Map copy after filling in with 2.\n");
-    for (i = 0; map_copy[i] != NULL; i++) {
-        printf("%s\n", map_copy[i]);
-    }
-	if (check_walls(cub, map_copy) == 1)
+	// printf("Map copy after filling in with 2.\n");
+    // for (i = 0; map_copy[i] != NULL; i++) {
+    //     printf("%s\n", map_copy[i]);
+    // }
+	// if (check_walls(cub, map_copy) == 1)
+	// 	return (1);
+	//flood_fill(map_copy, w, h, cub->height, cub->width);
+	if (check_with_floodfill(cub, map_copy) == 1)
 		return (1);
-	flood_fill(map_copy, w, h, cub->height, cub->width);
-	check_with_floodfill(cub, map_copy);
 	printf("Map copy after flood_fill.\n");
     for (i = 0; map_copy[i] != NULL; i++) {
         printf("%s\n", map_copy[i]);
@@ -306,9 +315,9 @@ int validate_player_path(t_cub *cub)
         }
 		h++;
     }
-    if (check_path(cub, cub->player_w, cub->player_h))
+    if (check_path(cub) == 1)
     {
-        ft_putendl_fd("Error: Invalid map or path.", 2);
+        //ft_putendl_fd("Error: Invalid map or path.", 2);
         return (1);
     }
     return (0);
