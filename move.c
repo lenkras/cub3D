@@ -1,86 +1,6 @@
 #include "cub.h"
 
-// int key(int keycode, t_cub *cub);
-
-// void update_gaze(t_cub *cub, float angle_change)
-// {
-//     cub->gaze += angle_change;
-
-//     // Normalize the gaze angle to be between 0 and 2*PI
-//     if (cub->gaze < 0)
-//         cub->gaze += 2 * M_PI;
-//     else if (cub->gaze >= 2 * M_PI)
-//         cub->gaze -= 2 * M_PI;
-// }
-
-void update_gaze(t_cub *cub, float angle_change);
-
-// void press_key(mlx_key_data_t keydata, void* param) {
-//     t_cub *cub = (t_cub *)param;
-
-//     if (cub == NULL) {
-//         fprintf(stderr, "Invalid cub pointer\n");
-//         return;
-//     }
-
-//     if (keydata.action == MLX_PRESS) {
-//         // Move up (W key)
-//         if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP) {
-//             if (cub->map[(int)(cub->p_y + sin(cub->gaze) * MOVE_SPEED)][(int)(cub->p_x + cos(cub->gaze) * MOVE_SPEED)] != '1') {
-//                 cub->p_x += cos(cub->gaze) * MOVE_SPEED; // Move in the gaze direction
-//                 cub->p_y += sin(cub->gaze) * MOVE_SPEED; // Move in the gaze direction
-//             }
-//         }
-//         // Move down (S key)
-//         else if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN) {
-//             if (cub->map[(int)(cub->p_y - sin(cub->gaze) * MOVE_SPEED)][(int)(cub->p_x - cos(cub->gaze) * MOVE_SPEED)] != '1') {
-//                 cub->p_x -= cos(cub->gaze) * MOVE_SPEED; // Move backward
-//                 cub->p_y -= sin(cub->gaze) * MOVE_SPEED; // Move backward
-//             }
-//         }
-//         // Move left (A key)
-//         else if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT) {
-//             if (cub->map[(int)(cub->p_y + sin(cub->gaze + M_PI / 2) * MOVE_SPEED)][(int)(cub->p_x + cos(cub->gaze + M_PI / 2) * MOVE_SPEED)] != '1') {
-//                 cub->p_x -= cos(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe left
-//                 cub->p_y -= sin(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe left
-//             }
-//         }
-//         // Move right (D key)
-//         else if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT) {
-//             if (cub->map[(int)(cub->p_y + sin(cub->gaze - M_PI / 2) * MOVE_SPEED)][(int)(cub->p_x + cos(cub->gaze - M_PI / 2) * MOVE_SPEED)] != '1') {
-//                 cub->p_x += cos(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe right
-//                 cub->p_y += sin(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe right
-//             }
-//         }
-//         // Turn left (Q key)
-//         else if (keydata.key == MLX_KEY_Q) {
-//             update_gaze(cub, -AS); // Rotate left
-//         }
-//         // Turn right (E key)
-//         else if (keydata.key == MLX_KEY_E) {
-//             update_gaze(cub, AS); // Rotate right
-//         }
-//         // Close the window (ESC key)
-//         else if (keydata.key == MLX_KEY_ESCAPE) {
-//             mlx_close_window(cub->mlx);
-//         }
-
-//         draw(cub); // Redraw the screen after movement or rotation
-//     }
-// }
-
-// void update_gaze(t_cub *cub, float angle_change) {
-//     // Update the player's gaze angle by adding the change
-//     cub->gaze += angle_change;
-
-//     // Normalize the gaze angle to be between 0 and 2 * M_PI
-//     if (cub->gaze < 0)
-//         cub->gaze += 2 * M_PI;
-//     else if (cub->gaze >= 2 * M_PI)
-//         cub->gaze -= 2 * M_PI;
-// }
-
-
+void	move(t_cub *cub, int direction);
 
 void press_key(mlx_key_data_t keydata, void* param) {
     t_cub *cub = (t_cub *)param;
@@ -92,73 +12,61 @@ void press_key(mlx_key_data_t keydata, void* param) {
 
     if (keydata.action == MLX_PRESS) {
         // Move up (W key)
-        if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP) {
-            cub->p_x += cos(cub->gaze) * MOVE_SPEED; // Move in the gaze direction
-            cub->p_y += sin(cub->gaze) * MOVE_SPEED; // Move in the gaze direction
+        if (keydata.key == MLX_KEY_W) 
+        {
+            move(cub, 0);
         }
         // Move down (S key)
-        else if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN) {
-            cub->p_x -= cos(cub->gaze) * MOVE_SPEED; // Move backward
-            cub->p_y -= sin(cub->gaze) * MOVE_SPEED; // Move backward
+        else if (keydata.key == MLX_KEY_S)
+        {
+            move(cub, 2);
         }
-        // Move left (A key)
-        else if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT) {
-            cub->p_x -= cos(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe left
-            cub->p_y -= sin(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe left
+        // Rotate left (A key)
+        else if (keydata.key == MLX_KEY_LEFT) {
+            cub->gaze -= AS * M_PI;
+        }       
+        else if (keydata.key == MLX_KEY_RIGHT) {
+            cub->gaze += AS * M_PI;
         }
-        // Move right (D key)
-        else if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT) {
-            cub->p_x += cos(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe right
-            cub->p_y += sin(cub->gaze + M_PI / 2) * MOVE_SPEED; // Strafe right
+        // Strafe left
+        else if (keydata.key == MLX_KEY_A ) {
+            move(cub, 3);
         }
-        // // Turn left (Q key)
-        // else if (keydata.key == MLX_KEY_Q) {
-        //     update_gaze(cub, -AS); // Rotate left
-        // }
-        // // Turn right (E key)
-        // else if (keydata.key == MLX_KEY_E) {
-        //     update_gaze(cub, AS); // Rotate right
-        // }
+        // Strafe right
+        else if (keydata.key == MLX_KEY_D) {
+            move(cub, 1);
+        }
         // Close the window (ESC key)
         else if (keydata.key == MLX_KEY_ESCAPE) {
             mlx_close_window(cub->mlx);
         }
-
-        draw(cub); // Redraw the screen after movement
+        else
+            return ;
+        draw(cub); // Redraw the screen after movement or rotation
     }
 }
 
-// void press_key(mlx_key_data_t keydata, void* param) {
-//     t_cub *cub = (t_cub *)param;
 
-//     if (cub == NULL) {
-//         fprintf(stderr, "Invalid cub pointer\n");
-//         return;
-//     }
-//     if (keydata.action == MLX_PRESS) {
-//         // Move up (W key)
-//         if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP) {
-//             cub->p_y -= MOVE_SPEED;
-//         }
-//         // Move down (S key)
-//         else if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN) {
-//             cub->p_y += MOVE_SPEED;
-//         }
-//         // Move left (A key)
-//         else if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT) {
-//             cub->p_x -= MOVE_SPEED;
-//         }
-//         // Move right (D key)
-//         else if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT) {
-//             cub->p_x += MOVE_SPEED; 
-//         }
-//         // Close the window (ESC key)
-//         else if (keydata.key == MLX_KEY_ESCAPE) {
-//             mlx_close_window(cub->mlx);
-//         }
+void	move(t_cub *cub, int direction)
+{
+	float	dist;
+	float	dx;
+	float	dy;
+	float	angle;
 
-//         draw(cub);
-//     }
-// }
-
-
+	angle = cub->gaze + direction * M_PI / 2;
+	dx = LS * cos(angle);
+	dy = LS * sin(angle);
+	dist = view(cub, check_sign(dy) * M_PI / 2);
+	if (dist * dist < dy * dy)
+		dy = 0.0f;
+	dist = view(cub, (1 - (check_sign(dx) + 1) / 2) * M_PI);
+	if (dist * dist < dx * dx)
+		dx = 0.0f;
+	dist = view(cub, angle);
+	if (dist * dist < dy * dy + dx * dx)
+		if (check_sign(dy) * check_sign(dx) != 0)
+			dy = 0.0f;
+	cub->p_x += dx;
+	cub->p_y -= dy;
+}
