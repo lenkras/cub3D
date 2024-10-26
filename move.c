@@ -42,7 +42,7 @@ void press_key(mlx_key_data_t keydata, void* param) {
         }
         else
             return ;
-        draw(cub); // Redraw the screen after movement or rotation
+//        draw(cub); // Redraw the screen after movement or rotation
     }
 }
 
