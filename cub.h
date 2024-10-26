@@ -40,9 +40,9 @@ typedef struct  s_cub
 	char	**map;
 	int		height;
 	int		width;
-	int		player;
-	int		player_w;
-	int		player_h;
+	int		player; //how many players we have to validate map only
+	int		player_w; //position
+	int		player_h; 
 	char	*file;
 	char	*NO_array;
 	char	*SO_array;
@@ -76,6 +76,7 @@ char	*ft_strcat(char *dest, const char *src);
 char	*ft_strcpy(char *dest, const char *src);
 int		has_space(char c);
 int		check_file_permission(const char *filepath);
+int		check_file_data(char *array);
 
 char	*open_file(char *argv);
 void	init_main_struct(t_cub *cub);

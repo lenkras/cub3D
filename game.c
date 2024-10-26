@@ -273,44 +273,44 @@ void load_textures(t_cub *cub)
         exit(1);
     }
     // Load the North texture
-    printf("Loading North texture from: %s\n", cub->NO_array);
+   // printf("Loading North texture from: %s\n", cub->NO_array);
     cub->txt[0] = mlx_load_png(cub->NO_array);
     if (!cub->txt[0])
     {
         fprintf(stderr, "Failed to load the North texture from %s\n", cub->NO_array);
         exit(EXIT_FAILURE);
     }
-    printf("North texture loaded: Width = %d, Height = %d\n", cub->txt[0]->width, cub->txt[0]->height);
+    //printf("North texture loaded: Width = %d, Height = %d\n", cub->txt[0]->width, cub->txt[0]->height);
 
     // Load the South texture
-    printf("Loading South texture from: %s\n", cub->SO_array);
+    //printf("Loading South texture from: %s\n", cub->SO_array);
     cub->txt[1] = mlx_load_png(cub->SO_array);
     if (!cub->txt[1])
     {
         fprintf(stderr, "Failed to load the South texture from %s\n", cub->SO_array);
         exit(EXIT_FAILURE);
     }
-    printf("South texture loaded: Width = %d, Height = %d\n", cub->txt[1]->width, cub->txt[1]->height);
+    //printf("South texture loaded: Width = %d, Height = %d\n", cub->txt[1]->width, cub->txt[1]->height);
 
     // Load the West texture
-    printf("Loading West texture from: %s\n", cub->WE_array);
+   // printf("Loading West texture from: %s\n", cub->WE_array);
     cub->txt[2] = mlx_load_png(cub->WE_array);
     if (!cub->txt[2])
     {
         fprintf(stderr, "Failed to load the West texture from %s\n", cub->WE_array);
         exit(EXIT_FAILURE);
     }
-    printf("West texture loaded: Width = %d, Height = %d\n", cub->txt[2]->width, cub->txt[2]->height);
+   // printf("West texture loaded: Width = %d, Height = %d\n", cub->txt[2]->width, cub->txt[2]->height);
 
     // Load the East texture
-    printf("Loading East texture from: %s\n", cub->EA_array);
+    //printf("Loading East texture from: %s\n", cub->EA_array);
     cub->txt[3] = mlx_load_png(cub->EA_array);
     if (!cub->txt[3])
     {
         fprintf(stderr, "Failed to load the East texture from %s\n", cub->EA_array);
         exit(EXIT_FAILURE);
     }
-    printf("East texture loaded: Width = %d, Height = %d\n", cub->txt[3]->width, cub->txt[3]->height);
+    //printf("East texture loaded: Width = %d, Height = %d\n", cub->txt[3]->width, cub->txt[3]->height);
 }
 
 void view_set_angle(t_cub *cub, const char c)

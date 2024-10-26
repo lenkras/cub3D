@@ -169,7 +169,7 @@ int	west_array(char *line, t_cub *cub)
 		free(cut_str);
 		return (0);
 	}
-	if (ft_strncmp(&line[i], "WE", 2) == 0 && cub->flags.WE_flag == 0)
+	if (ft_strncmp(&line[i], "WE", 2) == 0 && cub->flags.WE_flag == 1)
 	{
 		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);

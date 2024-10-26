@@ -1,0 +1,7 @@
+NO pattern/north_wall.png
+SO pattern/south_wall.png
+WE pattern/west_wall.png
+EA pattern/east_wall.png
+
+F 220,100,0, 40
+C 225,30,0
