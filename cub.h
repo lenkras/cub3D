@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:12:49 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/20 22:10:24 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:38:29 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct  s_cub
 	//Denis addedw
 	mlx_t	*mlx; //mlx pointer
 	mlx_image_t	*img; //image pointer
-	mlx_texture_t *txt[4]; // textures
+	mlx_texture_t **txt; // textures
 	int txt_idx; //index of the current texture
 	int txt_w; //width offset in the texture
 	float	p_x; //player's position
@@ -128,5 +128,6 @@ void press_key(mlx_key_data_t keydata, void* param);
 void destroy_textures(t_cub *cub);
 void	game(t_cub *cub);
 void draw(t_cub *cub);
+float	view(t_cub *cub, float v);
 
 #endif
