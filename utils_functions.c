@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 09:02:17 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/20 21:50:46 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/26 20:29:21 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,3 +144,9 @@ void destroy_textures(t_cub *cub)
 
     mlx_terminate(cub->mlx);
 }
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
