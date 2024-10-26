@@ -29,6 +29,7 @@ void	init_main_struct(t_cub *cub)
 	cub->gaze = M_PI / 2;
 	cub->txt_idx = 0;
 	cub->txt_w = 0;
+	cub->txt = NULL;
 
 }
 
