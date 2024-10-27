@@ -29,6 +29,8 @@ static int	create_file(t_cub *cub, char *filename)
 	cub->file = open_file(filename);
 	if (!cub->file || cub->file[0] == '\0')
 	{
+		if (cub->file)
+			free(cub->file);
 		ft_putendl_fd("Error: Failed to open or read file.", 2);
 		return (1);
 	}
