@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 19:04:51 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 19:04:51 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 19:04:51 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 21:11:40 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	press_key(mlx_key_data_t keydata, void *param)
 	cub = (t_cub *)param;
 	if (cub == NULL)
 	{
-		fprintf(stderr, "Invalid cub pointer\n");
+		ft_putendl_fd("Invalid cub pointer\n", 2);
 		return ;
 	}
 	if (keydata.action == MLX_PRESS)
