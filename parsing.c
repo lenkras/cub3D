@@ -24,18 +24,18 @@ static int	parse_array(char **array, t_cub *cub)
 			free_array(array);
 			return (-1);
 		}
-		if (north_array(array[i], cub) == 1 || south_array(array[i], cub) == 1 || 
-			west_array(array[i], cub) == 1 || east_array(array[i], cub) == 1 || 
-			floor_array(array[i], cub) == 1 || ceiling_array(array[i], cub) == 1)
-			{
-				free_array(array);
-				return (-1);
-			}
+		if (north_array(array[i], cub) || south_array(array[i], cub) || \
+			west_array(array[i], cub) || east_array(array[i], cub) || \
+			floor_array(array[i], cub) || ceiling_array(array[i], cub))
+		{
+			free_array(array);
+			return (-1);
+		}
 		if (find_map_start(array[i]))
 			break ;
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
 int	split_by_new_line(t_cub *cub)
@@ -91,12 +91,12 @@ static void	make_copy_of_array(t_cub *cub, char **array, int i)
 void	copy_map(char **array, t_cub *cub, int start)
 {
 	int	i;
-	
+
 	i = start;
 	cub->height = 0;
 	if (!array[i])
 		return ;
-	while(array[i])
+	while (array[i])
 	{
 		cub->height++;
 		i++;
