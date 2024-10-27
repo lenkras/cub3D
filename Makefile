@@ -18,7 +18,11 @@ SRCS = cub.c \
 		game.c \
 		move.c \
 		clean.c \
-		
+		utils_for_parsing.c \
+		utils_for_game.c \
+		parse_north_texture.c \
+		parse_south_texture.c \
+
 		
 OBJS = $(SRCS:.c=.o)
 

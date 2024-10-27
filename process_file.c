@@ -12,17 +12,68 @@
 
 #include "cub.h"
 
+static void	handle_error(char *msg, int fd, char *data)
+{
+	perror(msg);
+	free(data);
+	if (fd != -1)
+		close(fd);
+}
+
+static int	check_size_limit(int bytes_total, int fd, char *data)
+{
+	if (bytes_total > MAX_FILE_SIZE)
+	{
+		handle_error("Error: File exceeds the maximum allowed size of 1024 bytes.\n", fd, data);
+		return (1);
+	}
+	return(0);
+}
+
+static char	*allocate_memory_for_temp(char *temp, int bytes_total, int fd, char *data)
+{
+	temp = malloc(bytes_total + 1);
+		if (!temp)
+		{
+			handle_error("Error: Failed to allocate mamory.\n", fd, data);
+			return (NULL);
+		}
+	return (temp);
+}
+
+static char	*read_file(char *data, int fd)
+{
+	char	buf[1024];
+	int		bytes_total;
+	int		bytes_read;
+	char	*temp;
+
+	bytes_total = 0;
+	while ((bytes_read = read(fd, buf, sizeof(buf) - 1)) > 0)
+	{
+		buf[bytes_read] = '\0';
+		bytes_total += bytes_read;
+		if (check_size_limit(bytes_total, fd, data))
+			return NULL;
+		temp = allocate_memory_for_temp(temp, bytes_total, fd, data);
+		ft_strcpy(temp, data);
+		ft_strcat(temp, buf);
+		free(data);
+		data = temp;
+	}
+	if (bytes_read == -1)
+	{
+		handle_error("Error: Failed to read a file.\n", fd, data);
+		return (NULL);
+	}
+	return(data);
+}
+
 char *open_file(char *argv)
 {
 	int		fd;
-	char	buf[1024];
-	int		bytes_read;
 	char	*data = NULL;
-	int		bytes_total = 0;
-	char	*temp;
 
-	if (check_file_permission(argv) == 1)
-		return (NULL);
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 	{
@@ -37,38 +88,7 @@ char *open_file(char *argv)
 		return (NULL);
 	}
 	data[0] = '\0';
-	while ((bytes_read = read(fd, buf, sizeof(buf) - 1)) > 0)
-	{
-		buf[bytes_read] = '\0';
-		bytes_total += bytes_read;
-		if (bytes_total > MAX_FILE_SIZE)
-        {
-            ft_putendl_fd("Error: File exceeds the maximum allowed size of 1024 bytes.\n", 2);
-            free(data);
-            close(fd);
-            return (NULL);
-        }
-		temp = malloc(bytes_total + 1);
-		if (!temp)
-		{
-			perror("Error: Failed to allocate mamory.");
-			free(data);
-			close(fd);
-			return (NULL);
-		}
-		ft_strcpy(temp, data);
-		ft_strcat(temp, buf);
-		free(data);
-		data = temp;
-	}
-	if (bytes_read == -1)
-	{
-		perror("Error: Failed to read a file.");
-		free(data);
-		close(fd);
-;		return (NULL);
-	}
+	data = read_file(data, fd);
 	close(fd);
 	return (data);
 }
-

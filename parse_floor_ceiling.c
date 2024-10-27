@@ -42,12 +42,6 @@ int	split_toRGB_floor(char *array, t_cub *cub)
 		}
 		i++;
 	}
-	// if (i != 3)
-	// {
-	// 	ft_putendl_fd("Error: Invalid number of values.\n", 2);
-	// 	free_array(rgb_arr);
-	// 	return (1);
-	// }
 	cub->F_R = rgb_val[0];
 	cub->F_G = rgb_val[1];
 	cub->F_B = rgb_val[2];
@@ -86,12 +80,6 @@ int	split_toRGB_ceiling(char *array, t_cub *cub)
 		}
 		i++;
 	}
-	// if (i != 3)
-	// {
-	// 	ft_putendl_fd("Error: Invalid number of values.\n", 2);
-	// 	free_array(rgb_arr);
-	// 	return (1);
-	// }
 	cub->C_R = rgb_val[0];
 	cub->C_G = rgb_val[1];
 	cub->C_B = rgb_val[2];

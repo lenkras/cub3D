@@ -30,7 +30,8 @@ void	init_main_struct(t_cub *cub)
 	cub->txt_idx = 0;
 	cub->txt_w = 0;
 	cub->txt = NULL;
-
+	cub->img = NULL;
+	cub->mlx = NULL;
 }
 
 void	init_flag_struct(t_cub *cub)

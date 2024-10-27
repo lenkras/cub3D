@@ -12,40 +12,64 @@
 
 #include "cub.h"
 
-int	check_all_flags_infile(t_cub *cub)
-{
-	if (cub->flags.C_flag == 1 && cub->flags.EA_flag == 1 && cub->flags.F_flag == 1 && 
-		cub->flags.NO_flag == 1 && cub->flags.SO_flag == 1 && cub->flags.WE_flag == 1)
-		return (0);
-	else 
-	{
-		ft_putendl_fd("Error: One or more file options are missing.", 2);
-		return (1);
-	}
-}
-
-void	copy_map(char **array, t_cub *cub, int start)
+static int	parse_array(char **array, t_cub *cub)
 {
 	int	i;
-	int j;
 
-	i = start;
-	j = 0;
-	cub->height = 0;
-	if (!array[i])
-		return ;
-	while(array[i])
+	i = 0;
+	while (array[i])
 	{
-		cub->height++;
+		if (check_file_data(array[i]) == 1)
+		{
+			free_array(array);
+			return (-1);
+		}
+		if (north_array(array[i], cub) == 1 || south_array(array[i], cub) == 1 || 
+			west_array(array[i], cub) == 1 || east_array(array[i], cub) == 1 || 
+			floor_array(array[i], cub) == 1 || ceiling_array(array[i], cub) == 1)
+			{
+				free_array(array);
+				return (-1);
+			}
+		if (find_map_start(array[i]))
+			break ;
 		i++;
 	}
-	cub->map = malloc(sizeof(char *) * (cub->height + 1));
-	if (!cub->map)
+	return(i);
+}
+
+int	split_by_new_line(t_cub *cub)
+{
+	char	**array;
+	int		i;
+
+	if (check_consecutive_newlines_in_map(cub->file) == 1)
+		return (1);
+	array = ft_split(cub->file, '\n');
+	if (!array)
 	{
-		ft_putendl_fd("Error: Failed to allocate mamory.", 2);
-		return ;
+		ft_putendl_fd("Error: Failed to split by new line.", 2);
+		return (1);
 	}
-	i = start;
+	init_flag_struct(cub);
+	i = parse_array(array, cub);
+	if (i == -1)
+		return (1);
+	if (check_all_flags_infile(cub) == 1)
+	{
+		free_array(array);
+		return (1);
+	}
+	copy_map(array, cub, i);
+	free_array(array);
+	return (0);
+}
+
+static void	make_copy_of_array(t_cub *cub, char **array, int i)
+{
+	int	j;
+
+	j = 0;
 	while (j < cub->height)
 	{
 		cub->map[j] = ft_strdup(array[i]);
@@ -64,38 +88,25 @@ void	copy_map(char **array, t_cub *cub, int start)
 	cub->map[cub->height] = NULL;
 }
 
-int	find_map_start(char *line)
-{
-    int i = 0;
-    
-    while (line[i] == ' ' || line[i] == '\t')
-        i++;
-    while (line[i])
-    {
-        if (line[i] != '1' && line[i] != '0' && line[i] != ' ' && line[i] != 'N' && 
-			line[i] != 'S' && line[i] != 'W' && line[i] != 'E')
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
-int	check_file_data(char *array)
+void	copy_map(char **array, t_cub *cub, int start)
 {
 	int	i;
-
-	i = 0;
-	while (array[i] == ' ' || array[i] == '\t')
-		i++;
-	if (array[i] == '1' || array[i] == '0')
-		return (0);
 	
-	if (ft_strncmp(&array[i], "NO", 2) != 0 && ft_strncmp(&array[i], "SO", 2) != 0 && ft_strncmp(&array[i], "WE", 2) != 0 
-			&& ft_strncmp(&array[i], "EA", 2) != 0 && ft_strncmp(&array[i], "F ", 2) != 0 && ft_strncmp(&array[i], "C ", 2) != 0)
-		{
-			ft_putendl_fd("Error: Wrong data in a file.", 2);
-			return (1);
-		}
-		
-	return (0);
+	i = start;
+	cub->height = 0;
+	if (!array[i])
+		return ;
+	while(array[i])
+	{
+		cub->height++;
+		i++;
+	}
+	cub->map = malloc(sizeof(char *) * (cub->height + 1));
+	if (!cub->map)
+	{
+		ft_putendl_fd("Error: Failed to allocate mamory.", 2);
+		return ;
+	}
+	i = start;
+	make_copy_of_array(cub, array, i);
 }

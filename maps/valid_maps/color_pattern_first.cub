@@ -4,8 +4,8 @@ SO pattern/south_wall.png
 WE pattern/west_wall.png
 EA pattern/east_wall.png
 
-F 220,100,0
-		C 225,30,0
+F 138,103,90
+		C 181,114,87
 
 1111111111111111111
 10W1001001001000001

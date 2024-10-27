@@ -55,11 +55,15 @@ void	destroy_textures(t_cub *cub)
 		{
 			mlx_delete_texture(cub->txt[i]);
 			cub->txt[i] = NULL; 
-        }
-        i++;
+		}
+		i++;
     }
+	free(cub->txt);
+	cub->txt = NULL;
 	if (cub->img)
-    	mlx_delete_image(cub->mlx, cub->img);
-
-    mlx_terminate(cub->mlx);
+	{
+		mlx_delete_image(cub->mlx, cub->img);
+		cub->img = NULL;
+	}
+	mlx_terminate(cub->mlx);
 }
