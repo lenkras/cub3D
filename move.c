@@ -2,31 +2,32 @@
 
 void	move(t_cub *cub, int direction);
 
-void press_key(mlx_key_data_t keydata, void* param) 
+void	press_key(mlx_key_data_t keydata, void *param)
 {
-	t_cub *cub = (t_cub *)param;
+	t_cub	*cub;
 
-	if (cub == NULL) {
+	cub = (t_cub *)param;
+	if (cub == NULL)
+	{
 		fprintf(stderr, "Invalid cub pointer\n");
-		return;
+		return ;
 	}
-	if (keydata.action == MLX_PRESS) {
-		if (keydata.key == MLX_KEY_W) 
+	if (keydata.action == MLX_PRESS)
+	{
+		if (keydata.key == MLX_KEY_W)
 			move(cub, 0);
 		else if (keydata.key == MLX_KEY_S)
 			move(cub, 2);
 		else if (keydata.key == MLX_KEY_LEFT)
-			cub->gaze -= AS * M_PI;       
+			cub->gaze -= AS * M_PI;
 		else if (keydata.key == MLX_KEY_RIGHT)
 			cub->gaze += AS * M_PI;
-		else if (keydata.key == MLX_KEY_A )
+		else if (keydata.key == MLX_KEY_A)
 			move(cub, 3);
 		else if (keydata.key == MLX_KEY_D)
 			move(cub, 1);
 		else if (keydata.key == MLX_KEY_ESCAPE)
 			mlx_close_window(cub->mlx);
-		else
-			return ;
 	}
 }
 
@@ -48,8 +49,10 @@ void	move(t_cub *cub, int direction)
 		dx = 0.0f;
 	dist = view(cub, angle);
 	if (dist * dist < dy * dy + dx * dx)
+	{
 		if (check_sign(dy) * check_sign(dx) != 0)
 			dy = 0.0f;
+	}
 	cub->p_x += dx;
 	cub->p_y -= dy;
 }

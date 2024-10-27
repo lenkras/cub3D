@@ -1,6 +1,5 @@
 #include "cub.h"
 
-
 void	render(t_cub *cub)
 {
 	ft_memset(cub->img->pixels, 0, (cub->img->width * cub->img->height)
@@ -9,14 +8,14 @@ void	render(t_cub *cub)
 	view_direction(cub);
 }
 
-void    game(t_cub *cub)
+void	game(t_cub *cub)
 {
 	determine_player_position(cub);
 	cub->mlx = mlx_init(WINDOW_W, WINDOW_H, TITLE, false);
 	if (!cub->mlx)
 	{
 		perror(mlx_strerror(mlx_errno));
-		return;
+		return ;
 	}
 	if (load_textures(cub))
 		return ;
@@ -25,7 +24,7 @@ void    game(t_cub *cub)
 	{
 		mlx_close_window(cub->mlx);
 		perror(mlx_strerror(mlx_errno));
-		return;
+		return ;
 	}
 	if (mlx_image_to_window(cub->mlx, cub->img, 0, 0) == -1)
 	{
@@ -38,7 +37,7 @@ void    game(t_cub *cub)
 	mlx_loop(cub->mlx);
 }
 
-void view_set_angle(t_cub *cub, const char c)
+void	view_set_angle(t_cub *cub, const char c)
 {
 	if (c == 'E')
 		cub->gaze = 0.0f * M_PI;
@@ -50,11 +49,9 @@ void view_set_angle(t_cub *cub, const char c)
 		cub->gaze = -0.5f * M_PI;
 }
 
-
-void determine_player_position(t_cub *cub)
+void	determine_player_position(t_cub *cub)
 {
 	cub->p_x = (float)cub->player_w + 0.5f;
 	cub->p_y = (float)cub->player_h + 0.5f;
 	view_set_angle(cub, cub->map[cub->player_h][cub->player_w]);
 }
-
