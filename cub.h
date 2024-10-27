@@ -64,6 +64,7 @@ typedef struct  s_cub
 	int				C_R;
 	int				C_G;
 	int				C_B;
+	int				valid;
 	t_flag			flags;
 	mlx_t			*mlx; //mlx pointer
 	mlx_image_t		*img; //image pointer
@@ -116,6 +117,9 @@ int		check_file_permission(const char *filepath);
 int		check_file_data(char *array);
 int		check_format(char *file_name);
 int		check_consecutive_newlines_in_map(char *file);
+int		check_with_floodfill(t_cub *cub, char **map_copy);
+int		check_map_content(t_cub *cub);
+int		check_path(t_cub *cub);
 
 ////////////////////// GAME ////////////////////
 int		check_sign(float f); // float check return positiv, negativ or zero

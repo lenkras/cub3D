@@ -47,17 +47,18 @@ void	free_all(t_cub *cub)
 
 void	destroy_textures(t_cub *cub)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (i < 4)
 	{
 		if (cub->txt[i])
 		{
 			mlx_delete_texture(cub->txt[i]);
-			cub->txt[i] = NULL; 
+			cub->txt[i] = NULL;
 		}
 		i++;
-    }
+	}
 	free(cub->txt);
 	cub->txt = NULL;
 	if (cub->img)

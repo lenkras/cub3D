@@ -32,6 +32,7 @@ void	init_main_struct(t_cub *cub)
 	cub->txt = NULL;
 	cub->img = NULL;
 	cub->mlx = NULL;
+	cub->valid = 1;
 }
 
 void	init_flag_struct(t_cub *cub)
