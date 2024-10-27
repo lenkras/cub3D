@@ -1,0 +1,16 @@
+NO pattern/north_wall.png
+SO pattern/south_wall.png
+WE pattern/west_wall.png
+EA pattern/east_wall.png
+
+F 128,108,78
+C 240,218,182
+
+111111111111
+1         11
+1          1
+111111111111
+10S000000001
+111111111111
+11         1
+111111111111
