@@ -1,15 +1,5 @@
 #include "cub.h"
 
-// Struct to hold line parameters
-typedef struct s_line_params
-{
-	uint32_t	h;
-	float		src_f;
-	float		d_shift;
-	int			texture_x;
-	int			y_start;
-}	t_line_params;
-
 // Get the pixel color at position (x, y) in the texture
 static int	get_pixel(mlx_texture_t *texture, int x, int y)
 {

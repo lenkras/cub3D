@@ -20,6 +20,15 @@
 # define FOV 1.047f           // Field Of View
 # define M_PI 3.14159265358979323846
 
+typedef struct s_line_params
+{
+	uint32_t	h;
+	float		src_f;
+	float		d_shift;
+	int			texture_x;
+	int			y_start;
+}	t_line_params;
+
 typedef struct s_flag
 {
 	int	no_flag;
@@ -128,5 +137,6 @@ char	*ft_strcat(char *dest, const char *src);
 char	*ft_strcpy(char *dest, const char *src);
 int		has_space(char c);
 int		is_all_digits(char *str);
+int		check_consecutive_newlines_in_map(char *file);
 
 #endif
