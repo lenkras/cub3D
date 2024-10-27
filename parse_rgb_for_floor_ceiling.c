@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:35:59 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/27 19:32:58 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:12:07 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	validate_rgb_values_floor(char **rgb_arr, t_cub *cub)
 	cub->f_r = rgb_val[0];
 	cub->f_g = rgb_val[1];
 	cub->f_b = rgb_val[2];
-	printf("f_r:  %d, f_g: %d, f_b: %d\n", cub->f_r, cub->f_g, cub->f_b);
 	return (0);
 }
 
