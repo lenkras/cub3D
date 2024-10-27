@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:12:49 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/26 20:42:29 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/27 17:19:34 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,7 @@ void	press_key(mlx_key_data_t keydata, void* param);
 void	game(t_cub *cub);
 float	view(t_cub *cub, float v);
 int		get_rgba(int r, int g, int b, int a);
-void 	close_window(void *param);
-void	load_textures(t_cub *cub);
+int		load_textures(t_cub *cub);
 void	determine_player_position(t_cub *cub);
 void	draw_ceiling_and_floor(t_cub *cub);
 void	view_direction(t_cub *cub);
