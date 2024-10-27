@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:38:10 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/27 20:33:18 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/27 20:52:40 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ int	check_sign(float f)
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+char	*print_readfile_error(int bytes_read, int fd, char *data)
+{
+	if (bytes_read == -1)
+	{
+		handle_error("Error: Failed to read a file.\n", fd, data);
+		return (NULL);
+	}
+	return (data);
 }
