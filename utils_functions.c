@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 09:02:17 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/26 20:29:21 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:18:52 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,12 @@ char	*ft_strcat(char *dest, const char *src)
 
 int check_file_permission(const char *filepath)
 {
-    if (access(filepath, F_OK) != 0)
+    int fd = open(filepath, O_RDONLY);
+    if (fd == -1)
     {
-        ft_putendl_fd("Error: File does not exist.", 2);
+        ft_putendl_fd("Error: File does not exist or is not readable.", 2);
         return (1);
     }
-    if (access(filepath, R_OK) != 0)
-    {
-        ft_putendl_fd("Error: File is not readable.", 2);
-        return (1);
-    }
+    close(fd);
     return (0);
 }
