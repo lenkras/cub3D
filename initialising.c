@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialising.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-27 11:37:54 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-09-27 11:37:54 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/09/27 11:37:54 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 19:22:08 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	init_main_struct(t_cub *cub)
 {
-	cub->C_array = NULL;
-	cub->EA_array = NULL;
-	cub->F_array = NULL;
+	cub->c_array = NULL;
+	cub->ea_array = NULL;
+	cub->f_array = NULL;
 	cub->map = NULL;
-	cub->NO_array = NULL;
-	cub->SO_array = NULL;
-	cub->WE_array = NULL;
+	cub->no_array = NULL;
+	cub->so_array = NULL;
+	cub->we_array = NULL;
 	cub->height = 0;
 	cub->width = 0;
 	cub->player = 0;
@@ -37,10 +37,10 @@ void	init_main_struct(t_cub *cub)
 
 void	init_flag_struct(t_cub *cub)
 {
-	cub->flags.C_flag = 0;
-	cub->flags.EA_flag = 0;
-	cub->flags.F_flag = 0;
-	cub->flags.NO_flag = 0;
-	cub->flags.SO_flag = 0;
-	cub->flags.WE_flag = 0;
+	cub->flags.c_flag = 0;
+	cub->flags.ea_flag = 0;
+	cub->flags.f_flag = 0;
+	cub->flags.no_flag = 0;
+	cub->flags.so_flag = 0;
+	cub->flags.we_flag = 0;
 }

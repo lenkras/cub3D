@@ -31,9 +31,9 @@ void	draw_ceiling_and_floor(t_cub *cub)
 	unsigned int	y;
 	unsigned int	x;
 
-	color_ceiling = (cub->C_R << 24) | (cub->C_G << 16)
-		| (cub->C_B << 8) | 0xFF;
-	color_floor = (cub->F_R << 24) | (cub->F_G << 16) | (cub->F_B << 8) | 0xFF;
+	color_ceiling = (cub->c_r << 24) | (cub->c_g << 16)
+		| (cub->c_b << 8) | 0xFF;
+	color_floor = (cub->f_r << 24) | (cub->f_g << 16) | (cub->f_b << 8) | 0xFF;
 	y = 0;
 	while (y < WINDOW_H / 2)
 	{
