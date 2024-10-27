@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-26 17:26:42 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-26 17:26:42 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/26 17:26:42 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 19:22:08 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ void	free_all(t_cub *cub)
 		free_array(cub->map);
 	if (cub->file)
 		free(cub->file);
-	if (cub->NO_array)
-		free(cub->NO_array);
-	if (cub->SO_array)
-		free (cub->SO_array);
-	if (cub->WE_array)
-		free(cub->WE_array);
-	if (cub->EA_array)
-		free(cub->EA_array);
-	if (cub->F_array)
-		free(cub->F_array);
-	if (cub->C_array)
-		free(cub->C_array);
+	if (cub->no_array)
+		free(cub->no_array);
+	if (cub->so_array)
+		free (cub->so_array);
+	if (cub->we_array)
+		free(cub->we_array);
+	if (cub->ea_array)
+		free(cub->ea_array);
+	if (cub->f_array)
+		free(cub->f_array);
+	if (cub->c_array)
+		free(cub->c_array);
 }
 
 void	destroy_textures(t_cub *cub)

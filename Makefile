@@ -25,7 +25,7 @@ SRCS = cub.c \
 		parse_ceiling.c \
 		parse_floor.c \
 		check_content.c \
-		check_path.c 
+		check_path.c \
 		view.c \
 		draw.c \
 		textures.c\

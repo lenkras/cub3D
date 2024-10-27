@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_floor_ceiling.c                              :+:      :+:    :+:   */
+/*   parse_rgb_for_floor_ceiling.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-27 11:35:59 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-09-27 11:35:59 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/09/27 11:35:59 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 19:32:58 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static int validate_rgb_values_floor(char **rgb_arr, t_cub *cub)
 		}
 		i++;
 	}
-	cub->F_R = rgb_val[0];
-	cub->F_G = rgb_val[1];
-	cub->F_B = rgb_val[2];
-	printf("F_R:  %d, F_G: %d, F_B: %d\n", cub->F_R, cub->F_G, cub->F_B);
+	cub->f_r = rgb_val[0];
+	cub->f_g = rgb_val[1];
+	cub->f_b = rgb_val[2];
+	printf("f_r:  %d, f_g: %d, f_b: %d\n", cub->f_r, cub->f_g, cub->f_b);
 	return (0);
 }
 
-int	split_toRGB_floor(char *array, t_cub *cub)
+int	split_to_rgb_floor(char *array, t_cub *cub)
 {
 	char	**rgb_arr;
 
@@ -78,13 +78,13 @@ static int validate_rgb_values_ceiling(char **rgb_arr, t_cub *cub)
 		}
 		i++;
 	}
-	cub->C_R = rgb_val[0];
-	cub->C_G = rgb_val[1];
-	cub->C_B = rgb_val[2];
+	cub->c_r = rgb_val[0];
+	cub->c_g = rgb_val[1];
+	cub->c_b = rgb_val[2];
 	return (0);
 }
 
-int	split_toRGB_ceiling(char *array, t_cub *cub)
+int	split_to_rgb_ceiling(char *array, t_cub *cub)
 {
 	char	**rgb_arr;
 
