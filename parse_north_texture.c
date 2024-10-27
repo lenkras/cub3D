@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 12:51:00 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/27 19:19:47 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:11:59 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static int	allocate_north_array(t_cub *cub, char *cut_str, int len)
 		return (1);
 	}
 	ft_strlcpy(cub->no_array, cut_str, len + 1);
-	printf("no_array: %s\n", cub->no_array);
 	return (0);
 }
 
