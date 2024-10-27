@@ -12,19 +12,6 @@
 
 #include "cub.h"
 
-// void	free_array(char **arr)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (arr[i])
-// 	{
-// 		free(arr[i]);
-// 		i++;
-// 	}
-// 	free(arr);
-// }
-
 int	is_all_digits(char *str)
 {
 	int	i;
@@ -87,46 +74,3 @@ int check_file_permission(const char *filepath)
     }
     return (0);
 }
-
-int check_sign(float f)
-{
-    if (f < 0.0f)
-    {
-        if (f > -0.000001f)
-            return (0);
-        else
-            return (-1);
-    }
-    else
-    {
-        if (f < 0.000001f)
-            return (0);
-        else
-            return (1);
-    }
-}
-
-void destroy_textures(t_cub *cub)
-{
-    int i = 0;
-
-    while (i < 4)
-    {
-        if (cub->txt[i])
-        {
-            mlx_delete_texture(cub->txt[i]);
-            cub->txt[i] = NULL; 
-        }
-        i++;
-    }
-	if (cub->img)
-    	mlx_delete_image(cub->mlx, cub->img);
-
-    mlx_terminate(cub->mlx);
-}
-
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-

@@ -1,14 +1,5 @@
 #include "cub.h"
 
-void load_textures(t_cub *cub);
-void determine_player_position(t_cub *cub);
-void draw_ceiling_and_floor(t_cub *cub);
-void view_direction(t_cub *cub);
-void line(t_cub *cub, int w, float dist);
-float view(t_cub *cub, float v);
-void view_next(t_cub *cub, t_view *view);
-void view_start(t_cub *cub, t_view *view, float angle);
-
 static int	get_pixel(mlx_texture_t *texture, int x, int y)
 {
 	int	color;
@@ -21,11 +12,11 @@ static int	get_pixel(mlx_texture_t *texture, int x, int y)
 	return (color);
 }
 
-
 void close_window(void *param)
 {
     t_cub *cub = (t_cub *)param;
-    mlx_terminate(cub->mlx);
+    destroy_textures(cub);
+    //mlx_terminate(cub->mlx);
 //    exit(0);
 }
 
@@ -44,59 +35,40 @@ void    game(t_cub *cub)
     if (!cub->mlx)
     {
         fprintf(stderr, "MLX42 initialization failed\n");
+        mlx_terminate(cub->mlx);
         exit(EXIT_FAILURE);
     }
 	load_textures(cub);
-//	draw(cub);
     cub->img = mlx_new_image(cub->mlx, WINDOW_W, WINDOW_H);
     if (!cub->img)
     {
+        mlx_close_window(cub->mlx);
         fprintf(stderr, "Failed to create an image\n");
+        mlx_terminate(cub->mlx);
         return;
     }
-
-    // Call functions to draw content
-//    draw_ceiling_and_floor(cub);
-//    view_direction(cub);
-    mlx_image_to_window(cub->mlx, cub->img, 0, 0);
-
+    if (mlx_image_to_window(cub->mlx, cub->img, 0, 0) == -1)
+    {
+        mlx_close_window(cub->mlx);
+        perror(mlx_strerror(mlx_errno));
+        mlx_terminate(cub->mlx);
+        return ;
+    }
     mlx_key_hook(cub->mlx, press_key, cub);
-//    mlx_loop_hook(cub->mlx, (void *) press_key, cub);
     mlx_loop_hook(cub->mlx, (void *)render, cub);
     mlx_loop(cub->mlx);
-//    mlx_close_hook(cub->mlx, close_window, cub);
+    //mlx_close_hook(cub->mlx, close_window, cub);
     // Clean up on exit
 //    mlx_terminate(cub->mlx);
 }
 
 void draw_ceiling_and_floor(t_cub *cub)
 {
-     printf("Drawing ceiling and floor...\n");
-    // unsigned int *dst;
-    // unsigned int i;
     unsigned int color_ceiling;
     unsigned int color_floor;
 
-    // Combine RGB values into a single integer for ceiling color
     color_ceiling = (cub->C_R << 24) | (cub->C_G << 16) | (cub->C_B << 8) | 0xFF;
-
-    // Combine RGB values into a single integer for floor color
     color_floor = (cub->F_R << 24) | (cub->F_G << 16) | (cub->F_B << 8) | 0xFF;
-    // printf("Ceiling Color: %u, Floor Color: %u\n", color_ceiling, color_floor);
-
-    // Access pixel buffer from the MLX42 image structure
-    // dst = (unsigned int *) cub->img->pixels;
-
-    // // Draw the ceiling (first half of the screen)
-    // i = WINDOW_W * WINDOW_H / 2;
-    // while (i-- > 0)
-    //     *dst++ = color_ceiling;
-
-    // // Draw the floor (second half of the screen)
-    // i = WINDOW_W * WINDOW_H / 2;
-    // while (i-- > 0)
-    //     *dst++ = color_floor;
-
     unsigned int y = 0;
     while (y < WINDOW_H / 2) {
         unsigned int x = 0;
@@ -106,8 +78,6 @@ void draw_ceiling_and_floor(t_cub *cub)
         }
         y++;
     }
-
-    // Draw the floor (second half of the screen)
     y = WINDOW_H / 2;
     while (y < WINDOW_H) {
         unsigned int x = 0;
@@ -118,44 +88,6 @@ void draw_ceiling_and_floor(t_cub *cub)
         y++;
     }
 }
-
-// void	line(t_cub *cub, int x, float dist)
-// {
-// 	mlx_texture_t	*texture = cub->txt[cub->txt_idx]; // Текстура в формате mlx_texture_t
-// 	uint32_t		h;
-// 	float			src_f;
-// 	float			d_shift;
-// //	uint32_t		texture_width = texture->width;
-// 	uint32_t		texture_height = texture->height;
-
-// 	h = (float) WINDOW_H / dist;
-// 	src_f = 0.0f;
-// 	d_shift = (float) texture_height / h;
-
-// 	if (h > WINDOW_H)
-// 	{
-// 		src_f = 0.5f * (h - WINDOW_H) / h * texture_height;
-// 		h = WINDOW_H;
-// 	}
-
-// 	// Вычисляем начальную вертикальную позицию для центрирования
-// 	int y_start = (WINDOW_H - h) / 2;
-
-// 	// Цикл отрисовки линии
-// 	for (uint32_t y = 0; y < h; y++)
-// 	{
-// 		// Индекс текущего пикселя текстуры
-// 	//	uint32_t color = ((uint32_t *)texture->pixels)[((int)src_f) * texture_width + cub->txt_w];
-//         uint32_t color = get_pixel(texture, cub->txt_w, (int)src_f);
-
-// 		// Отрисовываем пиксель в позиции (w, y_start + y) на основном изображении cub->img
-// 		mlx_put_pixel(cub->img, x, y_start + y, color);
-
-// 		// Продвигаем src_f на следующий пиксель текстуры
-// 		src_f += d_shift;
-// 	}
-// }
-
 
 void	line(t_cub *cub, int x, float dist)
 {
