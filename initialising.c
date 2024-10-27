@@ -44,4 +44,3 @@ void	init_flag_struct(t_cub *cub)
 	cub->flags.SO_flag = 0;
 	cub->flags.WE_flag = 0;
 }
-

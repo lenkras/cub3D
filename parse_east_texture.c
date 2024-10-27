@@ -17,10 +17,10 @@ static char	*extract_file_path(char *line, int *i)
 	int		start;
 	int		len;
 	char	*cut_str;
-	
+
 	start = *i;
 	len = ft_strlen(line + start);
-	cut_str= ft_substr(line, start, len);
+	cut_str = ft_substr(line, start, len);
 	if (!cut_str)
 	{
 		ft_putendl_fd("Error: Failed to extract file path.", 2);
@@ -45,7 +45,7 @@ static int	validate_file_path(char *cut_str)
 	return (0);
 }
 
-static int allocate_east_array(t_cub *cub, char *cut_str, int len)
+static int	allocate_east_array(t_cub *cub, char *cut_str, int len)
 {
 	cub->EA_array = malloc(len + 1);
 	if (!cub->EA_array)
@@ -55,13 +55,12 @@ static int allocate_east_array(t_cub *cub, char *cut_str, int len)
 		return (1);
 	}
 	ft_strlcpy(cub->EA_array, cut_str, len + 1);
-    printf("EA_array: %s\n", cub->EA_array);
 	return (0);
 }
 
-static int parse_east(char *line, int *i, t_cub *cub)
+static int	parse_east(char *line, int *i, t_cub *cub)
 {
-	char *cut_str;
+	char	*cut_str;
 
 	cut_str = extract_file_path(line, i);
 	if (!cut_str)
@@ -82,7 +81,7 @@ static int parse_east(char *line, int *i, t_cub *cub)
 int	east_array(char *line, t_cub *cub)
 {
 	int	i;
-	
+
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;

@@ -52,31 +52,31 @@ int	check_max_width_of_map(t_cub *cub)
 	return (0);
 }
 
-int validate_player_path(t_cub *cub)
+int	validate_player_path(t_cub *cub)
 {
 	int	h;
 	int	w;
 
 	h = 0;
 	while (cub->map[h])
-    {
-        w = 0;
+	{
+		w = 0;
 		while (cub->map[h][w])
-        {
-            if (cub->map[h][w] == 'N' || cub->map[h][w] == 'S' ||
-                cub->map[h][w] == 'E' || cub->map[h][w] == 'W')
-            {
-                cub->player_w = w;
-                cub->player_h = h;
-                break;
-            }
+		{
+			if (cub->map[h][w] == 'N' || cub->map[h][w] == 'S' ||
+				cub->map[h][w] == 'E' || cub->map[h][w] == 'W')
+			{
+				cub->player_w = w;
+				cub->player_h = h;
+				break ;
+			}
 			w++;
-        }
+		}
 		h++;
-    }
-    if (check_path(cub) == 1)
+	}
+	if (check_path(cub) == 1)
 		return (1);
-    return (0);
+	return (0);
 }
 
 int	is_map_valid(t_cub *cub)
