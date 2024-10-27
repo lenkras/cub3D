@@ -17,10 +17,10 @@ static char	*extract_file_path(char *line, int *i)
 	int		start;
 	int		len;
 	char	*cut_str;
-	
+
 	start = *i;
 	len = ft_strlen(line + start);
-	cut_str= ft_substr(line, start, len);
+	cut_str = ft_substr(line, start, len);
 	if (!cut_str)
 	{
 		ft_putendl_fd("Error: Failed to extract file path.", 2);
@@ -45,7 +45,7 @@ static int	validate_file_path(char *cut_str)
 	return (0);
 }
 
-static int allocate_south_array(t_cub *cub, char *cut_str, int len)
+static int	allocate_south_array(t_cub *cub, char *cut_str, int len)
 {
 	cub->so_array = malloc(len + 1);
 	if (!cub->so_array)
@@ -55,13 +55,12 @@ static int allocate_south_array(t_cub *cub, char *cut_str, int len)
 		return (1);
 	}
 	ft_strlcpy(cub->so_array, cut_str, len + 1);
-    printf("so_array: %s\n", cub->so_array);
 	return (0);
 }
 
-static int parse_south(char *line, int *i, t_cub *cub)
+static int	parse_south(char *line, int *i, t_cub *cub)
 {
-	char *cut_str;
+	char	*cut_str;
 
 	cut_str = extract_file_path(line, i);
 	if (!cut_str)
@@ -82,10 +81,10 @@ static int parse_south(char *line, int *i, t_cub *cub)
 int	south_array(char *line, t_cub *cub)
 {
 	int	i;
-	
+
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
-        i++;
+		i++;
 	if (ft_strncmp(&line[i], "SO", 2) == 0 && cub->flags.so_flag == 0)
 	{
 		i += 2;

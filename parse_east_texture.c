@@ -55,7 +55,6 @@ static int	allocate_east_array(t_cub *cub, char *cut_str, int len)
 		return (1);
 	}
 	ft_strlcpy(cub->ea_array, cut_str, len + 1);
-    printf("ea_array: %s\n", cub->ea_array);
 	return (0);
 }
 

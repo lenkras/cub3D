@@ -105,6 +105,8 @@ int		check_consecutive_newlines_in_map(char *file);
 int		check_with_floodfill(t_cub *cub, char **map_copy);
 int		check_map_content(t_cub *cub);
 int		check_path(t_cub *cub);
+char	*print_readfile_error(int bytes_read, int fd, char *data);
+void	handle_error(char *msg, int fd, char *data);
 
 // Game functions
 int		check_sign(float f);
