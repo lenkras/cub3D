@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_west_texture.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 14:14:06 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 14:14:06 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 14:14:06 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 19:20:42 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static int	validate_file_path(char *cut_str)
 
 static int allocate_west_array(t_cub *cub, char *cut_str, int len)
 {
-	cub->WE_array = malloc(len + 1);
-	if (!cub->WE_array)
+	cub->we_array = malloc(len + 1);
+	if (!cub->we_array)
 	{
 		ft_putendl_fd("Error: Failed to allocate memory.", 2);
 		free(cut_str);
 		return (1);
 	}
-	ft_strlcpy(cub->WE_array, cut_str, len + 1);
-    printf("WE_array: %s\n", cub->WE_array);
+	ft_strlcpy(cub->we_array, cut_str, len + 1);
+    printf("we_array: %s\n", cub->we_array);
 	return (0);
 }
 
@@ -73,8 +73,8 @@ static int parse_west(char *line, int *i, t_cub *cub)
 		free(cut_str);
 		return (1);
 	}
-	ft_strlcpy(cub->WE_array, cut_str, ft_strlen(cut_str) + 1);
-	cub->flags.WE_flag = 1;
+	ft_strlcpy(cub->we_array, cut_str, ft_strlen(cut_str) + 1);
+	cub->flags.we_flag = 1;
 	free(cut_str);
 	return (0);
 }
@@ -86,14 +86,14 @@ int	west_array(char *line, t_cub *cub)
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
         i++;
-	if (ft_strncmp(&line[i], "WE", 2) == 0 && cub->flags.WE_flag == 0)
+	if (ft_strncmp(&line[i], "WE", 2) == 0 && cub->flags.we_flag == 0)
 	{
 		i += 2;
 		while (line[i] == ' ' || line[i] == '\t')
 			i++;
 		return (parse_west(line, &i, cub));
 	}
-	if (ft_strncmp(&line[i], "WE", 2) == 0 && cub->flags.WE_flag == 1)
+	if (ft_strncmp(&line[i], "WE", 2) == 0 && cub->flags.we_flag == 1)
 	{
 		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);

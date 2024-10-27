@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ceiling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 14:47:21 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 14:47:21 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 14:47:21 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 19:30:34 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ static int	extract_ceiling_color(char *line, int *start, int *i)
 
 static int	allocate_ceiling_array(t_cub *cub, char *line, int start, int i)
 {
-	int	j;
-
-	cub->C_array = malloc(i - start + 1);
-	if (!cub->C_array)
+	int j;
+	
+	cub->c_array = malloc(i - start + 1);
+	if (!cub->c_array)
 	{
 		ft_putendl_fd("Error: Failed to allocate memory.", 2);
 		return (-1);
 	}
 	j = 0;
 	while (start < i)
-		cub->C_array[j++] = line[start++];
-	cub->C_array[j] = '\0';
+		cub->c_array[j++] = line[start++];
+	cub->c_array[j] = '\0';
 	return (0);
 }
 
@@ -61,20 +61,20 @@ int	ceiling_array(char *line, t_cub *cub)
 
 	i = 0;
 	i = handle_whitespace(&i, line);
-	if (ft_strncmp(&line[i], "C ", 2) == 0 && cub->flags.C_flag == 0)
+	if (ft_strncmp(&line[i], "C ", 2) == 0 && cub->flags.c_flag == 0)
 	{
 		i = handle_whitespace(&i, line);
 		start = i;
 		if (extract_ceiling_color(line, &start, &i) == -1)
 			return (1);
 		if (allocate_ceiling_array(cub, line, start, i) == -1)
+            return (1);
+		if (split_to_rgb_ceiling(cub->c_array, cub) == 1)
 			return (1);
-		if (split_toRGB_ceiling(cub->C_array, cub) == 1)
-			return (1);
-		cub->flags.C_flag = 1;
+		cub->flags.c_flag = 1;
 		return (0);
 	}
-	if (ft_strncmp(&line[i], "C ", 2) == 0 && cub->flags.C_flag == 1)
+	if (ft_strncmp(&line[i], "C ", 2) == 0 && cub->flags.c_flag == 1)
 	{
 		ft_putendl_fd("Error: Invalid map content.", 2);
 		return (1);
