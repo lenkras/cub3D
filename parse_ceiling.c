@@ -32,8 +32,8 @@ static int	extract_ceiling_color(char *line, int *start, int *i)
 
 static int	allocate_ceiling_array(t_cub *cub, char *line, int start, int i)
 {
-	int j;
-	
+	int	j;
+
 	cub->c_array = malloc(i - start + 1);
 	if (!cub->c_array)
 	{
@@ -68,7 +68,7 @@ int	ceiling_array(char *line, t_cub *cub)
 		if (extract_ceiling_color(line, &start, &i) == -1)
 			return (1);
 		if (allocate_ceiling_array(cub, line, start, i) == -1)
-            return (1);
+			return (1);
 		if (split_to_rgb_ceiling(cub->c_array, cub) == 1)
 			return (1);
 		cub->flags.c_flag = 1;

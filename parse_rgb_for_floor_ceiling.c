@@ -12,11 +12,12 @@
 
 #include "cub.h"
 
-static int validate_rgb_values_floor(char **rgb_arr, t_cub *cub)
+static int	validate_rgb_values_floor(char **rgb_arr, t_cub *cub)
 {
-	int rgb_val[3];
-	int i = 0;
+	int	rgb_val[3];
+	int	i;
 
+	i = 0;
 	while (i < 3)
 	{
 		if (!rgb_arr[i])
@@ -61,11 +62,12 @@ int	split_to_rgb_floor(char *array, t_cub *cub)
 	return (0);
 }
 
-static int validate_rgb_values_ceiling(char **rgb_arr, t_cub *cub)
+static int	validate_rgb_values_ceiling(char **rgb_arr, t_cub *cub)
 {
-	int rgb_val[3];
-	int i = 0;
+	int	rgb_val[3];
+	int	i;
 
+	i = 0;
 	while (i < 3)
 	{
 		if (!rgb_arr[i])
@@ -108,4 +110,3 @@ int	split_to_rgb_ceiling(char *array, t_cub *cub)
 	free_array(rgb_arr);
 	return (0);
 }
-

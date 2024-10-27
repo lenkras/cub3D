@@ -12,19 +12,19 @@
 
 #include "cub.h"
 
-static int handle_arguments(int argc, char **argv)
+static int	handle_arguments(int argc, char **argv)
 {
 	if (argc != 2)
 	{
 		ft_putendl_fd("Error: Wrong number of arguments.", 2);
-		return 1;
+		return (1);
 	}
 	if (check_format(argv[1]) == 1)
 		return (1);
 	return (0);
 }
 
-static int create_file(t_cub *cub, char *filename)
+static int	create_file(t_cub *cub, char *filename)
 {
 	cub->file = open_file(filename);
 	if (!cub->file || cub->file[0] == '\0')
@@ -35,12 +35,12 @@ static int create_file(t_cub *cub, char *filename)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_cub cub;
+	t_cub	cub;
 
 	if (handle_arguments(argc, argv) == 1)
-		return 1;
+		return (1);
 	else
 	{
 		if (create_file(&cub, argv[1]) == 1)

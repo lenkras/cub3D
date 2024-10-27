@@ -68,7 +68,7 @@ int	floor_array(char *line, t_cub *cub)
 		if (extract_floor_color(line, &start, &i) == -1)
 			return (1);
 		if (allocate_floor_array(cub, line, start, i) == -1)
-            return (1);
+			return (1);
 		if (split_to_rgb_floor(cub->f_array, cub) == 1)
 			return (1);
 		cub->flags.f_flag = 1;
