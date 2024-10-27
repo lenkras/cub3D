@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_for_parsing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 11:40:11 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 11:40:11 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 11:40:11 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 19:28:31 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
- #include "cub.h"
+
+#include "cub.h"
 
 int	check_format(char *file_name)
 {
@@ -62,8 +63,8 @@ int	check_consecutive_newlines_in_map(char *file)
 
 int	check_all_flags_infile(t_cub *cub)
 {
-	if (cub->flags.C_flag == 1 && cub->flags.EA_flag == 1 && cub->flags.F_flag == 1 && 
-		cub->flags.NO_flag == 1 && cub->flags.SO_flag == 1 && cub->flags.WE_flag == 1)
+	if (cub->flags.c_flag == 1 && cub->flags.ea_flag == 1 && cub->flags.f_flag == 1 && 
+		cub->flags.no_flag == 1 && cub->flags.so_flag == 1 && cub->flags.we_flag == 1)
 		return (0);
 	else 
 	{

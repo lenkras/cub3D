@@ -30,13 +30,13 @@ int	load_textures(t_cub *cub)
 {
 	if (allocate_texture_memory(cub))
 		return (1);
-	if (load_texture(&cub->txt[1], cub->NO_array,
+	if (load_texture(&cub->txt[1], cub->no_array,
 			"Failed to load the North texture")
-		|| load_texture(&cub->txt[3], cub->SO_array,
+		|| load_texture(&cub->txt[3], cub->so_array,
 			"Failed to load the South texture")
-		|| load_texture(&cub->txt[2], cub->WE_array,
+		|| load_texture(&cub->txt[2], cub->we_array,
 			"Failed to load the West texture")
-		|| load_texture(&cub->txt[0], cub->EA_array,
+		|| load_texture(&cub->txt[0], cub->ea_array,
 			"Failed to load the East texture"))
 	{
 		return (1);
