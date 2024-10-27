@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 09:08:33 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/27 19:21:56 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:12:16 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	make_copy_of_array(t_cub *cub, char **array, int i)
 			free(cub->map);
 			return ;
 		}
-		printf("Copied map line %d: \"%s\"\n", j, cub->map[j]);
 		j++;
 		i++;
 	}
