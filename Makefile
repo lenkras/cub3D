@@ -5,14 +5,12 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 MLX_DIR = ./MLX42
 MLX42_LIB = $(MLX_DIR)/build/libmlx42.a
 MLX42_INCLUDE = -I$(MLX_DIR)/include -ldl -lglfw -pthread -lm
-#MLX42_FLAGS =  -lglfw -L"/Users/epolkhov/.brew/opt/glfw/lib/"
 
 SRCS = cub.c \
 		utils_functions.c \
 		parsing.c \
 		process_file.c \
-		parse_floor_ceiling.c \
-		parse_world_sides.c \
+		parse_rgb_for_floor_ceiling.c \
 		initialising.c \
 		map_validation.c \
 		game.c \
@@ -22,7 +20,12 @@ SRCS = cub.c \
 		utils_for_game.c \
 		parse_north_texture.c \
 		parse_south_texture.c \
-
+		parse_east_texture.c \
+		parse_west_texture.c \
+		parse_ceiling.c \
+		parse_floor.c \
+		check_content.c \
+		check_path.c 
 		
 OBJS = $(SRCS:.c=.o)
 
