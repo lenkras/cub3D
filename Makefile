@@ -1,4 +1,4 @@
-NAME = cub
+NAME = cub3D
 FLAGS = -Wall -Wextra -Werror 
 LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
