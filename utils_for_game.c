@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_for_game.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 11:38:10 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 11:38:10 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 11:38:10 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/10/27 20:33:18 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
