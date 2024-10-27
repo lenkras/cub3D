@@ -16,38 +16,43 @@ void view_direction(t_cub *cub)
 	}
 }
 
-float	view(t_cub *cub, float v)
+float check_view_collision(t_cub *cub, t_view *view)
 {
-	t_view	view;
+    if (view->v_dist < view->h_dist)
+    {
+        if (cub->map[(int)view->v_y][(int)view->v_x + (view->sx - 1) / 2] == '1')
+        {
+            cub->txt_idx = view->sx + 1;
+            cub->txt_w = view->v_w;
+            return view->v_dist;
+        }
+        view->v_x += view->sx;
+    }
+    else
+    {
+        if (cub->map[(int)view->h_y + (view->sy - 1) / 2][(int)view->h_x] == '1')
+        {
+            cub->txt_idx = view->sy + 2;
+            cub->txt_w = view->h_w;
+            return view->h_dist;
+        }
+        view->h_y += view->sy;
+    }
+    return -1; // Continue searching if no collision
+}
 
-	view_start(cub, &view, v);
+float view(t_cub *cub, float v)
+{
+    t_view view;
+    view_start(cub, &view, v);
 
-	while (1)
-	{
-		view_next(cub, &view);
-		if (view.v_dist < view.h_dist)
-		{
-			if (cub->map[(int)view.v_y][(int)view.v_x + (view.sx - 1) / 2] == '1')
-			{
-				cub->txt_idx = view.sx + 1;
-				cub->txt_w = view.v_w;
-				return (view.v_dist);
-			}
-			else
-				view.v_x += view.sx;
-		}
-		else
-		{
-			if (cub->map[(int)view.h_y + (view.sy - 1) / 2][(int)view.h_x] == '1')
-			{
-				cub->txt_idx = view.sy + 2;
-				cub->txt_w = view.h_w;
-				return (view.h_dist);
-			}
-			else
-				view.h_y += view.sy;
-		}
-	}
+    while (1)
+    {
+        view_next(cub, &view);
+        float result = check_view_collision(cub, &view);
+        if (result != -1)
+            return result;
+    }
 }
 
 void view_start(t_cub *cub, t_view *view, float angle)

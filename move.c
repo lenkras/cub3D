@@ -2,50 +2,33 @@
 
 void	move(t_cub *cub, int direction);
 
-void press_key(mlx_key_data_t keydata, void* param) {
-    t_cub *cub = (t_cub *)param;
+void press_key(mlx_key_data_t keydata, void* param) 
+{
+	t_cub *cub = (t_cub *)param;
 
-    if (cub == NULL) {
-        fprintf(stderr, "Invalid cub pointer\n");
-        return;
-    }
-
-    if (keydata.action == MLX_PRESS) {
-        // Move up (W key)
-        if (keydata.key == MLX_KEY_W) 
-        {
-            move(cub, 0);
-        }
-        // Move down (S key)
-        else if (keydata.key == MLX_KEY_S)
-        {
-            move(cub, 2);
-        }
-        // Rotate left (A key)
-        else if (keydata.key == MLX_KEY_LEFT) {
-            cub->gaze -= AS * M_PI;
-        }       
-        else if (keydata.key == MLX_KEY_RIGHT) {
-            cub->gaze += AS * M_PI;
-        }
-        // Strafe left
-        else if (keydata.key == MLX_KEY_A ) {
-            move(cub, 3);
-        }
-        // Strafe right
-        else if (keydata.key == MLX_KEY_D) {
-            move(cub, 1);
-        }
-        // Close the window (ESC key)
-        else if (keydata.key == MLX_KEY_ESCAPE) {
-            mlx_close_window(cub->mlx);
-        }
-        else
-            return ;
-//        draw(cub); // Redraw the screen after movement or rotation
-    }
+	if (cub == NULL) {
+		fprintf(stderr, "Invalid cub pointer\n");
+		return;
+	}
+	if (keydata.action == MLX_PRESS) {
+		if (keydata.key == MLX_KEY_W) 
+			move(cub, 0);
+		else if (keydata.key == MLX_KEY_S)
+			move(cub, 2);
+		else if (keydata.key == MLX_KEY_LEFT)
+			cub->gaze -= AS * M_PI;       
+		else if (keydata.key == MLX_KEY_RIGHT)
+			cub->gaze += AS * M_PI;
+		else if (keydata.key == MLX_KEY_A )
+			move(cub, 3);
+		else if (keydata.key == MLX_KEY_D)
+			move(cub, 1);
+		else if (keydata.key == MLX_KEY_ESCAPE)
+			mlx_close_window(cub->mlx);
+		else
+			return ;
+	}
 }
-
 
 void	move(t_cub *cub, int direction)
 {
