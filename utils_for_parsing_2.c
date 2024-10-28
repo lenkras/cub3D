@@ -48,8 +48,8 @@ int	check_consecutive_newlines_in_map(char *file)
 			map_section = is_map_section(file, i, map_section);
 			if (map_section && file[i] == '\n' && file[i + 1] == '\n')
 			{
-				ft_putendl_fd("Error: Multiple consecutive \
-						newlines in map.", 2);
+				ft_putendl_fd
+				("Error: Multiple consecutive newlines in map.", 2);
 				return (1);
 			}
 			if (file[i] == '\n')
