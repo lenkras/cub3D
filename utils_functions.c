@@ -67,7 +67,7 @@ int	check_file_permission(const char *filepath)
 	fd = open(filepath, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putendl_fd("Error: File does not exist or is not readable.", 2);
+		ft_putendl_fd("Error\nFile does not exist or is not readable.", 2);
 		return (1);
 	}
 	close(fd);

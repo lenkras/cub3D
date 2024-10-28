@@ -25,7 +25,7 @@ static int	validate_rgb_values_floor(char **rgb_arr, t_cub *cub)
 		rgb_val[i] = ft_atoi(rgb_arr[i]);
 		if (rgb_val[i] < 0 || rgb_val[i] > 255)
 		{
-			ft_putendl_fd("Error: RGB value out of range (0-255).\n", 2);
+			ft_putendl_fd("Error\nRGB value out of range (0-255).\n", 2);
 			return (1);
 		}
 		i++;
@@ -43,12 +43,12 @@ int	split_to_rgb_floor(char *array, t_cub *cub)
 	rgb_arr = ft_split(array, ',');
 	if (!rgb_arr)
 	{
-		ft_putendl_fd("Error: Failed to split by comma.", 2);
+		ft_putendl_fd("Error\nFailed to split by comma.", 2);
 		return (1);
 	}
 	if (rgb_arr[3])
 	{
-		ft_putendl_fd("Error: Invalid number of values.\n", 2);
+		ft_putendl_fd("Error\nInvalid number of values.\n", 2);
 		free_array(rgb_arr);
 		return (1);
 	}
@@ -74,7 +74,7 @@ static int	validate_rgb_values_ceiling(char **rgb_arr, t_cub *cub)
 		rgb_val[i] = ft_atoi(rgb_arr[i]);
 		if (rgb_val[i] < 0 || rgb_val[i] > 255)
 		{
-			ft_putendl_fd("Error: RGB value out of range (0-255).\n", 2);
+			ft_putendl_fd("Error\nRGB value out of range (0-255).\n", 2);
 			return (1);
 		}
 		i++;
@@ -92,12 +92,12 @@ int	split_to_rgb_ceiling(char *array, t_cub *cub)
 	rgb_arr = ft_split(array, ',');
 	if (!rgb_arr)
 	{
-		ft_putendl_fd("Error: Failed to split by comma.", 2);
+		ft_putendl_fd("Error\nFailed to split by comma.", 2);
 		return (1);
 	}
 	if (rgb_arr[3])
 	{
-		ft_putendl_fd("Error: Invalid number of values.\n", 2);
+		ft_putendl_fd("Error\nInvalid number of values.\n", 2);
 		free_array(rgb_arr);
 		return (1);
 	}

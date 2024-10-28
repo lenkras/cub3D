@@ -21,7 +21,7 @@ void	press_key(mlx_key_data_t keydata, void *param)
 	cub = (t_cub *)param;
 	if (cub == NULL)
 	{
-		ft_putendl_fd("Invalid cub pointer\n", 2);
+		ft_putendl_fd("Error\nInvalid cub pointer\n", 2);
 		return ;
 	}
 	if (keydata.action == MLX_PRESS)

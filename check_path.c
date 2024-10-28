@@ -47,7 +47,7 @@ int	check_with_floodfill(t_cub *cub, char **map_copy)
 	}
 	if (!cub->valid)
 	{
-		ft_putendl_fd("Error: Map is invalid, check the walls.\n", 2);
+		ft_putendl_fd("Error\nMap is invalid, check the walls.\n", 2);
 		return (1);
 	}
 	return (0);

@@ -19,7 +19,7 @@ static int	check_player_count(t_cub *cub, char c)
 		cub->player++;
 		if (cub->player > 1)
 		{
-			ft_putendl_fd("Error: Player should be only one.", 2);
+			ft_putendl_fd("Error\nPlayer should be only one.", 2);
 			return (1);
 		}
 	}
@@ -45,7 +45,7 @@ int	check_map_content(t_cub *cub)
 		{
 			if (!check_valid_content(cub->map[h][w]))
 			{
-				ft_putendl_fd("Error: Map content is invalid.", 2);
+				ft_putendl_fd("Error\nMap content is invalid.", 2);
 				return (1);
 			}
 			if (check_player_count(cub, cub->map[h][w]))
@@ -56,7 +56,7 @@ int	check_map_content(t_cub *cub)
 	}
 	if (cub->player == 0)
 	{
-		ft_putendl_fd("Error: No player found.", 2);
+		ft_putendl_fd("Error\nNo player found.", 2);
 	}
 	return (0);
 }

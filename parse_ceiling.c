@@ -22,7 +22,7 @@ static int	extract_ceiling_color(char *line, int *start, int *i)
 		if (!ft_isdigit(line[*i]) && line[*i] != ',' && line[*i] != ' ' \
 			&& line[*i] != '\t')
 		{
-			ft_putendl_fd("Error: Invalid file content.\n", 2);
+			ft_putendl_fd("Error\nInvalid file content.\n", 2);
 			return (-1);
 		}
 		(*i)++;
@@ -37,7 +37,7 @@ static int	allocate_ceiling_array(t_cub *cub, char *line, int start, int i)
 	cub->c_array = malloc(i - start + 1);
 	if (!cub->c_array)
 	{
-		ft_putendl_fd("Error: Failed to allocate memory.", 2);
+		ft_putendl_fd("Error\nFailed to allocate memory.", 2);
 		return (-1);
 	}
 	j = 0;
@@ -76,7 +76,7 @@ int	ceiling_array(char *line, t_cub *cub)
 	}
 	if (ft_strncmp(&line[i], "C ", 2) == 0 && cub->flags.c_flag == 1)
 	{
-		ft_putendl_fd("Error: Invalid map content.", 2);
+		ft_putendl_fd("Error\nInvalid map content.", 2);
 		return (1);
 	}
 	return (0);

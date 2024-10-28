@@ -18,7 +18,7 @@ int	allocate_texture_memory(t_cub *cub)
 	cub->txt = (mlx_texture_t **)malloc(sizeof(mlx_texture_t *) * 5);
 	if (!cub->txt)
 	{
-		ft_putendl_fd("Can't allocate memory for textures!", 2);
+		ft_putendl_fd("Error\nFailed to allocate memory.", 2);
 		return (1);
 	}
 	return (0);

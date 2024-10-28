@@ -83,7 +83,7 @@ int	is_map_valid(t_cub *cub)
 {
 	if (!cub->map)
 	{
-		ft_putendl_fd("Error: Empty map.", 2);
+		ft_putendl_fd("Error\nEmpty map.", 2);
 		return (1);
 	}
 	if (check_map_content(cub) || validate_player_path(cub) == 1)
