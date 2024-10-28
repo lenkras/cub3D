@@ -110,7 +110,10 @@ int	check_path(t_cub *cub)
 		return (1);
 	copy_map_for_check(map_copy, cub->map, cub->height);
 	if (check_with_floodfill(cub, map_copy) == 1)
+	{
+		free_array(map_copy);
 		return (1);
+	}
 	i = 0;
 	while (i < cub->height)
 	{
