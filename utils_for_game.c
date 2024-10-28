@@ -39,7 +39,7 @@ char	*print_readfile_error(int bytes_read, int fd, char *data)
 {
 	if (bytes_read == -1)
 	{
-		handle_error("Error: Failed to read a file.\n", fd, data);
+		handle_error("Error\nFailed to read a file.\n", fd, data);
 		return (NULL);
 	}
 	return (data);

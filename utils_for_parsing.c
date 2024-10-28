@@ -19,12 +19,12 @@ int	check_format(char *file_name)
 	compare = ft_strrchr(file_name, '.');
 	if (!compare)
 	{
-		ft_putendl_fd("Error: Invalid map file extension.", 2);
+		ft_putendl_fd("Error\nInvalid map file extension.", 2);
 		return (1);
 	}
 	if (ft_strncmp(compare, ".cub", 5) != 0)
 	{
-		ft_putendl_fd("Error: Invalid map file extension.", 2);
+		ft_putendl_fd("Error\nInvalid map file extension.", 2);
 		return (1);
 	}
 	return (0);
@@ -37,7 +37,7 @@ int	check_all_flags_infile(t_cub *cub)
 		&& cub->flags.no_flag == 1 && cub->flags.so_flag
 		== 1 && cub->flags.we_flag == 1)
 		return (0);
-	ft_putendl_fd("Error: One or more file options are missing.", 2);
+	ft_putendl_fd("Error\nOne or more file options are missing.", 2);
 	return (1);
 }
 
@@ -56,7 +56,7 @@ int	check_file_data(char *array)
 		&& ft_strncmp(&array[i], "F ", 2) != 0
 		&& ft_strncmp(&array[i], "C ", 2) != 0)
 	{
-		ft_putendl_fd("Error: Wrong data in a file.", 2);
+		ft_putendl_fd("Error\nWrong data in a file.", 2);
 		return (1);
 	}
 	return (0);

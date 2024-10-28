@@ -23,25 +23,24 @@ static char	*extract_file_path(char *line, int *i)
 	cut_str = ft_substr(line, start, len);
 	if (!cut_str)
 	{
-		ft_putendl_fd("Error: Failed to extract file path.", 2);
+		ft_putendl_fd("Error\nFailed to extract file path.", 2);
 		return (NULL);
 	}
 	return (cut_str);
 }
 
-static int	validate_file_path(char *cut_str)
+static int validate_file_path(char *cut_str)
 {
-	if (ft_strncmp(cut_str, "pattern/south_wall.png", 22) != 0)
+	int fd;
+
+	fd = open(cut_str, O_RDONLY);
+	if (fd == -1)
 	{
-		ft_putendl_fd("Error: Invalid file path for SO texture.", 2);
+		ft_putendl_fd("Error:\nFile does not exist or cannot be opened.", 2);
 		free(cut_str);
 		return (1);
 	}
-	if (check_file_permission(cut_str) == 1)
-	{
-		free(cut_str);
-		return (1);
-	}
+	close(fd);
 	return (0);
 }
 
@@ -50,7 +49,7 @@ static int	allocate_south_array(t_cub *cub, char *cut_str, int len)
 	cub->so_array = malloc(len + 1);
 	if (!cub->so_array)
 	{
-		ft_putendl_fd("Error: Failed to allocate memory.", 2);
+		ft_putendl_fd("Error\nFailed to allocate memory.", 2);
 		free(cut_str);
 		return (1);
 	}
@@ -94,7 +93,7 @@ int	south_array(char *line, t_cub *cub)
 	}
 	if (ft_strncmp(&line[i], "SO", 2) == 0 && cub->flags.so_flag == 1)
 	{
-		ft_putendl_fd("Error: Invalid map content.", 2);
+		ft_putendl_fd("Error\nInvalid map content.", 2);
 		return (1);
 	}
 	return (0);

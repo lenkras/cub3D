@@ -24,7 +24,7 @@ static int	check_size_limit(int bytes_total, int fd, char *data)
 {
 	if (bytes_total > MAX_FILE_SIZE)
 	{
-		handle_error("File exceeds the maximum allowed size.\n", \
+		handle_error("Error\nFile exceeds the maximum allowed size.\n", \
 			fd, data);
 		return (1);
 	}
@@ -37,7 +37,7 @@ static char	*allocate_memory_for_temp(char *temp, int bytes_total, \
 	temp = malloc(bytes_total + 1);
 	if (!temp)
 	{
-		handle_error("Error: Failed to allocate mamory.\n", fd, data);
+		handle_error("Error\nFailed to allocate mamory.\n", fd, data);
 		return (NULL);
 	}
 	return (temp);
@@ -77,13 +77,13 @@ char	*open_file(char *argv)
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error: Failed to open a file.");
+		perror("Error\nFailed to open a file.");
 		return (NULL);
 	}
 	data = malloc(1);
 	if (!data)
 	{
-		perror("Error: Failed to allocate mamory.");
+		perror("Error\nFailed to allocate mamory.");
 		close(fd);
 		return (NULL);
 	}

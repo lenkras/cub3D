@@ -48,7 +48,7 @@ int	split_by_new_line(t_cub *cub)
 	array = ft_split(cub->file, '\n');
 	if (!array)
 	{
-		ft_putendl_fd("Error: Failed to split by new line.", 2);
+		ft_putendl_fd("Error\nFailed to split by new line.", 2);
 		return (1);
 	}
 	init_flag_struct(cub);
@@ -75,7 +75,7 @@ static void	make_copy_of_array(t_cub *cub, char **array, int i)
 		cub->map[j] = ft_strdup(array[i]);
 		if (!cub->map[j])
 		{
-			ft_putendl_fd("Error: Failed to duplicate map line.", 2);
+			ft_putendl_fd("Error\nFailed to duplicate map line.", 2);
 			while (j > 0)
 				free(cub->map[--j]);
 			free(cub->map);
@@ -103,7 +103,7 @@ void	copy_map(char **array, t_cub *cub, int start)
 	cub->map = malloc(sizeof(char *) * (cub->height + 1));
 	if (!cub->map)
 	{
-		ft_putendl_fd("Error: Failed to allocate mamory.", 2);
+		ft_putendl_fd("Error\nFailed to allocate mamory.", 2);
 		return ;
 	}
 	i = start;

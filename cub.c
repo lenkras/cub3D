@@ -16,7 +16,7 @@ static int	handle_arguments(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		ft_putendl_fd("Error: Wrong number of arguments.", 2);
+		ft_putendl_fd("Error\nWrong number of arguments.", 2);
 		return (1);
 	}
 	if (check_format(argv[1]) == 1)
@@ -31,7 +31,7 @@ static int	create_file(t_cub *cub, char *filename)
 	{
 		if (cub->file)
 			free(cub->file);
-		ft_putendl_fd("Error: Failed to open or read file.", 2);
+		ft_putendl_fd("Error\nFailed to open or read file.", 2);
 		return (1);
 	}
 	return (0);
