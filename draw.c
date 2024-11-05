@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 19:04:05 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/11/05 21:25:30 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:03:02 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	line(t_cub *cub, int x, float dist)
 	draw_texture_line(cub, x, &params);
 }
 */
+/*
+// good one
 void ft_line(t_cub *cub, int w, float dist)
 {
     uint32_t *src;
@@ -136,3 +138,49 @@ void ft_line(t_cub *cub, int w, float dist)
         src_f += d_shift;
     }
 }
+*/
+
+void ft_line(t_cub *cub, int w, float dist)
+{
+    unsigned int *dst;
+    unsigned int *src;
+    unsigned int h;
+    float src_f;
+    float d_shift;
+    int texture_x;
+    unsigned int color;
+
+    // Calculate the height of the wall slice based on distance
+    h = (float)WINDOW_H / dist;
+    src_f = 0.0f;
+    d_shift = (float)cub->txt[cub->txt_idx]->height / h;
+
+    // If the wall slice is taller than the window, adjust to fit
+    if (h > WINDOW_H)
+    {
+        src_f = 0.5f * (h - WINDOW_H) / h * cub->txt[cub->txt_idx]->height;
+        h = WINDOW_H;
+    }
+
+    // Calculate the x-coordinate in the texture based on the normalized cub->txt_w
+    texture_x = (int)(cub->txt_w * cub->txt[cub->txt_idx]->width);
+
+    // Start at the center of the window for vertical alignment
+    dst = (unsigned int *)cub->img->pixels + w + (WINDOW_H - h) / 2 * WINDOW_W;
+
+    // Copy texture color to the screen line by line
+    while (h-- > 0)
+    {
+        // Calculate the pixel in the texture
+        src = (unsigned int *)cub->txt[cub->txt_idx]->pixels + texture_x + ((int)src_f * cub->txt[cub->txt_idx]->width);
+        color = *src; // Fetch the color from the texture at the calculated position
+
+        // Apply the color to the destination
+        *dst = color;
+
+        // Move to the next line in the window and increment the texture position
+        dst += WINDOW_W;
+        src_f += d_shift;
+    }
+}
+

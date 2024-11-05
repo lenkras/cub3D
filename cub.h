@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 19:03:41 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/11/05 21:17:12 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:05:31 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 # define MAX_FILE_SIZE 1024
 # define MOVE_SPEED 5.0f      // Speed of player
-# define WINDOW_W 640
-# define WINDOW_H 480
+# define WINDOW_W 1600
+# define WINDOW_H 1200
 # define TITLE "cub3d"
 # define AS 0.02f             // Angular Speed
 # define LS 0.3f              // Linear Speed
