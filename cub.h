@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 19:03:41 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 19:03:41 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 19:03:41 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/11/05 21:17:12 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_cub
 	mlx_image_t		*img;
 	mlx_texture_t	**txt;
 	int				txt_idx;
-	int				txt_w;
+	float			txt_w;
 	float			p_x;
 	float			p_y;
 	float			gaze;
@@ -139,7 +139,8 @@ int		load_textures(t_cub *cub);
 void	determine_player_position(t_cub *cub);
 void	draw_ceiling_and_floor(t_cub *cub);
 void	view_direction(t_cub *cub);
-void	line(t_cub *cub, int w, float dist);
+//void	line(t_cub *cub, int w, float dist);
+void ft_line(t_cub *cub, int w, float dist);
 void	view_next(t_cub *cub, t_view *view);
 void	view_start(t_cub *cub, t_view *view, float angle);
 
