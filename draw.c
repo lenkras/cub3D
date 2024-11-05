@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 19:04:05 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 19:04:05 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 19:04:05 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/11/05 21:25:30 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
+/*
 // Get the pixel color at position (x, y) in the texture
 static int	get_pixel(mlx_texture_t *texture, int x, int y)
 {
@@ -24,6 +24,7 @@ static int	get_pixel(mlx_texture_t *texture, int x, int y)
 			texture->pixels[index + 2], 255);
 	return (color);
 }
+*/
 
 // Draw the ceiling and floor colors on the screen
 void	draw_ceiling_and_floor(t_cub *cub)
@@ -53,7 +54,7 @@ void	draw_ceiling_and_floor(t_cub *cub)
 		y++;
 	}
 }
-
+/*
 // Initialize line parameters based on texture and distance
 void	init_line_params(t_cub *cub, float dist, t_line_params *params, int x)
 {
@@ -94,4 +95,44 @@ void	line(t_cub *cub, int x, float dist)
 
 	init_line_params(cub, dist, &params, x);
 	draw_texture_line(cub, x, &params);
+}
+*/
+void ft_line(t_cub *cub, int w, float dist)
+{
+    uint32_t *src;
+    unsigned int h;
+    float src_f;
+    float d_shift;
+
+    h = (float)WINDOW_H / dist;
+    src_f = 0.0f;
+    d_shift = (float)cub->txt[cub->txt_idx]->height / h;
+
+    // Adjust height and starting point if the line is taller than the window
+    if (h > WINDOW_H)
+    {
+        src_f = 0.5f * (h - WINDOW_H) / h * cub->txt[cub->txt_idx]->height;
+        h = WINDOW_H;
+    }
+
+    // Set the source to the starting pixel in the texture based on `txt_w`
+    src = (uint32_t *)cub->txt[cub->txt_idx]->pixels + (int)((float)cub->txt_w * cub->txt[cub->txt_idx]->width);
+
+    // Calculate vertical offset in the destination image
+    unsigned int y_start = (WINDOW_H - h) / 2;
+	
+	printf("cub->txt_w = %f\n", cub->txt_w);
+	
+    // Draw each line pixel
+    for (unsigned int y = 0; y < h; y++)
+    {
+        // Calculate destination position in the MLX42 image
+        uint32_t color = *(src + (int)src_f * cub->txt[cub->txt_idx]->width);
+
+        // Set the pixel color using MLX42
+        mlx_put_pixel(cub->img, w, y_start + y, color);
+
+        // Move to the next line in the source texture
+        src_f += d_shift;
+    }
 }

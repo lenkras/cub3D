@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 19:06:09 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 19:06:09 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 19:06:09 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/11/05 21:37:15 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	view_direction(t_cub *cub)
 	x = -1;
 	while (++x < WINDOW_W)
 	{
-		line(cub, x, view(cub, v) * cos(cub->gaze - v));
+		ft_line(cub, x, view(cub, v) * cos(cub->gaze - v));
 		v += dv;
 	}
 }
@@ -68,6 +68,7 @@ float	view(t_cub *cub, float v)
 	{
 		view_next(cub, &view);
 		result = check_view_collision(cub, &view);
+		printf("view.h_w = %f , view.v_w = %f, cub->txt_w = %f\n", view.h_w, view.v_w, cub->txt_w);
 		if (result != -1)
 			return (result);
 	}
