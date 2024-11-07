@@ -29,9 +29,9 @@ static char	*extract_file_path(char *line, int *i)
 	return (cut_str);
 }
 
-static int validate_file_path(char *cut_str)
+static int	validate_file_path(char *cut_str)
 {
-	int fd;
+	int	fd;
 
 	fd = open(cut_str, O_RDONLY);
 	if (fd == -1)

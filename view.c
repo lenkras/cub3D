@@ -67,7 +67,7 @@ float check_view_collision(t_cub *cub, t_view *view)
         {
             cub->txt_idx = view->sx + 1;  // Set texture index for vertical wall
             cub->txt_w = view->v_w;  // Use fractional value for vertical offset
-            printf("Vertical wall hit: cub->txt_w = %f (using view.v_w = %f)\n", cub->txt_w, view->v_w);
+            //printf("Vertical wall hit: cub->txt_w = %f (using view.v_w = %f)\n", cub->txt_w, view->v_w);
             return view->v_dist;
         }
         view->v_x += view->sx;
@@ -79,17 +79,13 @@ float check_view_collision(t_cub *cub, t_view *view)
         {
             cub->txt_idx = view->sy + 2;  // Set texture index for horizontal wall
             cub->txt_w = view->h_w;  // Use fractional value for horizontal offset
-            printf("Horizontal wall hit: cub->txt_w = %f (using view.h_w = %f)\n", cub->txt_w, view->h_w);
+            //printf("Horizontal wall hit: cub->txt_w = %f (using view.h_w = %f)\n", cub->txt_w, view->h_w);
             return view->h_dist;
         }
         view->h_y += view->sy;
     }
     return -1;
 }
-
-
-
-
 
 // Calculate the view distance
 float	view(t_cub *cub, float v)
@@ -102,7 +98,7 @@ float	view(t_cub *cub, float v)
 	{
 		view_next(cub, &view);
 		result = check_view_collision(cub, &view);
-		printf("view.h_w = %f , view.v_w = %f, cub->txt_w = %f\n", view.h_w, view.v_w, cub->txt_w);
+		//printf("view.h_w = %f , view.v_w = %f, cub->txt_w = %f\n", view.h_w, view.v_w, cub->txt_w);
 		if (result != -1)
 			return (result);
 	}
