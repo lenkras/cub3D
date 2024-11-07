@@ -1,11 +1,11 @@
-NO             pattern/north_wall.png
+NO             pattern/no_wall.png
 
 
 
 
 SO pattern/south_wall.png
-WE pattern/west_wall.png
-EA pattern/east_wall.png
+WE pattern/we_wall.png
+EA pattern/ea_wall.png
 
 F                  125,95,80
 C 132,149,171

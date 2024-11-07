@@ -1,10 +1,10 @@
 F 181,55,53
 C 67,138,122
 
-NO pattern/north_wall.png
+NO pattern/no_wall.png
 SO pattern/south_wall.png
-WE pattern/west_wall.png
-EA pattern/east_wall.png
+WE pattern/we_wall.png
+EA pattern/ea_wall.png
 
 1111111111111111111
 1000000000000000001
