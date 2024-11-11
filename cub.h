@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 19:03:41 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/11/05 22:05:31 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:58:32 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,6 @@ char	*ft_strcpy(char *dest, const char *src);
 int		has_space(char c);
 int		is_all_digits(char *str);
 int		check_consecutive_newlines_in_map(char *file);
+void	mirror_map(t_cub *cub);
 
 #endif

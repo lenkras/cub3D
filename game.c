@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: epolkhov <epolkhov@student.42.fr>          #+#  +:+       +#+        */
+/*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-27 19:04:17 by epolkhov          #+#    #+#             */
-/*   Updated: 2024-10-27 19:04:17 by epolkhov         ###   ########.fr       */
+/*   Created: 2024/10/27 19:04:17 by epolkhov          #+#    #+#             */
+/*   Updated: 2024/11/11 22:34:42 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void	find_position(t_cub *cub);
 
 void	render(t_cub *cub)
 {
@@ -22,7 +24,9 @@ void	render(t_cub *cub)
 
 void	game(t_cub *cub)
 {
-	determine_player_position(cub);
+//	mirror_map(cub);
+	find_position(cub);
+//	determine_player_position(cub);
 	cub->mlx = mlx_init(WINDOW_W, WINDOW_H, TITLE, false);
 	if (!cub->mlx)
 	{
@@ -60,10 +64,40 @@ void	view_set_angle(t_cub *cub, const char c)
 	else if (c == 'S')
 		cub->gaze = -0.5f * M_PI;
 }
-
+/*
 void	determine_player_position(t_cub *cub)
 {
 	cub->p_x = (float)cub->player_w + 0.5f;
 	cub->p_y = (float)cub->player_h + 0.5f;
 	view_set_angle(cub, cub->map[cub->player_h][cub->player_w]);
 }
+*/
+
+void	find_position(t_cub *cub)
+{
+	cub->p_x = (float)cub->player_w + 0.5f;
+	cub->p_y = (float)(cub->height - 1 - cub->player_h) + 0.5f;
+	view_set_angle(cub, cub->map[cub->height - 1 - cub->player_h][cub->player_w]);
+	printf("x = %i, y = %i, h = %i, w = %i \n", cub->player_w, cub->height - 1 - cub->player_h, cub->height, cub->width);
+/*	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < cub->height)
+	{
+		j = -1;
+		while (++j < cub->width)
+		{
+			if (ft_strchr("NSWE", cub->map[i][j]))
+			{
+				cub->p_x = (float) j + 0.5f;
+				cub->p_y = (float) i + 0.5f;
+				view_set_angle(cub, cub->map[i][j]);
+				printf("x = %i, y = %i \n", j, i);
+				
+				return ;
+			}
+		}
+	}
+*/}
+
