@@ -6,7 +6,7 @@
 /*   By: dlevinsc <dlevinsc@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 11:38:10 by epolkhov          #+#    #+#             */
-/*   Updated: 2024/10/27 20:52:40 by dlevinsc         ###   ########.fr       */
+/*   Updated: 2024/11/11 22:03:24 by dlevinsc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,3 +44,42 @@ char	*print_readfile_error(int bytes_read, int fd, char *data)
 	}
 	return (data);
 }
+
+void mirror_map(t_cub *cub)
+{
+    int top = 0;
+    int bottom = cub->height - 1;
+
+    // Print original map
+    printf("Original Map:\n");
+    while (top <= bottom)
+    {
+        printf("%s\n", cub->map[top]);
+        top++;
+    }
+
+    // Reset top and bottom for mirroring
+    top = 0;
+
+    // Mirror the map along the y-axis by swapping rows
+    while (top < bottom)
+    {
+        char *temp = cub->map[top];
+        cub->map[top] = cub->map[bottom];
+        cub->map[bottom] = temp;
+
+        top++;
+        bottom--;
+    }
+
+    // Print mirrored map
+    printf("Mirrored Map:\n");
+    top = 0;
+    while (top < cub->height)
+    {
+        printf("%s\n", cub->map[top]);
+        top++;
+    }
+}
+
+
