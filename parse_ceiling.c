@@ -22,7 +22,12 @@ static int	extract_ceiling_color(char *line, int *start, int *i)
 		if (!ft_isdigit(line[*i]) && line[*i] != ',' && line[*i] != ' ' \
 			&& line[*i] != '\t')
 		{
-			ft_putendl_fd("Error\nInvalid file content.\n", 2);
+			ft_putendl_fd("Error\nInvalid file content.", 2);
+			return (-1);
+		}
+		if (line[*i] == ',' && (line[*i - 1] == ',' || line[*i + 1] == ','))
+		{
+			ft_putendl_fd("Error\nInvalid file content.", 2);
 			return (-1);
 		}
 		(*i)++;

@@ -45,41 +45,20 @@ char	*print_readfile_error(int bytes_read, int fd, char *data)
 	return (data);
 }
 
-void mirror_map(t_cub *cub)
+void	mirror_map(t_cub *cub)
 {
-    int top = 0;
-    int bottom = cub->height - 1;
+	int		top;
+	int		bottom;
+	char	*temp;
 
-    // Print original map
-    printf("Original Map:\n");
-    while (top <= bottom)
-    {
-        printf("%s\n", cub->map[top]);
-        top++;
-    }
-
-    // Reset top and bottom for mirroring
-    top = 0;
-
-    // Mirror the map along the y-axis by swapping rows
-    while (top < bottom)
-    {
-        char *temp = cub->map[top];
-        cub->map[top] = cub->map[bottom];
-        cub->map[bottom] = temp;
-
-        top++;
-        bottom--;
-    }
-
-    // Print mirrored map
-    printf("Mirrored Map:\n");
-    top = 0;
-    while (top < cub->height)
-    {
-        printf("%s\n", cub->map[top]);
-        top++;
-    }
+	top = 0;
+	bottom = cub->height - 1;
+	while (top < bottom)
+	{
+		temp = cub->map[top];
+		cub->map[top] = cub->map[bottom];
+		cub->map[bottom] = temp;
+		top++;
+		bottom--;
+	}
 }
-
-

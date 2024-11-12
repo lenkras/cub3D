@@ -17,6 +17,11 @@ int	check_format(char *file_name)
 	char	*compare;
 
 	compare = ft_strrchr(file_name, '.');
+	if (compare == file_name || compare == file_name + 4 || compare[-1] == '/')
+	{
+		ft_putendl_fd("Error\nInvalid file name.", 2);
+		return (1);
+	}
 	if (!compare)
 	{
 		ft_putendl_fd("Error\nInvalid map file extension.", 2);

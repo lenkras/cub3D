@@ -32,6 +32,16 @@ static int	check_valid_content(char c)
 			c == 'E' || c == 'W' || c == ' ' || c == '\t');
 }
 
+static int	if_no_player(t_cub *cub)
+{
+	if (cub->player == 0)
+	{
+		ft_putendl_fd("Error\nNo player found.", 2);
+		return (1);
+	}
+	return (0);
+}
+
 int	check_map_content(t_cub *cub)
 {
 	int	h;
@@ -54,9 +64,7 @@ int	check_map_content(t_cub *cub)
 		}
 		h++;
 	}
-	if (cub->player == 0)
-	{
-		ft_putendl_fd("Error\nNo player found.", 2);
-	}
+	if (if_no_player(cub))
+		return (1);
 	return (0);
 }

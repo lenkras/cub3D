@@ -60,16 +60,16 @@ char	*ft_strcat(char *dest, const char *src)
 	return (dest);
 }
 
-int	check_file_permission(const char *filepath)
-{
-	int	fd;
+// int	check_file_permission(const char *filepath)
+// {
+// 	int	fd;
 
-	fd = open(filepath, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_putendl_fd("Error\nFile does not exist or is not readable.", 2);
-		return (1);
-	}
-	close(fd);
-	return (0);
-}
+// 	fd = open(filepath, O_RDONLY);
+// 	if (fd == -1)
+// 	{
+// 		ft_putendl_fd("Error\nFile does not exist or is not readable.", 2);
+// 		return (1);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
