@@ -12,6 +12,13 @@
 
 #include "cub.h"
 
+static int check_valid_file_path(char *filename)
+{
+	if (ft_strncmp(filename, "maps/valid_maps/", 16) == 0 || 
+		ft_strncmp(filename, "maps/invalid_map/", 17) == 0)
+		return (0);
+	return (1);
+}
 static int	handle_arguments(int argc, char **argv)
 {
 	if (argc != 2)
@@ -19,8 +26,14 @@ static int	handle_arguments(int argc, char **argv)
 		ft_putendl_fd("Error\nWrong number of arguments.", 2);
 		return (1);
 	}
+	if (check_valid_file_path(argv[1]) == 1)
+	{
+		ft_putendl_fd("Error\nInvalid file path.", 2);
+			return (1);
+	}
 	if (check_format(argv[1]) == 1)
 		return (1);
+	
 	return (0);
 }
 
